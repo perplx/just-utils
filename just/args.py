@@ -43,7 +43,7 @@ class DirectoryArg():
     def __init__(self, mode):
         # validate mode
         if not isinstance(mode, str):
-             raise argparse.ArgumentTypeError("mode %s of type %s not recognized; should be str" % (repr(mode), mode.__class__.__name__))
+             raise argparse.ArgumentTypeError("mode %r of type %s not recognized; should be str" % (mode, mode.__class__.__name__))
         ALLOWED_MODES = ["r", "w"] # TODO other modes? "x"?
         for m in mode:
             if m not in ALLOWED_MODES:
@@ -93,7 +93,7 @@ def LogLevelArg(log_level_name):
 
 
 def main():
-    """simple test"""
+    """Simple test"""
 
     # define command-line parameters to test
     arg_parser = argparse.ArgumentParser()
