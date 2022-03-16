@@ -8,8 +8,7 @@ from setuptools import setup
 
 def read(file_name):
     """Utility function to read the README file.
-    Used for the long_description. Easier to type there than here.
-    from https://pythonhosted.org/an_example_pypi_project/setuptools.html
+    Used for the long_description in setuptools.setup().
     """
 
     file_path = os.path.join(os.path.dirname(__file__), file_name)
