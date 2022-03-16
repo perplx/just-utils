@@ -1,3 +1,6 @@
+# git
+.gitconfig
+
 # python
 *.egg-info
 __pycache__/
