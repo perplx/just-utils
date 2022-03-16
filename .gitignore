@@ -1,0 +1,11 @@
+# python
+*.egg-info
+__pycache__/
+
+# vim
+*~
+*.sw[po]
+
+# vscode
+.venv
+.vscode
