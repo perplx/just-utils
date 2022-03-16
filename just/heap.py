@@ -34,7 +34,7 @@ class Heap:
 
         top = self.heap[0]
         if self.key:
-            return top[1]
+            top = top[1]
         return top
 
     def push(self, item):
@@ -49,7 +49,7 @@ class Heap:
 
         item = heapq.heappop(self.heap)
         if self.key:
-            return item[1]
+            item = item[1]
         return item
 
     def pushpop(self, item):
