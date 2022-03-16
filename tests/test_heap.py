@@ -86,6 +86,16 @@ class TestHeap(unittest.TestCase):
         with self.assertRaises(TypeError):
             _ = Heap({"a": 2, "b": 5})
 
+    def test_len_empty(self):
+        """test len()"""
+        self.assertEqual(len(self.heap_empty), 0)
+        self.assertEqual(len(self.heap_empty), len(self.heap_empty.heap))
+
+    def test_len_data(self):
+        """test len()"""
+        self.assertEqual(len(self.heap_test), len(self.heap_test.heap))
+        self.assertEqual(len(self.heap_key), len(self.heap_key.heap))
+
     def test_peek(self):
         """test Heap.peek() returns top item with no key"""
         self.assertEqual(self.heap_test.peek(), "aaa")
