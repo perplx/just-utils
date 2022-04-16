@@ -60,8 +60,8 @@ class TestDirectoryArg(unittest.TestCase):
 
     # FIXME causes problems with permissions in the temp-dir on Windows,
     #       since os.chmod() does nothing on Windows!
-    @unittest.skipIf(sys.platform == "win32")
-    def test_mode_real(self):
+    @unittest.skipIf(sys.platform == "win32", "os.chmod() does nothing on Windows")
+    def test_mode_access(self):
         """test argument with unavailable mode"""
         import os
         import stat
