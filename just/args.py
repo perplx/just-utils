@@ -84,12 +84,12 @@ def LogLevelArg(log_level_name):
     # preconditions
     assert isinstance(log_level_name, str)
 
-    # get the constant with the given name in upper-case from the logging module
-    # e.g. "debug" becomes logging.DEBUG
-    log_level = getattr(logging, log_level_name.upper(), None)
-    if log_level is None:
-        raise argparse.ArgumentTypeError("unrecognized log-level name: \"%s\"" % log_level_name)
-    return log_level
+    # get the level for the given level-name
+    # FIXME does this work with variants?
+    try:
+        return logging._nameToLevel[log_level_name.upper()]
+    except KeyError:
+        raise argparse.ArgumentTypeError(f"unrecognized log-level name: {repr(log_level_name)}")
 
 
 def main():
