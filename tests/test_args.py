@@ -9,6 +9,7 @@ import unittest
 import argparse
 import datetime
 import logging
+import sys
 
 # tested imports
 from just.args import DateTimeArg, DirectoryArg, LogLevelArg
@@ -57,27 +58,41 @@ class TestDirectoryArg(unittest.TestCase):
             arg = DirectoryArg(mode)
             self.assertEqual(arg.mode, mode)
 
-    @unittest.skip # causes problems with permissions in the temp-dir on Windows...
+    # FIXME causes problems with permissions in the temp-dir on Windows,
+    #       since os.chmod() does nothing on Windows!
+    @unittest.skipIf(sys.platform == "win32")
     def test_mode_real(self):
         """test argument with unavailable mode"""
         import os
         import stat
         import tempfile
         with tempfile.TemporaryDirectory() as temp_dir_path:
-            # make directory non-writable so it can be tested
-#            temp_dir_path = os.path.join(temp_dir_base, "test")
-#            os.mkdir(temp_dir_path)
+            # create subdirectory
+            temp_dir_path = os.path.join(temp_dir_path, "temp")
+            os.makedirs(temp_dir_path)
+
+            # ensure temp directory exists
             self.assertTrue(os.path.isdir(temp_dir_path))
 
-            # ensure access fails on non-writable file
-            os.chmod(temp_dir_path, 0o000)
-            self.assertTrue(os.access(temp_dir_path, os.R_OK))
-            self.assertFalse(os.access(temp_dir_path, os.W_OK))
+            # get previous mode to reset later
+            temp_dir_mode = os.stat(temp_dir_path).st_mode
 
-            with self.assertRaises(SystemExit):
-                _ = self.arg_parser.parse_args(["--directory", temp_dir_path])
+            try:
+                # make directory non-writable so it can be tested
+                mask = 0o777 ^ (stat.S_IWRITE | stat.S_IWGRP | stat.S_IWOTH)
+                os.chmod(temp_dir_path, temp_dir_mode & mask)
 
-            os.chmod(temp_dir_path, stat.S_IREAD|stat.S_IWRITE)
+                # ensure access fails on non-writable file
+                # FIXME fails on Windows because os.chmod doesn't work
+                self.assertTrue(os.access(temp_dir_path, os.R_OK))
+                self.assertFalse(os.access(temp_dir_path, os.W_OK))
+
+                with self.assertRaises(SystemExit):
+                    _ = self.arg_parser.parse_args(["--directory", temp_dir_path])
+
+            finally:
+                # reset mode to writable so test can clean-up temp-dir
+                os.chmod(temp_dir_path, temp_dir_mode)
 
     def test_mode_bad(self):
         """test an incorrect mode"""
