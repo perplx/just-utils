@@ -21,16 +21,19 @@ class TestTimed(unittest.TestCase):
         self.OUTPUT_REGEX = r"func .*? args .*? kwargs .*? took .*? seconds"
         self.test_logger = logging.getLogger()
 
+    # FIXME `timed` vs `timed()` should work either way
     def test_missing_call(self):
-        """test that using `timed` instead of `timed` raises """
-
-        @timed(do_print=True, logger=None)
+        """test that using `timed` instead of `timed()` raises TypeError"""
+        @timed
         def test():
             pass
+        with self.assertRaises(TypeError):
+            test()
 
     def test_print(self):
         """test the stdout output contains the expected format"""
 
+        # timed function outputs to stdout
         @timed(do_print=True, logger=None)
         def test():
             pass
@@ -41,6 +44,7 @@ class TestTimed(unittest.TestCase):
         test()
         sys.stdout = sys.__stdout__
 
+        # check captured value matches expected pattern
         self.assertRegex(capture.getvalue(), self.OUTPUT_REGEX)
 
     def test_logger_regex(self):
@@ -54,14 +58,13 @@ class TestTimed(unittest.TestCase):
 
     def test_logger_bad_type(self):
         """test the decorator raises a TypeError if the logger parameter isn't a logging.Logger object"""
-        
         with self.assertRaises(TypeError):
             @timed(logger="BOGUS")
             def test():
                 pass
             
     def test_logger_bad_level(self):
-        """"""
+        """test the decorator raises a ValueError if the log level isn't valid"""
         with self.assertRaises(ValueError):
             @timed(logger=self.test_logger, level="BOGUS!")
             def test():
@@ -75,7 +78,7 @@ class TestTiming(unittest.TestCase):
         self.OUTPUT_REGEX = r" took .*? seconds"
         self.test_logger = logging.getLogger()
 
-    def test_print(self):
+    def test_print_output(self):
         """test the stdout output contains the expected format"""
 
         # capture the stdout of the function in the context-manager
@@ -86,9 +89,10 @@ class TestTiming(unittest.TestCase):
             pass
         sys.stdout = sys.__stdout__
 
+        # check captured value matches expected pattern
         self.assertRegex(capture.getvalue(), self.OUTPUT_REGEX)
 
-    def test_logger_regex(self):
+    def test_logger_output(self):
         """test the logger output contains the expected format"""
         with self.assertLogs(self.test_logger, level=logging.INFO) as watcher:
             MESSAGE = "regex_test"
@@ -103,6 +107,7 @@ class TestTiming(unittest.TestCase):
                 pass
 
     def test_logger_bad_level(self):
+        """test the decorator raises a ValueError if the log level isn't valid"""
         with self.assertRaises(ValueError):
             with timing("bad_level", logger=self.test_logger, level="BOGUS"):
                 pass
