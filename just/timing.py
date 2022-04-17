@@ -39,7 +39,7 @@ def timed(do_print=True, logger=None, level=logging.INFO):
 
             # output result
             if do_print:
-                print("func %s args %r kwargs %r took %.3f seconds" % (func.__name__, args, kwargs, time_taken))
+                print(f"func {func.__name__} args {args} kwargs {kwargs} took {time_taken:.3f} seconds")
             if logger is not None:
                 logger.info("func %s args %r kwargs %r took %.3f seconds", func.__name__, args, kwargs, time_taken)
             
@@ -87,14 +87,20 @@ def timing(message: str, do_print=True, logger=None, level=logging.INFO):
     
 
 def main():
-    @timed(level="jjj")
+    """Simple test"""
+
+    logging.basicConfig(format=r"%(asctime)s %(levelname)-8s : %(message)s", level=logging.DEBUG)
+    logger = logging.getLogger("timing")
+
+    # test @timed() decorator
+    @timed(logger=logger, level=logging.WARNING)
     def timing_test(arg1, arg2):
         for _ in range(1_000_000):
             pass
-    
     timing_test("arg1", arg2="")
 
-    with timing("timing context test"):
+    # test timing() context manager
+    with timing("timing context test", logger=logger, level=logging.FATAL):
         for _ in range(1_000_000):
             pass
 
