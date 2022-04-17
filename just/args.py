@@ -20,10 +20,12 @@ class DateTimeArg():
     """
 
     def __init__(self, format_str):
+        """Prepare to parse with the format format_str"""
         # TODO validate format?
         self.format = format_str
 
     def __call__(self, date_str):
+        """Create a datetime.datetime obj from the command-line arg string"""
         try:
             return datetime.datetime.strptime(date_str, self.format)
         except ValueError as e:
@@ -43,11 +45,11 @@ class DirectoryArg():
     def __init__(self, mode):
         # validate mode
         if not isinstance(mode, str):
-             raise argparse.ArgumentTypeError("mode %r of type %s not recognized; should be str" % (mode, mode.__class__.__name__))
+             raise argparse.ArgumentTypeError(f"mode {repr(mode)} of type {type(mode)} not recognized; should be {str}")
         ALLOWED_MODES = ["r", "w"] # TODO other modes? "x"?
         for m in mode:
             if m not in ALLOWED_MODES:
-                raise argparse.ArgumentTypeError("mode \"%s\" not recognized; should be one of: %s" % (m, ALLOWED_MODES) )
+                raise argparse.ArgumentTypeError(f"mode {m} not recognized; should be one of: {ALLOWED_MODES}")
 
         # store mode
         self.mode = mode 
@@ -59,13 +61,13 @@ class DirectoryArg():
         """check dir_path is a directory that satisfies DirectoryArg.mode """
         # TODO create non-existent directory?
         if not os.path.exists(dir_path):
-            raise argparse.ArgumentTypeError("dir-path \"%s\" does not exist!" % dir_path)
+            raise argparse.ArgumentTypeError(f"dir-path \"{dir_path}\" does not exist!")
         if not os.path.isdir(dir_path):
-            raise argparse.ArgumentTypeError("dir-path \"%s\" is not a directory!" % dir_path)
+            raise argparse.ArgumentTypeError(f"dir-path \"{dir_path}\" is not a directory!")
         if "r" in self.mode and not os.access(dir_path, os.R_OK):
-            raise argparse.ArgumentTypeError("dir-path \"%s\" cannot be read!" % dir_path)
+            raise argparse.ArgumentTypeError(f"dir-path \"{dir_path}\" cannot be read!")
         if "w" in self.mode and not os.access(dir_path, os.W_OK):
-            raise argparse.ArgumentTypeError("dir-path \"%s\" cannot be written!" % dir_path)
+            raise argparse.ArgumentTypeError(f"dir-path \"{dir_path}\" cannot be written!")
 
         return dir_path
 
@@ -85,7 +87,6 @@ def LogLevelArg(log_level_name):
     assert isinstance(log_level_name, str)
 
     # get the level for the given level-name
-    # FIXME does this work with variants?
     try:
         return logging._nameToLevel[log_level_name.upper()]
     except KeyError:
