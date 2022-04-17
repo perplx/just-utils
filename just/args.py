@@ -97,10 +97,14 @@ def main():
     """Simple test"""
 
     # define command-line parameters to test
-    arg_parser = argparse.ArgumentParser()
+    arg_parser = argparse.ArgumentParser(description=__doc__)
     arg_parser.add_argument("--date-time", type=DateTimeArg("%Y-%m-%d %H:%M:%S.%f"))
     arg_parser.add_argument("--directory", type=DirectoryArg("rw"))
     arg_parser.add_argument("--log-level", type=LogLevelArg)
+
+    # print command-line help
+    arg_parser.print_help()
+    print()
 
     # test the new command-line parameter-types with these:
     TEST_ARGS = [
@@ -109,7 +113,7 @@ def main():
         "--log-level", "DEBUG"
     ]
     args = arg_parser.parse_args(TEST_ARGS)
-    print(args)
+    print("args:", args)
 
 
 if __name__ == "__main__":
