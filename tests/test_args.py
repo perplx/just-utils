@@ -23,6 +23,11 @@ class TestDateTimeArg(unittest.TestCase):
         self.arg_parser = argparse.ArgumentParser()
         self.arg_parser.add_argument("--date-time", type=DateTimeArg("%Y-%m-%d %H:%M:%S.%f"))
 
+    def test_date_format_bad(self):
+        self.arg_parser.add_argument("--bad-format", type=DateTimeArg("%Y-%m-%d %H:%M:%S.%f %e")) # %e is a bad directive
+        with self.assertRaises(SystemExit):
+            _ = self.arg_parser.parse_args(["--bad-format", "2020-02-29 12:34:56.789"])
+
     def test_date_time(self):
         """test the new date-time parameter-type"""
         args = self.arg_parser.parse_args(["--date-time", "2020-02-29 12:34:56.789"])
