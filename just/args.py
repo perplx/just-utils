@@ -73,7 +73,7 @@ class DirectoryArg():
 
 
 def LogLevelArg(log_level_name):
-    """Type parser for directory paths for argparse.ArgumentParser.
+    """Type parser for log-level names paths for argparse.ArgumentParser.
     Checks if level is a log-level constant in the standard logging module,
     i.e. CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET.
     Check is case-insensitive.
