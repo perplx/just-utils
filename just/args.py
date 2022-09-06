@@ -51,11 +51,13 @@ class DirectoryArg():
             if m not in ALLOWED_MODES:
                 raise argparse.ArgumentTypeError(f"mode {m} not recognized; should be one of: {ALLOWED_MODES}")
 
-        # store mode
-        self.mode = mode 
+        # store mode after normalization
+        self.mode = "".join(sorted(set(mode)))
 
-        # TODO normalize mode?
-        # self.mode = "".join(sorted(set(mode)))
+        # log mode being normalized
+        if len(self.mode) != len(mode):
+            logger = logging.getLogger(__name__)
+            logger.warning("log-level arg %r normalized to %r", mode, self.mode)
 
     def __call__(self, dir_path):
         """check dir_path is a directory that satisfies DirectoryArg.mode """

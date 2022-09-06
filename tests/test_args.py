@@ -63,6 +63,15 @@ class TestDirectoryArg(unittest.TestCase):
             arg = DirectoryArg(mode)
             self.assertEqual(arg.mode, mode)
 
+    def test_mode_norm(self):
+        """test mode normalization"""
+        self.assertEquals(DirectoryArg("rwwrw").mode, "rw")
+
+    def test_mode_norm_log(self):
+        """test mode normalization emits a log warning"""
+        with self.assertLogs(level=logging.WARNING):
+            self.assertEquals(DirectoryArg("rwwrw").mode, "rw")
+
     # FIXME causes problems with permissions in the temp-dir on Windows,
     #       since os.chmod() does nothing on Windows!
     @unittest.skipIf(sys.platform == "win32", "os.chmod() does nothing on Windows")
