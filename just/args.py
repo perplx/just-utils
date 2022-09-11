@@ -19,12 +19,12 @@ class DateTimeArg():
     arg_parser.parse_args(["--date-time", "2020-02-29 12:34:56.789"])
     """
 
-    def __init__(self, format_str):
+    def __init__(self, format_str: str):
         """Prepare to parse with the format format_str"""
         # TODO validate format?
         self.format = format_str
 
-    def __call__(self, date_str):
+    def __call__(self, date_str: str) -> datetime.datetime:
         """Create a datetime.datetime obj from the command-line arg string"""
         try:
             return datetime.datetime.strptime(date_str, self.format)
@@ -42,7 +42,7 @@ class DirectoryArg():
     arg_parser.parse_args(["--directory", "."])
     """
 
-    def __init__(self, mode):
+    def __init__(self, mode: str):
         # validate mode
         if not isinstance(mode, str):
              raise argparse.ArgumentTypeError(f"mode {repr(mode)} of type {type(mode)} not recognized; should be {str}")
@@ -59,7 +59,7 @@ class DirectoryArg():
             logger = logging.getLogger(__name__)
             logger.warning("log-level arg %r normalized to %r", mode, self.mode)
 
-    def __call__(self, dir_path):
+    def __call__(self, dir_path: str) -> str:
         """check dir_path is a directory that satisfies DirectoryArg.mode """
         # TODO create non-existent directory?
         if not os.path.exists(dir_path):
@@ -74,7 +74,7 @@ class DirectoryArg():
         return dir_path
 
 
-def LogLevelArg(log_level_name):
+def LogLevelArg(log_level_name: str) -> int:
     """Type parser for log-level names paths for argparse.ArgumentParser.
     Checks if level is a log-level constant in the standard logging module,
     i.e. CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET.
@@ -95,7 +95,7 @@ def LogLevelArg(log_level_name):
         raise argparse.ArgumentTypeError(f"unrecognized log-level name: {repr(log_level_name)}")
 
 
-def main():
+def main() -> None:
     """Simple test"""
 
     # define command-line parameters to test
