@@ -23,10 +23,14 @@ setup(
 
     description = "Just Utils",
     long_description = read("README.md"),
-    license = "",
-    url = "",
+    url = "https://github.com/perplx/just-utils",
+    download_url="https://github.com/perplx/just-utils/archive/refs/heads/master.zip",
+
     keywords = "",
     classifiers = [
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3",
         "Topic :: Utilities",
     ],
 
