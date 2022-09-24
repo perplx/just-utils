@@ -10,7 +10,7 @@ import logging
 import os
 
 
-class DateTimeArg():
+class DateTimeArg:
     """Type parser for directory paths for argparse.ArgumentParser.
     Checks if path is directory, has given mode ("r", "w", "rw")
     ex:
@@ -33,7 +33,7 @@ class DateTimeArg():
 
 
 # FIXME what about the path module? would that work intead?
-class DirectoryArg():
+class DirectoryArg:
     """Type parser for directory paths for argparse.ArgumentParser.
     Checks if path is directory, has given mode ("r", "w", "rw")
     ex:
