@@ -20,10 +20,35 @@ class TestDateTimeArg(unittest.TestCase):
 
     def setUp(self):
         """define command-line parameter --date-time to test DateTimeArg"""
+        self.arg = DateTimeArg("%Y-%m-%d %H:%M:%S.%f")
+
+    def test_date_format_bad(self):
+        """test an incorrect format for the datetime; raises argparse.ArgumentTypeError"""
+        arg = DateTimeArg("%Y-%m-%d %H:%M:%S.%f %e") # %e is a bad directive
+        with self.assertRaises(argparse.ArgumentTypeError):
+            _ = arg("2020-02-29 12:34:56.789")
+
+    def test_date_time(self):
+        """test the new date-time parameter-type"""
+        arg = self.arg("2020-02-29 12:34:56.789")
+        self.assertEqual(arg, datetime.datetime(2020, 2, 29, 12, 34, 56, 789000))
+
+    def test_date_time_bad(self):
+        """test an incorrect date-time for the format; raises argparse.ArgumentTypeError"""
+        with self.assertRaises(argparse.ArgumentTypeError):
+            _ = self.arg("BOGUS! 2020-02-29 12:34:56.789")
+
+
+class TestDateTimeArgParser(unittest.TestCase):
+    """test for class just.args.DateTimeArg"""
+
+    def setUp(self):
+        """define command-line parameter --date-time to test DateTimeArg"""
         self.arg_parser = argparse.ArgumentParser()
         self.arg_parser.add_argument("--date-time", type=DateTimeArg("%Y-%m-%d %H:%M:%S.%f"))
 
     def test_date_format_bad(self):
+        """test an incorrect format for the datetime; causes ArgumentParser to exit()"""
         self.arg_parser.add_argument("--bad-format", type=DateTimeArg("%Y-%m-%d %H:%M:%S.%f %e")) # %e is a bad directive
         with self.assertRaises(SystemExit):
             _ = self.arg_parser.parse_args(["--bad-format", "2020-02-29 12:34:56.789"])
@@ -44,6 +69,54 @@ class TestDirectoryArg(unittest.TestCase):
 
     def setUp(self):
         """define command-line parameter --directory to test DirectoryArg"""
+        self.arg = DirectoryArg("rw")
+
+    def test_dir_path(self):
+        """test dir-path parameter-type"""
+        self.assertEqual(self.arg("."), ".")
+
+    def test_dir_path_bad(self):
+        """test an incorrect dir-path; causes ArgumentParser to exit()"""
+        with self.assertRaises(argparse.ArgumentTypeError):
+            _ = self.arg("BOGUS!")
+
+    def test_mode(self):
+        """test every valid mode-string"""
+        for mode in ["", "r", "w", "rw"]:
+            arg = DirectoryArg(mode)
+            self.assertEqual(arg.mode, mode)
+
+    def test_mode_norm(self):
+        """test mode normalization"""
+        self.assertEquals(DirectoryArg("rwwrw").mode, "rw")
+
+    def test_mode_norm_log(self):
+        """test mode normalization emits a log warning"""
+        with self.assertLogs(level=logging.WARNING):
+            self.assertEquals(DirectoryArg("rwwrw").mode, "rw")
+            self.assertEquals(DirectoryArg("wwrwrw").mode, "rw")
+
+    def test_mode_bad(self):
+        """test an incorrect mode"""
+        with self.assertRaises(argparse.ArgumentTypeError):
+            _ = DirectoryArg("BOGUS!")
+
+    def test_mode_exec(self):
+        """test unsupported mode "x" """
+        with self.assertRaises(argparse.ArgumentTypeError):
+            _ = DirectoryArg("rx")
+
+    def test_mode_none(self):
+        """test unsupported mode None"""
+        with self.assertRaises(argparse.ArgumentTypeError):
+            _ = DirectoryArg(None)
+
+
+class TestDirectoryArgParser(unittest.TestCase):
+    """test for class just.args.DirectoryArg"""
+
+    def setUp(self):
+        """define command-line parameter --directory to test DirectoryArg"""
         self.arg_parser = argparse.ArgumentParser()
         self.arg_parser.add_argument("--directory", type=DirectoryArg("rw"))
 
@@ -57,16 +130,19 @@ class TestDirectoryArg(unittest.TestCase):
         with self.assertRaises(SystemExit):
             _ = self.arg_parser.parse_args(["--directory", "BOGUS!"])
 
+    @unittest.skip("doesn't use a parser")
     def test_mode(self):
         """test every valid mode-string"""
         for mode in ["", "r", "w", "rw"]:
             arg = DirectoryArg(mode)
             self.assertEqual(arg.mode, mode)
 
+    @unittest.skip("doesn't use a parser")
     def test_mode_norm(self):
         """test mode normalization"""
         self.assertEquals(DirectoryArg("rwwrw").mode, "rw")
 
+    @unittest.skip("doesn't use a parser")
     def test_mode_norm_log(self):
         """test mode normalization emits a log warning"""
         with self.assertLogs(level=logging.WARNING):
@@ -125,6 +201,32 @@ class TestDirectoryArg(unittest.TestCase):
 
 
 class TestLogLevelArg(unittest.TestCase):
+    """test for class just.args.LogLevelArg"""
+
+    def setUp(self):
+        """define command-line parameter --log-level to test LogLevelArg"""
+        self.arg = LogLevelArg
+
+    def test_name(self):
+        """test log-level parameter-type"""
+        self.assertEqual(self.arg("NOTSET"), logging.NOTSET)
+        self.assertEqual(self.arg("DEBUG"), logging.DEBUG)
+        self.assertEqual(self.arg("INFO"), logging.INFO)
+        self.assertEqual(self.arg("WARNING"), logging.WARNING)
+        self.assertEqual(self.arg("NOTSET"), logging.NOTSET)
+        self.assertEqual(self.arg("CRITICAL"), logging.CRITICAL)
+
+    def test_name_variants(self):
+        """test log-level case-insensitive matching, alternate names"""
+        self.assertEqual(self.arg("warn"), logging.WARNING)
+        self.assertEqual(self.arg("fatal"), logging.CRITICAL)
+
+    def test_name_bad(self):
+        """test incorrect log-level; raises argparse.ArgumentTypeError"""
+        with self.assertRaises(argparse.ArgumentTypeError):
+            _ = self.arg("BOGUS!")
+
+class TestLogLevelParser(unittest.TestCase):
     """test for class just.args.LogLevelArg"""
 
     def setUp(self):
