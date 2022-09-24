@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 
+"""Timing Functions"""
+
 # standard imports
 import contextlib
 import functools
@@ -27,13 +29,9 @@ def timed(do_print=True, logger=None, level=logging.INFO):
     def decorate(func):
         @functools.wraps(func) # preserves metadata (name, stack, etc.) of func when decorated
         def wrapped(*args, **kwargs):
-            # start timing
+            # time the call to the wrapped function
             time_begin = time.perf_counter()
-
-            # call the wrapped function
             result = func(*args, **kwargs)
-
-            # finish timing
             time_end = time.perf_counter()
             time_taken = time_end - time_begin
 
