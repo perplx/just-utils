@@ -1,4 +1,4 @@
 Just Utils
 ==========
 
-Simple useful self-contained modules.
+Simple, useful, self-contained modules.
