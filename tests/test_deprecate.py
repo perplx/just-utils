@@ -12,10 +12,10 @@ import logging
 from just.deprecate import deprecated
 
 
-class TestDeprecated(unittest.TestCase):
+class TestDeprecate(unittest.TestCase):
     """test for `just.deprecate.deprecated`"""
 
-    def test_deprecate_function(self):
+    def test_deprecated_function(self):
         """test that a deprecated function emits a warning when called"""
 
         # define deprecated function
@@ -27,7 +27,7 @@ class TestDeprecated(unittest.TestCase):
         with self.assertWarns(DeprecationWarning):
             deprecated_func()
 
-    def test_deprecate_method(self):
+    def test_deprecated_method(self):
         """test that a deprecated method emits a warning when called"""
 
         # define class with deprecated method
@@ -41,7 +41,7 @@ class TestDeprecated(unittest.TestCase):
         with self.assertWarns(DeprecationWarning):
             instance.deprecated_method()
 
-    def test_deprecate_logging(self):
+    def test_deprecated_logging(self):
         """test that a deprecated call produces a log message when warnings are captured by logging"""
 
         # define deprecated function
