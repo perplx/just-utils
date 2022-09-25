@@ -53,9 +53,10 @@ class Heap:
         return item
 
     def pushpop(self, item):
-        """Push item on the heap, then pop and return the smallest item from the heap. 
+        """Push item on the heap, then pop and return the smallest item from the heap.
         The combined action runs more efficiently than heap.push() followed by a separate call to heap.pop().
-        """ # mostly taken from https://docs.python.org/3/library/heapq.html
+        """
+        # mostly taken from https://docs.python.org/3/library/heapq.html
 
         if self.key:
             item = (self.key(item), item)
@@ -65,19 +66,20 @@ class Heap:
         return item
 
     def replace(self, item):
-        """Pop and return the smallest item from the heap, and also push the new item. 
+        """Pop and return the smallest item from the heap, and also push the new item.
         The heap size doesn't change. If the heap is empty, IndexError is raised.
 
         This one step operation is more efficient than a heap.pop() followed by
-        heap.push() and can be more appropriate when using a fixed-size heap. 
-        The pop/push combination always returns an element from the heap and 
+        heap.push() and can be more appropriate when using a fixed-size heap.
+        The pop/push combination always returns an element from the heap and
         replaces it with item.
 
-        The value returned may be larger than the item added. 
+        The value returned may be larger than the item added.
         If that isn't desired, consider using heap.pushpop() instead.
-        Its push/pop combination returns the smaller of the two values, 
+        Its push/pop combination returns the smaller of the two values,
         leaving the larger value on the heap.
-        """ # mostly taken from https://docs.python.org/3/library/heapq.html
+        """
+        # mostly taken from https://docs.python.org/3/library/heapq.html
 
         if self.key:
             item = (self.key(item), item)

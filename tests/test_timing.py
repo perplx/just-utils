@@ -24,9 +24,11 @@ class TestTimed(unittest.TestCase):
     # FIXME `timed` vs `timed()` should work either way
     def test_missing_call(self):
         """test that using `timed` instead of `timed()` raises TypeError"""
+
         @timed
         def test():
             pass
+
         with self.assertRaises(TypeError):
             test()
 
@@ -49,9 +51,12 @@ class TestTimed(unittest.TestCase):
 
     def test_logger_regex(self):
         """test the logger output contains the expected format"""
+
         @timed(do_print=False, logger=self.test_logger)
         def test():
             pass
+
+        # ensure calling timed function produces logs with the expected format
         with self.assertLogs(self.test_logger, level=logging.INFO) as watcher:
             test()
             self.assertRegex(str(watcher.output), self.OUTPUT_REGEX)
@@ -59,17 +64,19 @@ class TestTimed(unittest.TestCase):
     def test_logger_bad_type(self):
         """test the decorator raises a TypeError if the logger parameter isn't a logging.Logger object"""
         with self.assertRaises(TypeError):
+            # declare timed function with bad type for logger
             @timed(logger="BOGUS")
             def test():
                 pass
-            
+
     def test_logger_bad_level(self):
         """test the decorator raises a ValueError if the log level isn't valid"""
         with self.assertRaises(ValueError):
+            # declare timed function with bad value for logger
             @timed(logger=self.test_logger, level="BOGUS!")
             def test():
                 pass
-                
+
 
 class TestTiming(unittest.TestCase):
     """Tests for class just.timing.timing context-manager"""
@@ -98,7 +105,7 @@ class TestTiming(unittest.TestCase):
             MESSAGE = "regex_test"
             with timing(MESSAGE, do_print=False, logger=self.test_logger):
                 pass
-            self.assertRegex(str(watcher.output), MESSAGE+self.OUTPUT_REGEX)
+            self.assertRegex(str(watcher.output), MESSAGE + self.OUTPUT_REGEX)
 
     def test_logger_bad_type(self):
         """test the context manager raises a TypeError if the logger parameter isn't a logging.Logger object"""

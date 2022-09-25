@@ -17,11 +17,13 @@ class TestHeap(unittest.TestCase):
     def setUp(self):
         self.heap_empty = Heap()
 
-        TEST_DATA = ["c", "bb", "aaa"] # mutable!
+        # TEST_DATA is mutable!
+        TEST_DATA = ["c", "bb", "aaa"]
         self.heap_test = Heap(TEST_DATA)
 
+        # mutable!
+        key_data = [(key_func(d), d) for d in TEST_DATA]
         key_func = len
-        key_data = [(key_func(d), d) for d in TEST_DATA] # mutable!
         print("key_data:", key_data)
         self.heap_key = Heap(key_data, key=key_func)
 
@@ -45,16 +47,16 @@ class TestHeap(unittest.TestCase):
 
         HEAP_ITEMS = ["", "sml", "long", "longer"]
 
-        h = Heap( [(len(item), item) for item in HEAP_ITEMS], key=len)
+        h = Heap([(len(item), item) for item in HEAP_ITEMS], key=len)
         h.push("even longer")
         h.push("medium")
         self.assertEqual(len(h), 6)
-        
+
         self.assertEqual(h.pop(), "")
         self.assertEqual(h.pop(), "sml")
         self.assertEqual(h.pop(), "long")
         self.assertEqual(h.pop(), "longer")
-        self.assertEqual(h.pop(), "medium") # should come after "longer"
+        self.assertEqual(h.pop(), "medium")  # should come after "longer"
         self.assertEqual(h.pop(), "even longer")
         self.assertEqual(len(h), 0)
 
@@ -80,7 +82,7 @@ class TestHeap(unittest.TestCase):
     def test_data_bad(self):
         """test Heap(x) where x is non empty non list raises TypeError"""
         with self.assertRaises(TypeError):
-            _ = Heap( ("a", "b") )
+            _ = Heap(("a", "b"))
         with self.assertRaises(TypeError):
             _ = Heap({"b"})
         with self.assertRaises(TypeError):

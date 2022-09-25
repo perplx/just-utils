@@ -24,7 +24,8 @@ class TestDateTimeArg(unittest.TestCase):
 
     def test_date_format_bad(self):
         """test an incorrect format for the datetime; raises argparse.ArgumentTypeError"""
-        arg = DateTimeArg("%Y-%m-%d %H:%M:%S.%f %e") # %e is a bad directive
+        # %e is a bad directive
+        arg = DateTimeArg("%Y-%m-%d %H:%M:%S.%f %e")
         with self.assertRaises(argparse.ArgumentTypeError):
             _ = arg("2020-02-29 12:34:56.789")
 
@@ -49,7 +50,8 @@ class TestDateTimeArgParser(unittest.TestCase):
 
     def test_date_format_bad(self):
         """test an incorrect format for the datetime; causes ArgumentParser to exit()"""
-        self.arg_parser.add_argument("--bad-format", type=DateTimeArg("%Y-%m-%d %H:%M:%S.%f %e")) # %e is a bad directive
+        # %e is a bad directive
+        self.arg_parser.add_argument("--bad-format", type=DateTimeArg("%Y-%m-%d %H:%M:%S.%f %e"))
         with self.assertRaises(SystemExit):
             _ = self.arg_parser.parse_args(["--bad-format", "2020-02-29 12:34:56.789"])
 
@@ -155,6 +157,7 @@ class TestDirectoryArgParser(unittest.TestCase):
         import os
         import stat
         import tempfile
+
         with tempfile.TemporaryDirectory() as temp_dir_path:
             # create subdirectory
             temp_dir_path = os.path.join(temp_dir_path, "temp")
@@ -224,6 +227,7 @@ class TestLogLevelArg(unittest.TestCase):
         """test incorrect log-level; raises argparse.ArgumentTypeError"""
         with self.assertRaises(argparse.ArgumentTypeError):
             _ = self.arg("BOGUS!")
+
 
 class TestLogLevelParser(unittest.TestCase):
     """test for class just.args.LogLevelArg"""

@@ -45,8 +45,8 @@ class DirectoryArg:
     def __init__(self, mode: str):
         # validate mode
         if not isinstance(mode, str):
-             raise argparse.ArgumentTypeError(f"mode {repr(mode)} of type {type(mode)} not recognized; should be {str}")
-        ALLOWED_MODES = ["r", "w"] # TODO other modes? "x"?
+            raise argparse.ArgumentTypeError(f"mode {repr(mode)} of type {type(mode)} not recognized; should be {str}")
+        ALLOWED_MODES = ["r", "w"]  # TODO other modes? "x"?
         for m in mode:
             if m not in ALLOWED_MODES:
                 raise argparse.ArgumentTypeError(f"mode {m} not recognized; should be one of: {ALLOWED_MODES}")
@@ -60,16 +60,16 @@ class DirectoryArg:
             logger.warning("log-level arg %r normalized to %r", mode, self.mode)
 
     def __call__(self, dir_path: str) -> str:
-        """check dir_path is a directory that satisfies DirectoryArg.mode """
+        """check dir_path is a directory that satisfies DirectoryArg.mode"""
         # TODO create non-existent directory?
         if not os.path.exists(dir_path):
-            raise argparse.ArgumentTypeError(f"dir-path \"{dir_path}\" does not exist!")
+            raise argparse.ArgumentTypeError(f"dir-path {repr(dir_path)} does not exist!")
         if not os.path.isdir(dir_path):
-            raise argparse.ArgumentTypeError(f"dir-path \"{dir_path}\" is not a directory!")
+            raise argparse.ArgumentTypeError(f"dir-path {repr(dir_path)} is not a directory!")
         if "r" in self.mode and not os.access(dir_path, os.R_OK):
-            raise argparse.ArgumentTypeError(f"dir-path \"{dir_path}\" cannot be read!")
+            raise argparse.ArgumentTypeError(f"dir-path {repr(dir_path)} cannot be read!")
         if "w" in self.mode and not os.access(dir_path, os.W_OK):
-            raise argparse.ArgumentTypeError(f"dir-path \"{dir_path}\" cannot be written!")
+            raise argparse.ArgumentTypeError(f"dir-path {repr(dir_path)} cannot be written!")
 
         return dir_path
 
@@ -109,11 +109,13 @@ def main() -> None:
     print()
 
     # test the new command-line parameter-types with these:
+    # fmt: off
     TEST_ARGS = [
         "--date-time", "2020-02-29 12:34:56.789",
         "--directory", ".",
         "--log-level", "DEBUG"
     ]
+    # fmt: on
     args = arg_parser.parse_args(TEST_ARGS)
     print("args:", args)
 

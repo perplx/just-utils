@@ -26,7 +26,7 @@ def deprecated(func):
 
         # evaluate the wrapped function
         return func(*args, **kwargs)
-    
+
     # return the decorated function
     return wrapped_func
 
@@ -36,6 +36,7 @@ def main():
 
     # capture `warnings` messages into `logging` messages
     import logging
+
     logging.basicConfig(format="%(asctime)s %(name)s %(levelname)-8s %(message)s", level=logging.DEBUG)
     logging.captureWarnings(True)
 

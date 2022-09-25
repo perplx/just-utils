@@ -16,7 +16,7 @@ class TestDeprecated(unittest.TestCase):
     """test for `just.deprecate.deprecated`"""
 
     def test_deprecate_function(self):
-        """"test that a deprecated function emits a warning when called"""
+        """test that a deprecated function emits a warning when called"""
 
         # define deprecated function
         @deprecated
@@ -28,14 +28,14 @@ class TestDeprecated(unittest.TestCase):
             deprecated_func()
 
     def test_deprecate_method(self):
-        """"test that a deprecated method emits a warning when called"""
+        """test that a deprecated method emits a warning when called"""
 
         # define class with deprecated method
         class DeprecatedClass:
             @deprecated
             def deprecated_method(self):
                 return None
-        
+
         # test deprecated method
         instance = DeprecatedClass()
         with self.assertWarns(DeprecationWarning):
@@ -48,10 +48,12 @@ class TestDeprecated(unittest.TestCase):
         @deprecated
         def deprecated_func():
             return None
-        
+
         # logging to receive warnings
         logging.captureWarnings(True)
-        LOG_PREFIX = "WARNING:py.warnings:" # line with default format
+
+        # expected line prefix when using default format
+        LOG_PREFIX = "WARNING:py.warnings:"
 
         with self.assertLogs("py.warnings", level=logging.WARNING) as cm:
             # call the deprecated function

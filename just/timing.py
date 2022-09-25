@@ -27,7 +27,8 @@ def timed(do_print=True, logger=None, level=logging.INFO):
         raise ValueError(f"logging level {repr(level)} not recognized, see {logging._levelToName}")
 
     def decorate(func):
-        @functools.wraps(func) # preserves metadata (name, stack, etc.) of func when decorated
+        # preserves metadata (name, stack, etc.) of func when decorated
+        @functools.wraps(func)
         def wrapped(*args, **kwargs):
             # time the call to the wrapped function
             time_begin = time.perf_counter()
@@ -40,7 +41,7 @@ def timed(do_print=True, logger=None, level=logging.INFO):
                 print(f"func {func.__name__} args {args} kwargs {kwargs} took {time_taken:.3f} seconds")
             if logger is not None:
                 logger.info("func %s args %r kwargs %r took %.3f seconds", func.__name__, args, kwargs, time_taken)
-            
+
             # return the result of the wrapped function
             return result
 
@@ -82,7 +83,7 @@ def timing(message: str, do_print=True, logger=None, level=logging.INFO):
             logger.log(level, "%s took %.3f seconds", message, time_taken)
         else:
             raise TypeError(f"logger is {type(logger)}, should be {logging.Logger}")
-    
+
 
 def main():
     """Simple test"""
@@ -95,6 +96,7 @@ def main():
     def timing_test(arg1, arg2):
         for _ in range(1_000_000):
             pass
+
     timing_test("arg1", arg2="")
 
     # test timing() context manager
