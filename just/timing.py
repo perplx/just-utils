@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
+"""Timing functions"""
 
-"""Timing Functions"""
 
 # standard imports
 import contextlib

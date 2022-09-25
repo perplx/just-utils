@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Some argument-parsers for argparse."""
+"""Argument-parsers for argparse"""
 
 
 # standard imports
