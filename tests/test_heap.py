@@ -21,9 +21,9 @@ class TestHeap(unittest.TestCase):
         TEST_DATA = ["c", "bb", "aaa"]
         self.heap_test = Heap(TEST_DATA)
 
-        # mutable!
-        key_data = [(key_func(d), d) for d in TEST_DATA]
+        # key_data is mutable!
         key_func = len
+        key_data = [(key_func(d), d) for d in TEST_DATA]
         print("key_data:", key_data)
         self.heap_key = Heap(key_data, key=key_func)
 
