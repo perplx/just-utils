@@ -30,12 +30,15 @@ setup(
     classifiers = [
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.6"  # checked using `vermin` tool
         "Topic :: Utilities",
     ],
 
     packages = ["just"],
-    requires = [],
+    setup_requires = [],
+    install_requires = [],
+    extras_require = {},
 
     test_suite = "tests",
 )
