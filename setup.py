@@ -38,7 +38,7 @@ setup(
     packages = ["just"],
     setup_requires = [],
     install_requires = [],
-    extras_require = {},
+    extras_require = {"extra": ["black", "vermin"]},
 
     test_suite = "tests",
 )
