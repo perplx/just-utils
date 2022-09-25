@@ -30,11 +30,13 @@ class TestHeap(unittest.TestCase):
     def test_heap(self):
         """test without key"""
 
+        # define queue of strings ordered by normal ordering
         h = Heap(["ccc", "bb", "a"])
         h.push("bbb")
         h.push("bbbbbb")
         self.assertEqual(len(h), 5)
 
+        # ensure queue elements are popped in correct order
         self.assertEqual(h.pop(), "a")
         self.assertEqual(h.pop(), "bb")
         self.assertEqual(h.pop(), "bbb")
@@ -42,16 +44,22 @@ class TestHeap(unittest.TestCase):
         self.assertEqual(h.pop(), "ccc")
         self.assertEqual(len(h), 0)
 
+        # test popping an empty Heap
+        with self.assertRaises(IndexError):
+            h.pop()
+
     def test_heap_key(self):
         """test with key"""
 
+        # define queue of strings ordered by string length
         HEAP_ITEMS = ["", "sml", "long", "longer"]
-
-        h = Heap([(len(item), item) for item in HEAP_ITEMS], key=len)
+        key_func = len
+        h = Heap([(key_func(item), item) for item in HEAP_ITEMS], key=key_func)
         h.push("even longer")
         h.push("medium")
         self.assertEqual(len(h), 6)
 
+        # ensure queue elements are popped in correct order
         self.assertEqual(h.pop(), "")
         self.assertEqual(h.pop(), "sml")
         self.assertEqual(h.pop(), "long")
