@@ -12,6 +12,7 @@ import warnings
 # TODO version parameters, deprecated_since, removed-in, etc.
 # TODO invocation file, line
 def deprecated(func):
+    # preserve the metadata (name, docstring, etc.) of the wrapped function
     @functools.wraps(func)
     def wrapped_func(*args, **kwargs):
         # save and restore warnings filter
@@ -37,6 +38,7 @@ def main():
     # capture `warnings` messages into `logging` messages
     import logging
 
+    # configure logging to capture warnings
     logging.basicConfig(format="%(asctime)s %(name)s %(levelname)-8s %(message)s", level=logging.DEBUG)
     logging.captureWarnings(True)
 
