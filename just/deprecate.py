@@ -18,7 +18,7 @@ def deprecated(func):
         # save and restore warnings filter
         with warnings.catch_warnings():
             # enable warnings filter for DeprecationWarning
-            # it's enabled by default, but this ensures it works
+            # it should be enabled by default, but this ensures it works
             warnings.simplefilter("always", DeprecationWarning)
 
             # warnings module is preferrable to logging module for the problems
