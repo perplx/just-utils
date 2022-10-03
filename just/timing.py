@@ -8,13 +8,14 @@ import contextlib
 import functools
 import logging
 import time
+from typing import Callable, Generator
 
 
 # use a decorator factory
 # https://stackoverflow.com/a/10176276
 # FIXME when no arguments are provided, needs to be called with parentheses
 #       i.e. `@timed()`, not just `@timed`
-def timed(do_print=True, logger=None, level=logging.INFO):
+def timed(do_print: bool=True, logger: logging.Logger=None, level: int=logging.INFO):
     """Perform timing of the execution of the decorated function
     Output to stdout and to a given logger.
     """
@@ -53,7 +54,7 @@ def timed(do_print=True, logger=None, level=logging.INFO):
 
 
 @contextlib.contextmanager
-def timing(message: str, do_print=True, logger=None, level=logging.INFO):
+def timing(message: str, do_print=True, logger: logging.Logger=None, level: int=logging.INFO) -> Generator[None, None, None]:
     """Perform timing of the execution of the given context
     Output to stdout and to a given logger.
     """
@@ -85,7 +86,7 @@ def timing(message: str, do_print=True, logger=None, level=logging.INFO):
             raise TypeError(f"logger is {type(logger)}, should be {logging.Logger}")
 
 
-def main():
+def main() -> None:
     """Simple test"""
 
     logging.basicConfig(format=r"%(asctime)s %(levelname)-8s : %(message)s", level=logging.DEBUG)
