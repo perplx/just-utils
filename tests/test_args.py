@@ -18,7 +18,7 @@ class TestDateTimeArg(unittest.TestCase):
     """test for class just.args.DateTimeArg"""
 
     def setUp(self):
-        """define command-line parameter --date-time to test DateTimeArg"""
+        """define command-line parameter DateTimeArg"""
         self.arg = DateTimeArg("%Y-%m-%d %H:%M:%S.%f")
 
     def test_date_format_bad(self):
@@ -40,7 +40,7 @@ class TestDateTimeArg(unittest.TestCase):
 
 
 class TestDateTimeArgParser(unittest.TestCase):
-    """test for class just.args.DateTimeArg"""
+    """test for class for ArgumentParser using just.args.DateTimeArg"""
 
     def setUp(self):
         """define command-line parameter --date-time to test DateTimeArg"""
@@ -69,7 +69,7 @@ class TestDirectoryArg(unittest.TestCase):
     """test for class just.args.DirectoryArg"""
 
     def setUp(self):
-        """define command-line parameter --directory to test DirectoryArg"""
+        """define command-line parameter DirectoryArg"""
         self.arg = DirectoryArg("rw")
 
     def test_dir_path(self):
@@ -113,7 +113,7 @@ class TestDirectoryArg(unittest.TestCase):
 
 
 class TestDirectoryArgParser(unittest.TestCase):
-    """test for class just.args.DirectoryArg"""
+    """test for class ArgumentParser using just.args.DirectoryArg"""
 
     def setUp(self):
         """define command-line parameter --directory to test DirectoryArg"""
@@ -135,6 +135,7 @@ class TestDirectoryArgParser(unittest.TestCase):
     @unittest.skipIf(sys.platform == "win32", "os.chmod() does nothing on Windows")
     def test_mode_access(self):
         """test argument with unavailable mode"""
+
         import os
         import stat
         import tempfile
@@ -187,7 +188,7 @@ class TestLogLevelArg(unittest.TestCase):
     """test for class just.args.LogLevelArg"""
 
     def setUp(self):
-        """define command-line parameter --log-level to test LogLevelArg"""
+        """define command-line parameter LogLevelArg"""
         self.arg = LogLevelArg
 
     def test_name(self):
@@ -211,7 +212,7 @@ class TestLogLevelArg(unittest.TestCase):
 
 
 class TestLogLevelParser(unittest.TestCase):
-    """test for class just.args.LogLevelArg"""
+    """test for class ArgumentParser using just.args.LogLevelArg"""
 
     def setUp(self):
         """define command-line parameter --log-level to test LogLevelArg"""
