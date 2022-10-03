@@ -40,7 +40,7 @@ setup(
     packages = ["just"],
     setup_requires = [],
     install_requires = [],
-    extras_require = {"extra": ["black", "vermin"]},
+    extras_require = {"extra": ["black", "flake8", "mypy", "vermin"]},
 
     test_suite = "tests",
 )
