@@ -12,6 +12,10 @@ import warnings
 # TODO version parameters, deprecated_since, removed-in, etc.
 # TODO invocation file, line
 def deprecated(func):
+    """Decorator to mark a function as deprecated.
+    Emit a DeprecationWarning whenever a decorated function is called.
+    """
+
     # preserve the metadata (name, docstring, etc.) of the wrapped function
     @functools.wraps(func)
     def wrapped_func(*args, **kwargs):
