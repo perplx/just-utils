@@ -1,0 +1,18 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# all files
+[*]
+charset = utf-8
+trim_trailing_whitespace = true
+
+# python files
+[*.py]
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+
+# shell files
+insert_final_newline = true
