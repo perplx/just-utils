@@ -89,12 +89,12 @@ class TestDirectoryArg(unittest.TestCase):
 
     def test_mode_norm(self):
         """test mode normalization"""
-        self.assertEquals(DirectoryArg("rwwrw").mode, "rw")
+        self.assertEqual(DirectoryArg("rwwrw").mode, "rw")
 
     def test_mode_norm_log(self):
         """test mode normalization emits a log warning"""
         with self.assertLogs(level=logging.WARNING):
-            self.assertEquals(DirectoryArg("rwwrw").mode, "rw")
+            self.assertEqual(DirectoryArg("rwwrw").mode, "rw")
 
     def test_mode_bad(self):
         """test an incorrect mode"""
