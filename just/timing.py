@@ -20,7 +20,6 @@ def timed(do_print: bool = True, logger: logging.Logger = None, level: int = log
     """
 
     # validate parameters
-    # FIXME is this the best way to check?
     if logger is not None and not isinstance(logger, logging.Logger):
         raise TypeError(f"logger is {type(logger)}, should be {type(logging.Logger)}")
     if level not in logging._levelToName:
@@ -53,25 +52,20 @@ def timed(do_print: bool = True, logger: logging.Logger = None, level: int = log
 
 
 @contextlib.contextmanager
-def timing(message: str, do_print=True, logger: logging.Logger = None, level: int = logging.INFO):
+def timing(message: str, do_print: bool = True, logger: logging.Logger = None, level: int = logging.INFO):
     """Perform timing of the execution of the given context
     Output to stdout and to a given logger.
     """
 
     # validate parameters
-    # FIXME is this the best way to check?
-    if level not in logging._levelToName:
-        raise ValueError()
+    if logger is not None and not isinstance(logger, logging.Logger):
+        raise TypeError(f"logger is {type(logger)}, should be {logging.Logger}")
     if level not in logging._levelToName:
         raise ValueError(f"logging level {repr(level)} not recognized, see {logging._levelToName}")
 
-    # start timing
+    # time the execution of the context
     time_begin = time.perf_counter()
-
-    # execute context
-    yield
-
-    # finish timing
+    yield  # execute context
     time_end = time.perf_counter()
     time_taken = time_end - time_begin
 
@@ -79,10 +73,7 @@ def timing(message: str, do_print=True, logger: logging.Logger = None, level: in
     if do_print:
         print("%s took %.3f seconds" % (message, time_taken))
     if logger is not None:
-        if isinstance(logger, logging.Logger):
-            logger.log(level, "%s took %.3f seconds", message, time_taken)
-        else:
-            raise TypeError(f"logger is {type(logger)}, should be {logging.Logger}")
+        logger.log(level, "%s took %.3f seconds", message, time_taken)
 
 
 def main() -> None:
