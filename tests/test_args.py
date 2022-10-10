@@ -79,8 +79,12 @@ class TestDirectoryArg(unittest.TestCase):
 
     def test_dir_path_bad(self):
         """test an incorrect dir-path; raises argparse.ArgumentTypeError"""
+        # create and delete temp dir, creating a path to a missing directory
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_dir_path = temp_dir
+        # now that the temp dir has been deleted, try to use it as a parameter
         with self.assertRaises(argparse.ArgumentTypeError):
-            _ = self.arg("BOGUS!")
+            _ = self.arg(temp_dir_path)
 
     def test_dir_path_file(self):
         """test a dir-path ponting to a file; raises argparse.ArgumentTypeError"""
@@ -145,7 +149,6 @@ class TestDirectoryArgParser(unittest.TestCase):
 
         import os
         import stat
-        import tempfile
 
         with tempfile.TemporaryDirectory() as temp_dir_path:
             # create subdirectory
