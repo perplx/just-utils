@@ -9,6 +9,7 @@ import argparse
 import datetime
 import logging
 import sys
+import tempfile
 
 # tested imports
 from just.args import DateTimeArg, DirectoryArg, LogLevelArg
@@ -77,9 +78,15 @@ class TestDirectoryArg(unittest.TestCase):
         self.assertEqual(self.arg("."), ".")
 
     def test_dir_path_bad(self):
-        """test an incorrect dir-path; causes ArgumentParser to exit()"""
+        """test an incorrect dir-path; raises argparse.ArgumentTypeError"""
         with self.assertRaises(argparse.ArgumentTypeError):
             _ = self.arg("BOGUS!")
+
+    def test_dir_path_file(self):
+        """test a dir-path ponting to a file; raises argparse.ArgumentTypeError"""
+        with tempfile.NamedTemporaryFile("r") as temp_file:
+            with self.assertRaises(argparse.ArgumentTypeError):
+                _ = self.arg(temp_file.name)
 
     def test_mode(self):
         """test every valid mode-string"""
