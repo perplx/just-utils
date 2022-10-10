@@ -89,7 +89,7 @@ class Heap:
         return item
 
 
-def main():
+def main() -> None:
     """simple test"""
 
     # test without key

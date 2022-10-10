@@ -37,7 +37,7 @@ def deprecated(func):
     return wrapped_func
 
 
-def main():
+def main() -> None:
     """simple test"""
 
     # capture `warnings` messages into `logging` messages

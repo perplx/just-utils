@@ -15,4 +15,4 @@ coverage run \
     tests/
 
 # show coverage report
-coverage report --missing
+coverage report -m
