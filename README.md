@@ -3,7 +3,7 @@ Just Utils
 
 Simple, useful, self-contained modules.
 
-[![Tests:](https://github.com/perplx/just-utils/actions/workflows/pytest.yml/badge.svg)](https://github.com/perplx/just-utils/actions/workflows/tests.yml)
+[![tests](https://github.com/perplx/just-utils/actions/workflows/tests.yml/badge.svg)](https://github.com/perplx/just-utils/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
