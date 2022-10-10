@@ -1,16 +1,20 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
-# "https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python"
+# https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+# https://dev.to/thejaredwilcurt/coverage-badge-with-github-actions-finally-59fa
+
+
+# FIXME still has lots of placeholders: install, flake8
 
 name: tests
 run-name: ${{ github.actor }} running tests for ref ${{ github.ref_name }}
 
+# FIXME
 # on:
 #   push:
 #     branches: [ $default-branch ]
 #   pull_request:
 #     branches: [ $default-branch ]
-
 on: [push]
 
 jobs:
@@ -21,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        python-version: ["3.6", "3.10"]
 
     steps:
       - name: Check out
@@ -53,4 +57,40 @@ jobs:
         run: |
           # run pytest with coverage
           pytest --cov-report term-missing --cov=just/ tests/
-          # pytest tests.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+
+      # FIXME shouldn't be run for each version?
+      - name: Capture coverage
+        run: |
+          # extract the coverage percentage from the coverage report output and
+          # store it in the github environment variables
+          report=`coverage report | tail -n 1 | grep ^TOTAL`
+          tokens=( $report )
+          coverage=${tokens[3]}
+          coverage=`echo $coverage | cut -d '%' -f 1` # strip '%'
+          echo "COVERAGE=$coverage"
+          echo "COVERAGE=$coverage" >> $GITHUB_ENV
+
+          # store the repo name in the github environment variables
+          repo=$(echo ${{ github.repository }} | cut -d '/' -f 2)
+          echo "REPO=$repo"
+          echo "REPO=$repo" >> $GITHUB_ENV
+
+          # store the ref name in the github environment variables
+          ref=$(echo ${{ github.ref_name }})
+          echo "REF=$ref"
+          echo "REF=$ref" >> $GITHUB_ENV
+
+      # FIXME shouldn't be run for each version?
+      - name: Coverage Badge
+        uses: Schneegans/dynamic-badges-action@v1.5.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: 37049f20166246459e2d38ee8ddf2afe
+          filename: ${{ env.REPO }}_${{ env.REF }}.json
+          label: test coverage
+          message: ${{ env.COVERAGE }}%
+          color: green
+          namedLogo: Pytest  # simpleicons.org
+          valColorRange: ${{ env.COVERAGE }}
+          maxColorRange: 90
+          minColorRange: 50
