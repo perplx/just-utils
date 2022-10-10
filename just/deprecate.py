@@ -27,6 +27,7 @@ def deprecated(func):
 
             # warnings module is preferrable to logging module for the problems
             # that stem from incorrect implementation (not runtime problems)
+            # stacklevel=2 shows the call to deprecated function on the stack
             warnings.warn(f"deprecated: {func.__name__}", category=DeprecationWarning, stacklevel=2)
 
         # evaluate the wrapped function
