@@ -128,7 +128,7 @@ class TestDirectoryArg(unittest.TestCase):
     #       since os.chmod() does nothing on Windows!
     @unittest.skipIf(sys.platform == "win32", "os.chmod() does nothing on Windows")
     def test_mode_read_only(self):
-        """"""
+        """test mode "w" non-writable directory raises argparse.ArgumentTypeError"""
 
         with tempfile.TemporaryDirectory() as temp_dir_path:
             temp_dir_path = os.path.join(temp_dir_path, "temp")
@@ -162,7 +162,7 @@ class TestDirectoryArg(unittest.TestCase):
     #       since os.chmod() does nothing on Windows!
     @unittest.skipIf(sys.platform == "win32", "os.chmod() does nothing on Windows")
     def test_mode_write_only(self):
-        """"""
+        """test mode "r" non-readable directory raises argparse.ArgumentTypeError"""
 
         with tempfile.TemporaryDirectory() as temp_dir_path:
             temp_dir_path = os.path.join(temp_dir_path, "temp")
