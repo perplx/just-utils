@@ -122,6 +122,9 @@ class TestDirectoryArg(unittest.TestCase):
         with self.assertRaises(argparse.ArgumentTypeError):
             _ = DirectoryArg(None)
 
+    # FIXME causes problems with permissions in the temp-dir on Windows,
+    #       since os.chmod() does nothing on Windows!
+    @unittest.skipIf(sys.platform == "win32", "os.chmod() does nothing on Windows")
     def test_mode_read_only(self):
         """"""
 
@@ -156,6 +159,9 @@ class TestDirectoryArg(unittest.TestCase):
                 # reset mode to writable so test can clean-up temp-dir
                 os.chmod(temp_dir_path, temp_dir_mode)
 
+    # FIXME causes problems with permissions in the temp-dir on Windows,
+    #       since os.chmod() does nothing on Windows!
+    @unittest.skipIf(sys.platform == "win32", "os.chmod() does nothing on Windows")
     def test_mode_write_only(self):
         """"""
 
