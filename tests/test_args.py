@@ -8,6 +8,8 @@ import unittest
 import argparse
 import datetime
 import logging
+import os
+import stat
 import sys
 import tempfile
 
@@ -128,9 +130,6 @@ class TestDirectoryArg(unittest.TestCase):
     def test_mode_read_only(self):
         """"""
 
-        import os
-        import stat
-
         with tempfile.TemporaryDirectory() as temp_dir_path:
             temp_dir_path = os.path.join(temp_dir_path, "temp")
             os.makedirs(temp_dir_path)
@@ -164,9 +163,6 @@ class TestDirectoryArg(unittest.TestCase):
     @unittest.skipIf(sys.platform == "win32", "os.chmod() does nothing on Windows")
     def test_mode_write_only(self):
         """"""
-
-        import os
-        import stat
 
         with tempfile.TemporaryDirectory() as temp_dir_path:
             temp_dir_path = os.path.join(temp_dir_path, "temp")
