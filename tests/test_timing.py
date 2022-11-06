@@ -14,7 +14,7 @@ from just.timing import timed, timing
 
 
 class TestTimed(unittest.TestCase):
-    """Tests for class just.timing.timed decorator"""
+    """Tests for just.timing.timed decorator"""
 
     def setUp(self):
         self.OUTPUT_REGEX = r"func .*? args .*? kwargs .*? took .*? seconds"
@@ -78,7 +78,7 @@ class TestTimed(unittest.TestCase):
 
 
 class TestTiming(unittest.TestCase):
-    """Tests for class just.timing.timing context-manager"""
+    """Tests for just.timing.timing context-manager"""
 
     def setUp(self):
         self.OUTPUT_REGEX = r" took .*? seconds"
