@@ -122,6 +122,74 @@ class TestDirectoryArg(unittest.TestCase):
         with self.assertRaises(argparse.ArgumentTypeError):
             _ = DirectoryArg(None)
 
+    def test_mode_read_only(self):
+        """"""
+
+        import os
+        import stat
+
+        with tempfile.TemporaryDirectory() as temp_dir_path:
+            temp_dir_path = os.path.join(temp_dir_path, "temp")
+            os.makedirs(temp_dir_path)
+
+            # ensure temp directory exists
+            self.assertTrue(os.path.isdir(temp_dir_path))
+
+            # get previous mode to reset later
+            temp_dir_mode = os.stat(temp_dir_path).st_mode
+
+            try:
+                # make directory non-writable so it can be tested
+                mask = 0o777 ^ (stat.S_IWRITE | stat.S_IWGRP | stat.S_IWOTH)
+                os.chmod(temp_dir_path, temp_dir_mode & mask)
+
+                # ensure access fails on non-writable file
+                # FIXME fails on Windows because os.chmod doesn't work
+                self.assertTrue(os.access(temp_dir_path, os.R_OK))
+                self.assertFalse(os.access(temp_dir_path, os.W_OK))
+
+                with self.assertRaises(argparse.ArgumentTypeError):
+                    arg = DirectoryArg("w")
+                    _ = arg(temp_dir_path)
+
+            finally:
+                # reset mode to writable so test can clean-up temp-dir
+                os.chmod(temp_dir_path, temp_dir_mode)
+
+    def test_mode_write_only(self):
+        """"""
+
+        import os
+        import stat
+
+        with tempfile.TemporaryDirectory() as temp_dir_path:
+            temp_dir_path = os.path.join(temp_dir_path, "temp")
+            os.makedirs(temp_dir_path)
+
+            # ensure temp directory exists
+            self.assertTrue(os.path.isdir(temp_dir_path))
+
+            # get previous mode to reset later
+            temp_dir_mode = os.stat(temp_dir_path).st_mode
+
+            try:
+                # make directory non-readable so it can be tested
+                mask = 0o777 ^ (stat.S_IREAD | stat.S_IRGRP | stat.S_IROTH)
+                os.chmod(temp_dir_path, temp_dir_mode & mask)
+
+                # ensure access fails on non-writable file
+                # FIXME fails on Windows because os.chmod doesn't work
+                self.assertFalse(os.access(temp_dir_path, os.R_OK))
+                self.assertTrue(os.access(temp_dir_path, os.W_OK))
+
+                with self.assertRaises(argparse.ArgumentTypeError):
+                    arg = DirectoryArg("r")
+                    _ = arg(temp_dir_path)
+
+            finally:
+                # reset mode to writable so test can clean-up temp-dir
+                os.chmod(temp_dir_path, temp_dir_mode)
+
 
 class TestDirectoryArgParser(unittest.TestCase):
     """test for class ArgumentParser using just.args.DirectoryArg"""
