@@ -5,7 +5,7 @@ Simple, useful, self-contained modules.
 
 [![tests](https://github.com/perplx/just-utils/actions/workflows/tests.yml/badge.svg?event=push)](https://github.com/perplx/just-utils/actions/workflows/tests.yml)
 [![coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/perplx/37049f20166246459e2d38ee8ddf2afe/raw/just-utils_master.json)](https://github.com/perplx/just-utils/actions/workflows/tests.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 Install
@@ -60,4 +60,4 @@ file                               | description
 [run_mypy.sh](run_mypy.sh)         | runs `mypy` on the source code, shows type errors
 [run_vermin.sh](run_vermin.sh)     | runs `vermin` on the source code, shows minimum python version
 
-These assume the tools are installed in the current python environment
+These assume the tools are already installed in the current python environment
