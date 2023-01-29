@@ -71,7 +71,7 @@ class TestTimed(unittest.TestCase):
     def test_logger_bad_level(self):
         """test the decorator raises a ValueError if the log level isn't valid"""
         with self.assertRaises(ValueError):
-            # declare timed function with bad value for logger
+            # declare timed function with bad value for log level
             @timed(logger=self.test_logger, level="BOGUS!")
             def test():
                 pass
