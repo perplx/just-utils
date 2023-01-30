@@ -38,6 +38,8 @@ setup(
     ],
 
     packages = ["just"],
+    package_data = {"just": ["py.typed"]},
+
     setup_requires = [],
     install_requires = [],
     extras_require = {"extra": ["black", "flake8", "mypy", "pytest-cov", "vermin"]},
