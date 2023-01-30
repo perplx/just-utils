@@ -26,6 +26,32 @@ class TestDeprecate(unittest.TestCase):
         with self.assertWarns(DeprecationWarning):
             deprecated_func()
 
+    def test_deprecated_function_paren(self):
+        """test that a deprecated function emits a warning when called"""
+
+        # define deprecated function
+        @deprecated()
+        def deprecated_func():
+            return None
+
+        # test deprecated function
+        with self.assertWarns(DeprecationWarning):
+            deprecated_func()
+
+    def test_deprecated_function_since(self):
+        """test that a deprecated function emits a warning when called"""
+
+        # define deprecated function
+        VERSION = "bogus"
+
+        @deprecated(since=VERSION)
+        def deprecated_func():
+            return None
+
+        # test deprecated function
+        with self.assertWarnsRegex(DeprecationWarning, f"(since version: {VERSION})"):
+            deprecated_func()
+
     def test_deprecated_method(self):
         """test that a deprecated method emits a warning when called"""
 
