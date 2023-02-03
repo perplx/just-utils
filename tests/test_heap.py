@@ -20,12 +20,6 @@ class TestHeap(unittest.TestCase):
         TEST_DATA = ["c", "bb", "aaa"]
         self.heap_test = Heap(TEST_DATA)
 
-        # key_data is mutable!
-        key_func = len
-        key_data = [(key_func(d), d) for d in TEST_DATA]
-        print("key_data:", key_data)
-        self.heap_key = Heap(key_data, key=key_func)
-
     def test_heap(self):
         """test without key"""
 
@@ -41,30 +35,6 @@ class TestHeap(unittest.TestCase):
         self.assertEqual(h.pop(), "bbb")
         self.assertEqual(h.pop(), "bbbbbb")
         self.assertEqual(h.pop(), "ccc")
-        self.assertEqual(len(h), 0)
-
-        # test popping an empty Heap
-        with self.assertRaises(IndexError):
-            h.pop()
-
-    def test_heap_key(self):
-        """test with key"""
-
-        # define queue of strings ordered by string length
-        HEAP_ITEMS = ["", "sml", "long", "longer"]
-        key_func = len
-        h = Heap([(key_func(item), item) for item in HEAP_ITEMS], key=key_func)
-        h.push("even longer")
-        h.push("medium")
-        self.assertEqual(len(h), 6)
-
-        # ensure queue elements are popped in correct order
-        self.assertEqual(h.pop(), "")
-        self.assertEqual(h.pop(), "sml")
-        self.assertEqual(h.pop(), "long")
-        self.assertEqual(h.pop(), "longer")
-        self.assertEqual(h.pop(), "medium")  # should come after "longer"
-        self.assertEqual(h.pop(), "even longer")
         self.assertEqual(len(h), 0)
 
         # test popping an empty Heap
@@ -103,15 +73,11 @@ class TestHeap(unittest.TestCase):
     def test_len_data(self):
         """test len()"""
         self.assertEqual(len(self.heap_test), len(self.heap_test.heap))
-        self.assertEqual(len(self.heap_key), len(self.heap_key.heap))
+        # self.assertEqual(len(self.heap_key), len(self.heap_key.heap))
 
     def test_peek(self):
         """test Heap.peek() returns top item with no key"""
         self.assertEqual(self.heap_test.peek(), "aaa")
-
-    def test_peek_key(self):
-        """test Heap.peek() returns top item with key"""
-        self.assertEqual(self.heap_key.peek(), "c")
 
     def test_peek_empty(self):
         """test Heap.peek() on empty Heap raises IndexError"""
@@ -121,10 +87,6 @@ class TestHeap(unittest.TestCase):
     def test_pop(self):
         """test pop"""
         self.assertEqual(self.heap_test.pop(), "aaa")
-
-    def test_pop_key(self):
-        """test pop with key"""
-        self.assertEqual(self.heap_key.pop(), "c")
 
     def test_pop_empty(self):
         """test Heap.pop() on empty Heap raises IndexError"""
@@ -136,26 +98,13 @@ class TestHeap(unittest.TestCase):
         self.heap_test.push("a")
         self.assertEqual(self.heap_test.heap[0], "a")
 
-    def test_push_key(self):
-        """test Heap.push(item) with key"""
-        self.heap_key.push("a")
-        self.assertEqual(self.heap_key.heap[0], (1, "a"))
-
     def test_pushpop(self):
         """test Heap.pushpop(item)"""
         self.assertEqual(self.heap_test.pushpop("a"), "a")
 
-    def test_pushpop_key(self):
-        """test Heap.pushpop(item) with key"""
-        self.assertEqual(self.heap_key.pushpop(""), "")
-
     def test_replace(self):
         """test Heap.replace(item)"""
         self.assertEqual(self.heap_test.replace(""), "aaa")
-
-    def test_replace_key(self):
-        """test Heap.replace(item) with key"""
-        self.assertEqual(self.heap_key.replace("a"), "c")
 
     def test_replace_empty(self):
         """test Heap.replace(item) on empty Heap raises IndexError"""
@@ -179,17 +128,93 @@ class TestHeap(unittest.TestCase):
         self.heap_test.push("d")
         self.assertEqual(len(self.heap_test), prev_len + 1)
 
-    def test_size_push_key(self):
-        """test Heap.push() increments Heap.size()"""
-        prev_len = len(self.heap_key)
-        self.heap_key.push("d")
-        self.assertEqual(len(self.heap_key), prev_len + 1)
-
     def test_size_pop(self):
         """test Heap.pop() decrements Heap.size()"""
         prev_len = len(self.heap_test)
         _ = self.heap_test.pop()
         self.assertEqual(len(self.heap_test), prev_len - 1)
+
+    def test_str(self):
+        """test str(Heap)"""
+        self.assertEqual(str(self.heap_test), "Heap(['aaa', 'bb', 'c'])")
+        self.assertEqual(str(self.heap_test), "Heap(" + str(self.heap_test.heap) + ")")
+
+    def test_str_empty(self):
+        """test str(Heap) on empty Heap"""
+        self.assertEqual(str(self.heap_empty), "Heap([])")
+        self.assertEqual(str(self.heap_empty.heap), "[]")
+
+
+class TestHeapKey(unittest.TestCase):
+
+    def setUp(self):
+        self.heap_empty = Heap()
+
+        # TEST_DATA is mutable!
+        TEST_DATA = ["c", "bb", "aaa"]
+        # self.heap_test = Heap(TEST_DATA)
+
+        # key_data is mutable!
+        key_func = len
+        key_data = [(key_func(d), d) for d in TEST_DATA]
+        print("key_data:", key_data)
+        self.heap_key = Heap(key_data, key=key_func)
+
+    def test_heap_key(self):
+        """test with key"""
+
+        # define queue of strings ordered by string length
+        HEAP_ITEMS = ["", "sml", "long", "longer"]
+        key_func = len
+        h = Heap([(key_func(item), item) for item in HEAP_ITEMS], key=key_func)
+        h.push("even longer")
+        h.push("medium")
+        self.assertEqual(len(h), 6)
+
+        # ensure queue elements are popped in correct order
+        self.assertEqual(h.pop(), "")
+        self.assertEqual(h.pop(), "sml")
+        self.assertEqual(h.pop(), "long")
+        self.assertEqual(h.pop(), "longer")
+        self.assertEqual(h.pop(), "medium")  # should come after "longer"
+        self.assertEqual(h.pop(), "even longer")
+        self.assertEqual(len(h), 0)
+
+        # test popping an empty Heap
+        with self.assertRaises(IndexError):
+            h.pop()
+
+    def test_len_data(self):
+        """test len()"""
+        # self.assertEqual(len(self.heap_test), len(self.heap_test.heap))
+        self.assertEqual(len(self.heap_key), len(self.heap_key.heap))
+
+    def test_peek_key(self):
+        """test Heap.peek() returns top item with key"""
+        self.assertEqual(self.heap_key.peek(), "c")
+
+    def test_pop_key(self):
+        """test pop with key"""
+        self.assertEqual(self.heap_key.pop(), "c")
+
+    def test_push_key(self):
+        """test Heap.push(item) with key"""
+        self.heap_key.push("a")
+        self.assertEqual(self.heap_key.heap[0], (1, "a"))
+
+    def test_pushpop_key(self):
+        """test Heap.pushpop(item) with key"""
+        self.assertEqual(self.heap_key.pushpop(""), "")
+
+    def test_replace_key(self):
+        """test Heap.replace(item) with key"""
+        self.assertEqual(self.heap_key.replace("a"), "c")
+
+    def test_size_push_key(self):
+        """test Heap.push() increments Heap.size()"""
+        prev_len = len(self.heap_key)
+        self.heap_key.push("d")
+        self.assertEqual(len(self.heap_key), prev_len + 1)
 
     def test_size_pop_key(self):
         """test Heap.pop() decrements Heap.size()"""
@@ -197,17 +222,7 @@ class TestHeap(unittest.TestCase):
         _ = self.heap_key.pop()
         self.assertEqual(len(self.heap_key), prev_len - 1)
 
-    def test_str(self):
-        """test str(Heap)"""
-        self.assertEqual(str(self.heap_test), "Heap(['aaa', 'bb', 'c'])")
-        self.assertEqual(str(self.heap_test), "Heap(" + str(self.heap_test.heap) + ")")
-
     def test_str_key(self):
         """test str(Heap) with key"""
         self.assertEqual(str(self.heap_key), "Heap([(1, 'c'), (2, 'bb'), (3, 'aaa')])")
         self.assertEqual(str(self.heap_key), "Heap(" + str(self.heap_key.heap) + ")")
-
-    def test_str_empty(self):
-        """test str(Heap) on empty Heap"""
-        self.assertEqual(str(self.heap_empty), "Heap([])")
-        self.assertEqual(str(self.heap_empty.heap), "[]")
