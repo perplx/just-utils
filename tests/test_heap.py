@@ -14,8 +14,6 @@ class TestHeap(unittest.TestCase):
     """Tests for class just.heap.Heap"""
 
     def setUp(self):
-        self.heap_empty = Heap()
-
         # TEST_DATA is mutable!
         TEST_DATA = ["c", "bb", "aaa"]
         self.heap_test = Heap(TEST_DATA)
@@ -47,14 +45,6 @@ class TestHeap(unittest.TestCase):
         h = Heap(HEAP_DATA)
         self.assertIs(h.heap, HEAP_DATA)
 
-    def test_data_empty(self):
-        """test Heap().heap is []"""
-        for h in [Heap(), Heap(None), Heap([]), Heap({}), Heap(dict())]:
-            self.assertIsNotNone(h.heap)
-            self.assertEqual(len(h.heap), 0)
-            self.assertIsInstance(h.heap, list)
-            self.assertListEqual(h.heap, [])
-
     # FIXME should it raise TypeError anyway when empty?
     def test_data_bad(self):
         """test Heap(x) where x is non empty non list raises TypeError"""
@@ -65,11 +55,6 @@ class TestHeap(unittest.TestCase):
         with self.assertRaises(TypeError):
             _ = Heap({"a": 2, "b": 5})
 
-    def test_len_empty(self):
-        """test len()"""
-        self.assertEqual(len(self.heap_empty), 0)
-        self.assertEqual(len(self.heap_empty), len(self.heap_empty.heap))
-
     def test_len_data(self):
         """test len()"""
         self.assertEqual(len(self.heap_test), len(self.heap_test.heap))
@@ -79,19 +64,9 @@ class TestHeap(unittest.TestCase):
         """test Heap.peek() returns top item with no key"""
         self.assertEqual(self.heap_test.peek(), "aaa")
 
-    def test_peek_empty(self):
-        """test Heap.peek() on empty Heap raises IndexError"""
-        with self.assertRaises(IndexError):
-            _ = self.heap_empty.peek()
-
     def test_pop(self):
         """test pop"""
         self.assertEqual(self.heap_test.pop(), "aaa")
-
-    def test_pop_empty(self):
-        """test Heap.pop() on empty Heap raises IndexError"""
-        with self.assertRaises(IndexError):
-            _ = self.heap_empty.pop()
 
     def test_push(self):
         """test Heap.push(item)"""
@@ -105,16 +80,6 @@ class TestHeap(unittest.TestCase):
     def test_replace(self):
         """test Heap.replace(item)"""
         self.assertEqual(self.heap_test.replace(""), "aaa")
-
-    def test_replace_empty(self):
-        """test Heap.replace(item) on empty Heap raises IndexError"""
-        with self.assertRaises(IndexError):
-            _ = self.heap_empty.replace("a")
-
-    def test_size_empty(self):
-        """test empty Heap .size() == 0"""
-        self.assertEqual(len(self.heap_empty), 0)
-        self.assertEqual(len(self.heap_empty.heap), 0)
 
     def test_size_input(self):
         """test Heap .size() matches size of input"""
@@ -139,6 +104,46 @@ class TestHeap(unittest.TestCase):
         self.assertEqual(str(self.heap_test), "Heap(['aaa', 'bb', 'c'])")
         self.assertEqual(str(self.heap_test), "Heap(" + str(self.heap_test.heap) + ")")
 
+
+class TestHeapEmpty(unittest.TestCase):
+    """Tests for class just.heap.Heap, with empty data"""
+
+    def setUp(self):
+        self.heap_empty = Heap()
+
+    def test_data_empty(self):
+        """test Heap().heap is []"""
+        for h in [Heap(), Heap(None), Heap([]), Heap({}), Heap(dict())]:
+            self.assertIsNotNone(h.heap)
+            self.assertEqual(len(h.heap), 0)
+            self.assertIsInstance(h.heap, list)
+            self.assertListEqual(h.heap, [])
+
+    def test_len_empty(self):
+        """test len()"""
+        self.assertEqual(len(self.heap_empty), 0)
+        self.assertEqual(len(self.heap_empty), len(self.heap_empty.heap))
+
+    def test_peek_empty(self):
+        """test Heap.peek() on empty Heap raises IndexError"""
+        with self.assertRaises(IndexError):
+            _ = self.heap_empty.peek()
+
+    def test_pop_empty(self):
+        """test Heap.pop() on empty Heap raises IndexError"""
+        with self.assertRaises(IndexError):
+            _ = self.heap_empty.pop()
+
+    def test_replace_empty(self):
+        """test Heap.replace(item) on empty Heap raises IndexError"""
+        with self.assertRaises(IndexError):
+            _ = self.heap_empty.replace("a")
+
+    def test_size_empty(self):
+        """test empty Heap .size() == 0"""
+        self.assertEqual(len(self.heap_empty), 0)
+        self.assertEqual(len(self.heap_empty.heap), 0)
+
     def test_str_empty(self):
         """test str(Heap) on empty Heap"""
         self.assertEqual(str(self.heap_empty), "Heap([])")
@@ -146,6 +151,7 @@ class TestHeap(unittest.TestCase):
 
 
 class TestHeapKey(unittest.TestCase):
+    """Tests for class just.heap.Heap, with key"""
 
     def setUp(self):
         self.heap_empty = Heap()
