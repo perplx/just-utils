@@ -1,7 +1,10 @@
 # git
 .gitconfig
 
-# python
+# python docs
+docs/_build
+
+# python src
 *.egg-info
 __pycache__/
 
