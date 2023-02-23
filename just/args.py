@@ -13,10 +13,12 @@ import os
 class DateTimeArg:
     """Type parser for directory paths for argparse.ArgumentParser.
     Checks if path is directory, has given mode ("r", "w", "rw")
-    ex:
-    arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument("--date-time", type=DateTimeArg("%Y-%m-%d %H:%M:%S.%f"))
-    arg_parser.parse_args(["--date-time", "2020-02-29 12:34:56.789"])
+
+    ex::
+
+        arg_parser = argparse.ArgumentParser()
+        arg_parser.add_argument("--date-time", type=DateTimeArg("%Y-%m-%d %H:%M:%S.%f"))
+        arg_parser.parse_args(["--date-time", "2020-02-29 12:34:56.789"])
     """
 
     def __init__(self, format_str: str):
@@ -36,10 +38,12 @@ class DateTimeArg:
 class DirectoryArg:
     """Type parser for directory paths for argparse.ArgumentParser.
     Checks if path is directory, has given mode ("r", "w", "rw")
-    ex:
-    arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument("--directory", type=DirectoryArg("rw"))
-    arg_parser.parse_args(["--directory", "."])
+
+    ex::
+
+        arg_parser = argparse.ArgumentParser()
+        arg_parser.add_argument("--directory", type=DirectoryArg("rw"))
+        arg_parser.parse_args(["--directory", "."])
     """
 
     def __init__(self, mode: str):
@@ -79,10 +83,16 @@ def LogLevelArg(log_level_name: str) -> int:
     Checks if level is a log-level constant in the standard logging module,
     i.e. CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET.
     Check is case-insensitive.
-    ex:
-    arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument("--log-level", type=LogLevelArg)
-    arg_parser.parse_args(["--log-level", "DEBUG"])
+
+    ex::
+
+        arg_parser = argparse.ArgumentParser()
+        arg_parser.add_argument("--log-level", type=LogLevelArg)
+        arg_parser.parse_args(["--log-level", "DEBUG"])
+
+    :param log_level_name: the name to map to an actual log-level
+    :return: the actual log-level mapping to this level-name
+    :raise argparse.ArgumentTypeError: if the level-name is not valid
     """
 
     # preconditions
@@ -93,6 +103,27 @@ def LogLevelArg(log_level_name: str) -> int:
         return logging._nameToLevel[log_level_name.upper()]
     except KeyError:
         raise argparse.ArgumentTypeError(f"unrecognized log-level name: {repr(log_level_name)}")
+
+
+def log_level_arg(level_name: str) -> int:
+    """Translate a log-level name to its actual integer representation.
+    Supports any log-level name in a case-insensitive fashion, including aliases
+    (i.e. "debug" -> DEBUG, "warn" -> WARNING, "fatal" -> CRITICAL).
+    Can be used as the value for the `type` parameter of an argument in
+    `argparse.ArgumentParser`, enabling parameters like `--log-level FATAL`.
+    Will raise an `argparse.ArgumentTypeError` for unsupported values, so that
+    `argparse` will show useful error-messages to the user on the command-line.
+
+    :param level_name: any supported log-level name from the `logging` module.
+    :raise argparse.ArgumentTypeError: for an unsupported value to `argparse`
+    :return: the log-level int corresponfding to the log-level name str.
+    """
+
+    try:
+        return logging._nameToLevel[level_name.upper()]
+    except KeyError:
+        level_names = ",".join(logging._nameToLevel.keys())
+        raise argparse.ArgumentTypeError(f"unrecognized level-name {level_name}, should be one of: {level_names}")
 
 
 def main() -> None:

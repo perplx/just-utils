@@ -16,8 +16,12 @@ from typing import Optional
 # FIXME when no arguments are provided, needs to be called with parentheses
 #       i.e. `@timed()`, not just `@timed`
 def timed(do_print: bool = True, logger: Optional[logging.Logger] = None, level: int = logging.INFO):
-    """Perform timing of the execution of the decorated function
+    """Perform timing of the execution of the decorated function.
     Output to stdout and to a given logger.
+
+    :param do_print: whether to output to stdout
+    :param logger: the ``Logger`` where messages will be sent
+    :param level: the log-level at which messages will be logged.
     """
 
     # validate parameters
@@ -56,6 +60,11 @@ def timed(do_print: bool = True, logger: Optional[logging.Logger] = None, level:
 def timing(message: str, do_print: bool = True, logger: Optional[logging.Logger] = None, level: int = logging.INFO):
     """Perform timing of the execution of the given context
     Output to stdout and to a given logger.
+
+    :param message: the message identifying what was timed
+    :param do_print: whether to output to stdout
+    :param logger: the ``Logger`` where messages will be sent
+    :param level: the log-level at which messages will be logged.
     """
 
     # validate parameters
