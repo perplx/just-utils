@@ -21,11 +21,11 @@ class Heap:
         heapq.heapify(self.heap)
         self.key = key
 
-    def __len__(self):
+    def __len__(self) -> int:
         """Number of items in the Heap"""
         return len(self.heap)
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Shows the collection as a string like Heap([item0, item1, ...])"""
         return "Heap(%s)" % str(self.heap)
 

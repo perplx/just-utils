@@ -108,7 +108,7 @@ def LogLevelArg(log_level_name: str) -> int:
 def log_level_arg(level_name: str) -> int:
     """Translate a log-level name to its actual integer representation.
     Supports any log-level name in a case-insensitive fashion, including aliases
-    (i.e. "debug" -> DEBUG, "warn" -> WARNING, "fatal" -> CRITICAL).
+    (i.e. "debug" -> ``DEBUG``, "warn" -> ``WARNING``, "fatal" -> ``CRITICAL``).
     Can be used as the value for the `type` parameter of an argument in
     `argparse.ArgumentParser`, enabling parameters like `--log-level FATAL`.
     Will raise an `argparse.ArgumentTypeError` for unsupported values, so that
