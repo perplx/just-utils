@@ -18,6 +18,7 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
     "sphinx_autodoc_typehints",
+    "sphinx_mdinclude",
     "sphinx_rtd_theme"
 ]
 
