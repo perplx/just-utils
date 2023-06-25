@@ -43,7 +43,7 @@ setup(
     setup_requires = [],
     install_requires = [],
     extras_require = {
-        "docs": ["sphinx", "sphinx-autodoc-typehints", "sphinx_rtd_theme"],
+        "docs": ["sphinx", "sphinx-autodoc-typehints", "python_docs_theme"],
         "extra": ["black", "flake8", "mypy", "pytest-cov", "vermin"]
     },
 
