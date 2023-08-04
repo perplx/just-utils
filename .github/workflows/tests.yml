@@ -82,7 +82,7 @@ jobs:
 
       # FIXME shouldn't be run for each version?
       - name: Coverage Badge
-        uses: Schneegans/dynamic-badges-action@v1.5.0
+        uses: Schneegans/dynamic-badges-action@v1.6.0
         with:
           auth: ${{ secrets.GIST_SECRET }}
           gistID: 37049f20166246459e2d38ee8ddf2afe
