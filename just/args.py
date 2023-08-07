@@ -11,8 +11,7 @@ import os
 
 
 class DateTimeArg:
-    """Type parser for directory paths for argparse.ArgumentParser.
-    Checks if path is directory, has given mode ("r", "w", "rw")
+    """Type parser for datetime strings for argparse.ArgumentParser.
 
     ex::
 
@@ -22,7 +21,6 @@ class DateTimeArg:
     """
 
     def __init__(self, format_str: str):
-        """Prepare to parse with the format format_str"""
         # TODO validate format?
         self.format = format_str
 
@@ -78,34 +76,7 @@ class DirectoryArg:
         return dir_path
 
 
-def LogLevelArg(log_level_name: str) -> int:
-    """Type parser for log-level names paths for argparse.ArgumentParser.
-    Checks if level is a log-level constant in the standard logging module,
-    i.e. CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET.
-    Check is case-insensitive.
-
-    ex::
-
-        arg_parser = argparse.ArgumentParser()
-        arg_parser.add_argument("--log-level", type=LogLevelArg)
-        arg_parser.parse_args(["--log-level", "DEBUG"])
-
-    :param log_level_name: the name to map to an actual log-level
-    :return: the actual log-level mapping to this level-name
-    :raise argparse.ArgumentTypeError: if the level-name is not valid
-    """
-
-    # preconditions
-    assert isinstance(log_level_name, str)
-
-    # get the level for the given level-name
-    try:
-        return logging._nameToLevel[log_level_name.upper()]
-    except KeyError:
-        raise argparse.ArgumentTypeError(f"unrecognized log-level name: {repr(log_level_name)}")
-
-
-def log_level_arg(level_name: str) -> int:
+def LogLevelArg(level_name: str) -> int:
     """Translate a log-level name to its actual integer representation.
     Supports any log-level name in a case-insensitive fashion, including aliases
     (i.e. "debug" -> ``DEBUG``, "warn" -> ``WARNING``, "fatal" -> ``CRITICAL``).
@@ -114,10 +85,19 @@ def log_level_arg(level_name: str) -> int:
     Will raise an `argparse.ArgumentTypeError` for unsupported values, so that
     `argparse` will show useful error-messages to the user on the command-line.
 
+    ex::
+
+        arg_parser = argparse.ArgumentParser()
+        arg_parser.add_argument("--log-level", type=LogLevelArg)
+        arg_parser.parse_args(["--log-level", "DEBUG"])
+
     :param level_name: any supported log-level name from the `logging` module.
     :raise argparse.ArgumentTypeError: for an unsupported value to `argparse`
     :return: the log-level int corresponfding to the log-level name str.
     """
+
+    # preconditions
+    assert isinstance(level_name, str)
 
     try:
         return logging._nameToLevel[level_name.upper()]
