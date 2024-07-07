@@ -4,17 +4,7 @@
 
 
 # standard imports
-import os
 from setuptools import setup
-
-
-def read(file_name):
-    """Utility function to read the README file.
-    Used for the long_description in setuptools.setup().
-    """
-
-    file_path = os.path.join(os.path.dirname(__file__), file_name)
-    return open(file_path).read()
 
 
 setup(
@@ -24,7 +14,7 @@ setup(
     author_email = "",
 
     description = "Just Utils",
-    long_description = read("README.md"),
+    long_description = "Simple, useful, self-contained python modules.",
     url = "https://github.com/perplx/just-utils",
     download_url="https://github.com/perplx/just-utils/archive/refs/heads/master.zip",
 
