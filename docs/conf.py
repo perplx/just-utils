@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "just-utils"
-copyright = "2021-23, Julien Dubuc"
+copyright = "2021-24, Julien Dubuc"
 author = "Julien Dubuc"
 release = "0.0.1"
 
