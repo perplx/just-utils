@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# run coverage report
+# must be run after `pip install -e .`, otherwise will report "CoverageWarning: No data was collected"
+
+# paths
 src_dir='src/'
 tests_dir='tests/'
 
@@ -16,7 +20,6 @@ coverage run \
     --module pytest \
     $verbose \
     "$tests_dir"
-
 
 # show coverage report
 coverage report -m
