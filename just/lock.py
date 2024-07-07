@@ -26,12 +26,19 @@ def lock_file(file_path: str):
 
     try:
         yield
+    except Exception as e:
+        logger.debug("exiting lock-file %r on error %r", file_path, e)
+        raise
+    else:
+        logger.debug("exiting lock-file %r normally", file_path)
+        pass
     finally:
-        logger.debug("closing lock-file %r", file_path)
         os.unlink(file_path)
+        logger.debug("removed lock-file %r", file_path)
 
 
 def main() -> None:
+    """Simple test."""
     logging.basicConfig(format="%(asctime)s %(levelname)-8s %(message)s", level=logging.NOTSET)
     with lock_file("a"):
         with lock_file("a"):
