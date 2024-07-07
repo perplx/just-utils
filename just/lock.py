@@ -19,7 +19,7 @@ def lock_file(file_path: str):
 
     logger.debug("opening lock-file %r", file_path)
     try:
-        _ = open(file_path, mode="x").close()  # create the empty lock-file
+        open(file_path, mode="x").close()  # create the empty lock-file
     except FileExistsError as e:
         logger.critical("lock-file %r already exists!", file_path)
         raise
