@@ -87,7 +87,7 @@ def timing(message: str, do_print: bool = True, logger: Optional[logging.Logger]
 
 
 def main() -> None:
-    """Simple test"""
+    """Simple test."""
 
     logging.basicConfig(format=r"%(asctime)s %(levelname)-8s : %(message)s", level=logging.DEBUG)
     logger = logging.getLogger("timing")

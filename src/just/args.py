@@ -107,7 +107,7 @@ def LogLevelArg(level_name: str) -> int:
 
 
 def main() -> None:
-    """Simple test"""
+    """Simple test."""
 
     # define command-line parameters to test
     arg_parser = argparse.ArgumentParser(description=__doc__)

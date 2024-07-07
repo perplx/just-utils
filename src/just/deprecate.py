@@ -47,7 +47,7 @@ def deprecated(arg=None, since=None):
 
 
 def main() -> None:
-    """simple test"""
+    """Simple test."""
 
     # capture `warnings` messages into `logging` messages
     import logging

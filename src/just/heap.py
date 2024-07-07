@@ -90,7 +90,7 @@ class Heap:
 
 
 def main() -> None:
-    """simple test"""
+    """Simple test."""
 
     # test without key
     heap = Heap(["ccc", "bb", "a"])
