@@ -38,3 +38,11 @@ class TestLock(unittest.TestCase):
             with just.lock.lock_file(self.lock_file):
                 with just.lock.lock_file(self.lock_file):
                     pass
+
+    def test_lock_exception(self):
+        """Test that raising an Exception when the file lock is locked will unlock the file."""
+        with self.assertRaises(RuntimeError):
+            with just.lock.lock_file(self.lock_file):
+                raise RuntimeError(f"Exception when file {self.lock_file} locked!")
+
+        self.assertFalse(os.path.isfile(self.lock_file), f"lock-file {self.lock_file} still exists")

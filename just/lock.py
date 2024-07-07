@@ -15,18 +15,20 @@ logger = logging.getLogger(__name__)
 
 @contextlib.contextmanager
 def lock_file(file_path: str):
+    """Lock-file context-manager."""
 
     logger.debug("opening lock-file %r", file_path)
-
     try:
-        with open(file_path, mode="x"):
-            yield
+        _ = open(file_path, mode="x").close()  # create the empty lock-file
     except FileExistsError as e:
         logger.critical("lock-file %r already exists!", file_path)
         raise
 
-    logger.debug("closing lock-file %r", file_path)
-    os.unlink(file_path)
+    try:
+        yield
+    finally:
+        logger.debug("closing lock-file %r", file_path)
+        os.unlink(file_path)
 
 
 def main() -> None:
