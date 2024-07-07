@@ -44,7 +44,7 @@ jobs:
 
       - name: Check format with black
         run: |
-          black --check just/ tests/
+          black --check src/just/ tests/
 
       - name: Lint with flake8
         run: |
@@ -56,7 +56,7 @@ jobs:
       - name: Test with pytest
         run: |
           # run pytest with coverage
-          pytest --cov-report term-missing --cov=just/ tests/
+          pytest --cov-report term-missing --cov=src/just/ tests/
 
       # FIXME shouldn't be run for each version?
       - name: Capture coverage
