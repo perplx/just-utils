@@ -28,6 +28,7 @@ setup(
     ],
 
     packages = ["just"],
+    package_dir={"": "src"},
     package_data = {"just": ["py.typed"]},
 
     setup_requires = [],
