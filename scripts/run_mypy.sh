@@ -1,3 +1,3 @@
 #!/bin/sh
 
-mypy just/ tests/
+mypy src/ tests/

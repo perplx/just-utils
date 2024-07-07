@@ -1,3 +1,3 @@
 #!/bin/sh
 
-flake8 -v just/ tests/
+flake8 src/ tests/ -v

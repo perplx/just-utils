@@ -1,3 +1,3 @@
 #!/bin/sh
 
-vermin just/ tests/
+vermin src/ tests/ -v
