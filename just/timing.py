@@ -96,12 +96,14 @@ def main() -> None:
     @timed(logger=logger, level=logging.WARNING)
     def timing_test_log(arg1, arg2):
         time.sleep(0.001)
+
     timing_test_log("arg1", arg2="")
 
     # test @timed() decorator with print
     @timed(do_print=True)
     def timing_test_print(arg1, arg2):
         time.sleep(0.001)
+
     timing_test_print("arg1", arg2="")
 
     # test timing() context manager with logging
