@@ -92,18 +92,25 @@ def main() -> None:
     logging.basicConfig(format=r"%(asctime)s %(levelname)-8s : %(message)s", level=logging.DEBUG)
     logger = logging.getLogger("timing")
 
-    # test @timed() decorator
+    # test @timed() decorator with logging
     @timed(logger=logger, level=logging.WARNING)
-    def timing_test(arg1, arg2):
-        for _ in range(1_000_000):
-            pass
+    def timing_test_log(arg1, arg2):
+        time.sleep(0.001)
+    timing_test_log("arg1", arg2="")
 
-    timing_test("arg1", arg2="")
+    # test @timed() decorator with print
+    @timed(do_print=True)
+    def timing_test_print(arg1, arg2):
+        time.sleep(0.001)
+    timing_test_print("arg1", arg2="")
 
-    # test timing() context manager
-    with timing("timing context test", logger=logger, level=logging.FATAL):
-        for _ in range(1_000_000):
-            pass
+    # test timing() context manager with logging
+    with timing("timing context log", logger=logger, level=logging.FATAL):
+        time.sleep(0.001)
+
+    # test timing() context manager with print
+    with timing("timing context print", do_print=True):
+        time.sleep(0.001)
 
 
 if __name__ == "__main__":
