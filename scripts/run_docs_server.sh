@@ -1,7 +1,11 @@
 #!/bin/sh
 
-pushd docs/_build/html
+# Run a local web-server for the docs html output directory.
 
-python -m http.server 8080
+server_port='8080'
+
+pushd 'docs/_build/html/'
+
+    python -m http.server $server_port
 
 popd
