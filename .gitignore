@@ -18,8 +18,8 @@ build/
 
 # vim
 *~
-*.sw[po]
+*.sw[pon]
 
 # vscode
-.venv
-.vscode
+.venv/
+.vscode/
