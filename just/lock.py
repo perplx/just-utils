@@ -13,6 +13,10 @@ import os
 logger = logging.getLogger(__name__)
 
 
+class LockFileExistsError(FileExistsError):
+    pass
+
+
 @contextlib.contextmanager
 def lock_file(file_path: str):
     """Lock-file context-manager."""
@@ -22,7 +26,7 @@ def lock_file(file_path: str):
         open(file_path, mode="x").close()  # create the empty lock-file
     except FileExistsError as e:
         logger.critical("lock-file %r already exists!", file_path)
-        raise
+        raise LockFileExistsError(e)
 
     try:
         yield
@@ -40,9 +44,15 @@ def lock_file(file_path: str):
 def main() -> None:
     """Simple test."""
     logging.basicConfig(format="%(asctime)s %(levelname)-8s %(message)s", level=logging.NOTSET)
-    with lock_file("a"):
-        with lock_file("a"):
-            print("bad...")
+
+    LOCK_FILE_PATH = "LOCK_FILE"
+    logger.debug("lock-file exists: %s", os.path.isfile(LOCK_FILE_PATH))
+    with lock_file(LOCK_FILE_PATH):
+        try:
+            with lock_file(LOCK_FILE_PATH):
+                pass
+        except LockFileExistsError:
+            logger.info("file %r was locked!", LOCK_FILE_PATH)
 
 
 if __name__ == "__main__":
