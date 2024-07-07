@@ -1,3 +1,3 @@
 #!/bin/sh
 
-black just/ tests/
+black src/just/ tests/ --check
