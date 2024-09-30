@@ -2,7 +2,7 @@
 
 import bz2
 import gzip
-import os
+from pathlib import Path
 
 
 def ezopen(file_path: str, mode: str = ""):
@@ -15,9 +15,9 @@ def ezopen(file_path: str, mode: str = ""):
 
 
 def main() -> None:
-    text_file_path = os.path.abspath("./data/test_data.txt")
-    bz2_file_path = os.path.abspath("./data/test_data.txt.bz2")
-    gz_file_path = os.path.abspath("./data/test_data.txt.gz")
+    text_file_path = Path("./tests/data/test_data.txt").absolute()
+    bz2_file_path = Path("./tests/data/test_data.txt.bz2").absolute()
+    gz_file_path = Path("./tests/data/test_data.txt.gz").absolute()
 
     with ezopen(text_file_path, "rt") as text_file:
         print(text_file.read())
