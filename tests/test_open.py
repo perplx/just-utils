@@ -14,7 +14,7 @@ import just.open
 class TestOpen(unittest.TestCase):
     """Tests for just.open.my_open"""
 
-    DATA_PATH = Path(__file__).absolute().parent() / "data"
+    DATA_PATH = Path(__file__).absolute().parent / "data"
     TEST_TEXT = "test\n"
 
     def test_open_bzip2(self):
