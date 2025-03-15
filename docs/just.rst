@@ -11,6 +11,7 @@ just.args module
    :members:
    :undoc-members:
    :show-inheritance:
+   :exclude-members: main
 
 just.deprecate module
 ---------------------
@@ -19,6 +20,7 @@ just.deprecate module
    :members:
    :undoc-members:
    :show-inheritance:
+   :exclude-members: main
 
 just.first module
 -----------------
@@ -27,6 +29,7 @@ just.first module
    :members:
    :undoc-members:
    :show-inheritance:
+   :exclude-members: main
 
 just.heap module
 ----------------
@@ -35,6 +38,7 @@ just.heap module
    :members:
    :undoc-members:
    :show-inheritance:
+   :exclude-members: main
 
 just.lock module
 ----------------
@@ -43,6 +47,7 @@ just.lock module
    :members:
    :undoc-members:
    :show-inheritance:
+   :exclude-members: main
 
 just.open module
 ----------------
@@ -51,6 +56,7 @@ just.open module
    :members:
    :undoc-members:
    :show-inheritance:
+   :exclude-members: main
 
 just.timing module
 ------------------
@@ -59,6 +65,7 @@ just.timing module
    :members:
    :undoc-members:
    :show-inheritance:
+   :exclude-members: main
 
 Module contents
 ---------------
