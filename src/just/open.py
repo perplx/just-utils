@@ -3,9 +3,10 @@
 import bz2
 import gzip
 from pathlib import Path
+from typing import Optional, Union
 
 
-def ezopen(file_path: Path | str, mode: str | None = None):
+def ezopen(file_path: Union[Path, str], mode: Optional[str] = None):
     """Open a file whether it's compressed or not.
     Open archive files using the appropriate compression based on the file extension.
     Open file normally if no extension matches.
