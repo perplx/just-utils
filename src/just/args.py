@@ -32,7 +32,7 @@ class DateTimeArg:
             raise argparse.ArgumentTypeError(e)
 
 
-# FIXME what about the path module? would that work intead?
+# FIXME what about the path module? would that work instead?
 class DirectoryArg:
     """Type parser for directory paths for ``argparse.ArgumentParser``.
     Checks if path is directory, has given mode ("r", "w", "rw")
@@ -47,11 +47,11 @@ class DirectoryArg:
     def __init__(self, mode: str):
         # validate mode
         if not isinstance(mode, str):
-            raise argparse.ArgumentTypeError(f"mode {repr(mode)} of type {type(mode)} not recognized; should be {str}")
+            raise TypeError(f"mode {repr(mode)} of type {type(mode)} not recognized; should be {str}")
         ALLOWED_MODES = ["r", "w"]  # TODO other modes? "x"?
         for m in mode:
             if m not in ALLOWED_MODES:
-                raise argparse.ArgumentTypeError(f"mode {m} not recognized; should be one of: {ALLOWED_MODES}")
+                raise ValueError(f"mode {m} not recognized; should be one of: {ALLOWED_MODES}")
 
         # store mode after normalization
         self.mode = "".join(sorted(set(mode)))
@@ -59,7 +59,7 @@ class DirectoryArg:
         # log mode being normalized
         if len(self.mode) != len(mode):
             logger = logging.getLogger(__name__)
-            logger.warning("log-level arg %r normalized to %r", mode, self.mode)
+            logger.warning("mode arg %r normalized to %r", mode, self.mode)
 
     def __call__(self, dir_path: str) -> str:
         """check dir_path is a directory that satisfies ``DirectoryArg.mode``"""
