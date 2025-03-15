@@ -82,7 +82,7 @@ def LogLevelArg(level_name: str) -> int:
     Supports any log-level name in a case-insensitive fashion, including aliases
     (i.e. "debug" -> ``DEBUG``, "warn" -> ``WARNING``, "fatal" -> ``CRITICAL``).
 
-    Can be used as the value for the `type` parameter of an argument in
+    Can be used as the value for the ``type`` parameter of an argument in
     ``argparse.ArgumentParser``, enabling parameters like ``--log-level FATAL``.
     Will raise an ``argparse.ArgumentTypeError`` for unsupported values, so that
     ``argparse`` will show useful error-messages to the user on the command-line.
@@ -94,7 +94,7 @@ def LogLevelArg(level_name: str) -> int:
         arg_parser.parse_args(["--log-level", "DEBUG"])
 
     :param level_name: any supported log-level name from the ``logging`` module.
-    :raise argparse.ArgumentTypeError: for an unsupported value to `argparse`
+    :raise argparse.ArgumentTypeError: for an unsupported value to ``argparse``
     :return: the log-level int corresponding to the log-level name str.
     """
 

@@ -12,7 +12,7 @@ C = Callable[[T], bool]
 
 # FIXME raise IndexError if none are found?
 def first_next(iter: Iterable[T]) -> T:
-    """Return the first item in `iter` that is true, or ``None`` if no item such is in ``iter``.
+    """Return the first item in ``iter`` that is true, or ``None`` if no item such is in ``iter``.
 
     ex::
 
