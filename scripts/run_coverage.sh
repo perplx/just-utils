@@ -14,11 +14,9 @@ else
     verbose=""
 fi
 
-# use coverage to run pytest and pytest-cov
-coverage run \
-    --source="$src_dir" \
-    --module pytest \
-    $verbose \
+pytest \
+    --cov-report term-missing \
+    --cov="$src_dir" \
     "$tests_dir"
 
 # show coverage report
