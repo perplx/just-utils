@@ -85,17 +85,17 @@ class TestDirectoryArg(unittest.TestCase):
 
     def test_mode_bad(self):
         """test an incorrect mode"""
-        with self.assertRaises(argparse.ArgumentTypeError):
+        with self.assertRaises(ValueError):
             _ = DirectoryArg("BOGUS!")
 
     def test_mode_exec(self):
         """test unsupported mode "x" """
-        with self.assertRaises(argparse.ArgumentTypeError):
+        with self.assertRaises(ValueError):
             _ = DirectoryArg("rx")
 
     def test_mode_none(self):
         """test unsupported mode None"""
-        with self.assertRaises(argparse.ArgumentTypeError):
+        with self.assertRaises(TypeError):
             _ = DirectoryArg(None)
 
     # FIXME causes problems with permissions in the temp-dir on Windows,
