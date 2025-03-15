@@ -17,6 +17,7 @@ Every module is found in the `just` package.
 - The module `just.deprecate` provides the `@deprecated` decorator to mark functions as deprecated. The standard `warnings` module will emit a `DeprecationWarning` whenever such a function is used at run-time.
 - The module `just.heap` provides the class `Heap`, which imprements a priority-heap using the functions in the standard `heapq` module. The class can use the values themselves as a priority, or use a provided key-function to compute it.
 - The module `just.lock` provides a way to lock a section of code by using a simple lock-file. It provides a context-manager that will abort when trying to acquire an already-locked file.
+- The module `just.open` provides the `ezopen` function, to open compressed files when the file-extension indicates a compressed file.
 - The module `just.timing` provides ways to conveniently time the execution of a block of code, using context-managers or decorators. The timing information can be shown on the console or in a provided `Logger` object.
 
 Each module has corresponding unit-tests, and contains api-documentation that can be generated using [Sphinx](https://www.sphinx-doc.org/en/master/index.html)
