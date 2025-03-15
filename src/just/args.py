@@ -10,8 +10,10 @@ import logging
 import os
 
 
+# FIXME docstrings not in sphinx for dunder methods?
 class DateTimeArg:
     """Type parser for datetime strings for ``argparse.ArgumentParser``.
+    Uses ``datetime.datetime.strptime`` to parse datetime-strings on the command-line using a format-string.
 
     ex::
 
@@ -25,7 +27,7 @@ class DateTimeArg:
         self.format = format_str
 
     def __call__(self, date_str: str) -> datetime.datetime:
-        """Create a ``datetime.datetime`` obj from the command-line arg string"""
+        """Create a ``datetime.datetime`` obj from the command-line arg string."""
         try:
             return datetime.datetime.strptime(date_str, self.format)
         except ValueError as e:
