@@ -3,8 +3,6 @@
 
 # python docs
 docs/_build
-docs/just.rst
-docs/modules.rst
 
 # python src
 *.egg-info
