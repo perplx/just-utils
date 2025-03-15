@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from typing import Callable, Iterable, TypeVar
+from typing import Callable, Iterable, Optional, TypeVar
 
 
 DEFAULT_VALUE = None
@@ -11,7 +11,7 @@ C = Callable[[T], bool]
 
 
 # FIXME raise IndexError if none are found?
-def first_next(iter: Iterable[T]) -> T:
+def first_next(iter: Iterable[T]) -> Optional[T]:
     """Return the first item in ``iter`` that is true, or ``None`` if no item such is in ``iter``.
 
     ex::
@@ -30,7 +30,7 @@ def first_next(iter: Iterable[T]) -> T:
 
 
 # FIXME raise IndexError if none are found?
-def first_condition(iter: Iterable[T], call: C) -> T:
+def first_condition(iter: Iterable[T], call: C) -> Optional[T]:
     """Return the first item in ``iter`` for which ``call(item)`` is true, or ``None`` if no such item is in ``iter``.
 
     ex::
@@ -53,12 +53,12 @@ def main() -> None:
     """Simple test."""
 
     # test `first_next` and `first_condition` on integers
-    TESTS = [
+    TESTS_INT = [
         [0, 0, 0],
         [0, 0, 0, 1, 0, 2],
         [1, 3, 8, 9],
     ]
-    for test in TESTS:
+    for test in TESTS_INT:
         print(test)
         print(f"{first_next.__name__}: {first_next(test)}")
         print(f"{first_condition.__name__}: {first_condition(test, lambda x: x)}")
@@ -67,12 +67,12 @@ def main() -> None:
         print()
 
     # test `first_next` and `first_condition` on false objects
-    TESTS = [
+    TESTS_FALSE = [
         [None, 0],
         [None, False],
         [None, 0, 0.0, False, dict(), list(), set(), 1],
     ]
-    for test in TESTS:
+    for test in TESTS_FALSE:
         print(test)
         print(f"{first_next.__name__}: {first_next(test)}")
         print(f"{first_condition.__name__}: {first_condition(test, lambda x: x)}")

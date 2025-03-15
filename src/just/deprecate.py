@@ -8,7 +8,7 @@ import functools
 import warnings
 
 
-def deprecated(arg=None, since=None):
+def deprecated(arg=None, since=None):  # FIXME return type annotation?
     """Decorator to mark a function as deprecated.
     Emit a ``DeprecationWarning`` whenever a decorated function is called.
     """

@@ -10,6 +10,7 @@ import heapq
 
 
 # FIXME update the docs
+# FIXME type annotations?
 class Heap:
     """Priority Heap class using the standard ``heapq`` module."""
 
