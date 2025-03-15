@@ -8,18 +8,18 @@ from setuptools import setup
 
 
 setup(
-    name = "just-utils",
-    version = "0.0.1",
-    author = "Julien Dubuc",
-    author_email = "",
+    name="just-utils",
+    version="0.0.1",
+    author="Julien Dubuc",
+    author_email="",
 
-    description = "Just Utils",
-    long_description = "Simple, useful, self-contained python modules.",
-    url = "https://github.com/perplx/just-utils",
+    description="Just Utils",
+    long_description="Simple, useful, self-contained python modules.",
+    url="https://github.com/perplx/just-utils",
     download_url="https://github.com/perplx/just-utils/archive/refs/heads/master.zip",
 
-    keywords = "",
-    classifiers = [
+    keywords="",
+    classifiers=[
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3 :: Only",
@@ -27,16 +27,16 @@ setup(
         "Topic :: Utilities",
     ],
 
-    packages = ["just"],
-    package_dir = {"": "src"},
-    package_data = {"just": ["py.typed"]},
+    packages=["just"],
+    package_dir={"": "src"},
+    package_data={"just": ["py.typed"]},
 
-    setup_requires = [],
-    install_requires = [],
-    extras_require = {
+    setup_requires=[],
+    install_requires=[],
+    extras_require={
         "docs": ["sphinx", "sphinx-autodoc-typehints", "sphinx-mdinclude", "python_docs_theme"],
         "extra": ["black", "flake8", "mypy", "pytest-cov", "vermin"]
     },
 
-    test_suite = "tests",
+    test_suite="tests",
 )
