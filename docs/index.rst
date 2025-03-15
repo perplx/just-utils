@@ -10,6 +10,8 @@ Welcome to just-utils's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   modules/
+
 .. mdinclude:: ../README.md
 
 Indices and tables
