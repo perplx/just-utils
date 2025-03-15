@@ -15,6 +15,7 @@ Every module is found in the `just` package.
 
 - The module `just.args` provides command-line argument parsers for common types of command-line arguments: dates, directory-paths, log-levels. These are functions or objects which can be used as the `type=` argument for an argument parsed using the standard `argparse` module. The parsers will perform the necessary checking and show any parsing problems as command-line errors.
 - The module `just.deprecate` provides the `@deprecated` decorator to mark functions as deprecated. The standard `warnings` module will emit a `DeprecationWarning` whenever such a function is used at run-time.
+- The module `just.deprecate` provides the function `first_next` to return the first element in an interable that is true, and the function `first_next` to return the first element in an interable where a call is true.
 - The module `just.heap` provides the class `Heap`, which imprements a priority-heap using the functions in the standard `heapq` module. The class can use the values themselves as a priority, or use a provided key-function to compute it.
 - The module `just.lock` provides a way to lock a section of code by using a simple lock-file. It provides a context-manager that will abort when trying to acquire an already-locked file.
 - The module `just.open` provides the `ezopen` function, to open compressed files when the file-extension indicates a compressed file.
