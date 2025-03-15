@@ -18,8 +18,15 @@ class LockFileExistsError(FileExistsError):
 
 
 @contextlib.contextmanager
-def lock_file(file_path: str):
-    """Lock-file context-manager."""
+def lock_file(file_path: str) :
+    """Lock-file context-manager. Defines a scope of code protected by a lock-file.
+    The lock-file at the given path is created when entering the context, and deleted when exiting the context.
+    The context can only be entered if the lock-file does not already exist.
+
+    :param file_path: the path to the lock-file.
+    :raise LockFileExistsError: when the lock-file already exists
+    :return: a ``ContextManager``
+    """
 
     logger.debug("opening lock-file %r", file_path)
     try:

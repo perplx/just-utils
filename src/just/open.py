@@ -3,13 +3,17 @@
 import bz2
 import gzip
 from pathlib import Path
-from typing import Optional, Union
+from typing import IO, Optional, Union
 
 
-def ezopen(file_path: Union[Path, str], mode: Optional[str] = None):
+def ezopen(file_path: Union[Path, str], mode: Optional[str] = None) -> IO:
     """Open a file whether it's compressed or not.
     Open archive files using the appropriate compression based on the file extension.
     Open file normally if no extension matches.
+
+    :param file_path: the path to the file being opened.
+    :param mode: the mode-string for opening the file.
+    :return: the opened file-object.
     """
 
     # support Path objects
@@ -27,6 +31,8 @@ def ezopen(file_path: Union[Path, str], mode: Optional[str] = None):
 
 
 def main() -> None:
+    """Simple test."""
+
     # test data
     text_file_path = Path("./tests/data/test_data.txt").absolute()
     bz2_file_path = Path("./tests/data/test_data.txt.bz2").absolute()

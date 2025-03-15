@@ -11,12 +11,21 @@ C = Callable[[T], bool]
 
 
 def first_next(iter: Iterable[T]) -> T:
-    """Return the first item in `iter` that is true."""
+    """Return the first item in `iter` that is true.
+
+    :param iter: an ``Iterable`` of items of type ``T``
+    :return: the first item in ``iter`` that is true.
+    """
     return next((i for i in iter if i), None)
 
 
 def first_condition(iter: Iterable[T], call: C) -> T:
-    """Return the first item in `iter` for which `call(item)` is true."""
+    """Return the first item in `iter` for which `call(item)` is true.
+
+    :param iter: an ``Iterable`` of items of type ``T``
+    :param call: returns whether the item is true.
+    :return: the first item in ``iter`` that is true.
+    """
     return next((i for i in iter if call(i)), None)
 
 
