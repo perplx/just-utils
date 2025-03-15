@@ -10,8 +10,18 @@ T = TypeVar("T")
 C = Callable[[T], bool]
 
 
+# FIXME raise IndexError if none are found?
 def first_next(iter: Iterable[T]) -> T:
-    """Return the first item in `iter` that is true.
+    """Return the first item in `iter` that is true, or ``None`` if no item such is in ``iter``.
+
+    ex::
+
+        >>> first_next([0, 0, 0])
+        None
+        >>> first_next([0, 0, 0, 1, 0, 2])
+        1
+        >>> first_next([None, 0, {}, [], 1])
+        1
 
     :param iter: an ``Iterable`` of items of type ``T``
     :return: the first item in ``iter`` that is true.
@@ -19,8 +29,18 @@ def first_next(iter: Iterable[T]) -> T:
     return next((i for i in iter if i), None)
 
 
+# FIXME raise IndexError if none are found?
 def first_condition(iter: Iterable[T], call: C) -> T:
-    """Return the first item in `iter` for which `call(item)` is true.
+    """Return the first item in ``iter`` for which ``call(item)`` is true, or ``None`` if no such item is in ``iter``.
+
+    ex::
+
+        >>> first_condition([1, 3, 8, 9], lambda x: x > 10000)
+        None
+        >>> first_condition([1, 3, 8, 9], lambda x: int(x) % 3 == 2)
+        8
+        >>> first_condition([None, 0, {}, [], 1], lambda x: x is not None)
+        0
 
     :param iter: an ``Iterable`` of items of type ``T``
     :param call: returns whether the item is true.
@@ -42,7 +62,8 @@ def main() -> None:
         print(test)
         print(f"{first_next.__name__}: {first_next(test)}")
         print(f"{first_condition.__name__}: {first_condition(test, lambda x: x)}")
-        print(f"{first_condition.__name__} (% 3 = 2): {first_condition(test, lambda x: int(x) % 3 == 2)}")
+        print(f"{first_condition.__name__} (> 10000): {first_condition(test, lambda x: x > 10000)}")
+        print(f"{first_condition.__name__} (% 3 == 2): {first_condition(test, lambda x: x % 3 == 2)}")
         print()
 
     # test `first_next` and `first_condition` on false objects
