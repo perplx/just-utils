@@ -11,7 +11,7 @@ import os
 
 
 class DateTimeArg:
-    """Type parser for datetime strings for argparse.ArgumentParser.
+    """Type parser for datetime strings for ``argparse.ArgumentParser``.
 
     ex::
 
@@ -25,7 +25,7 @@ class DateTimeArg:
         self.format = format_str
 
     def __call__(self, date_str: str) -> datetime.datetime:
-        """Create a datetime.datetime obj from the command-line arg string"""
+        """Create a ``datetime.datetime`` obj from the command-line arg string"""
         try:
             return datetime.datetime.strptime(date_str, self.format)
         except ValueError as e:
@@ -34,7 +34,7 @@ class DateTimeArg:
 
 # FIXME what about the path module? would that work intead?
 class DirectoryArg:
-    """Type parser for directory paths for argparse.ArgumentParser.
+    """Type parser for directory paths for ``argparse.ArgumentParser``.
     Checks if path is directory, has given mode ("r", "w", "rw")
 
     ex::
@@ -62,7 +62,7 @@ class DirectoryArg:
             logger.warning("log-level arg %r normalized to %r", mode, self.mode)
 
     def __call__(self, dir_path: str) -> str:
-        """check dir_path is a directory that satisfies DirectoryArg.mode"""
+        """check dir_path is a directory that satisfies ``DirectoryArg.mode``"""
         # TODO create non-existent directory?
         if not os.path.exists(dir_path):
             raise argparse.ArgumentTypeError(f"dir-path {repr(dir_path)} does not exist!")
@@ -76,10 +76,12 @@ class DirectoryArg:
         return dir_path
 
 
+# FIXME use logging.getLevelName, even though it's weird, to avoid using private variables?
 def LogLevelArg(level_name: str) -> int:
     """Translate a log-level name to its actual integer representation.
     Supports any log-level name in a case-insensitive fashion, including aliases
     (i.e. "debug" -> ``DEBUG``, "warn" -> ``WARNING``, "fatal" -> ``CRITICAL``).
+
     Can be used as the value for the `type` parameter of an argument in
     ``argparse.ArgumentParser``, enabling parameters like ``--log-level FATAL``.
     Will raise an ``argparse.ArgumentTypeError`` for unsupported values, so that
@@ -91,9 +93,9 @@ def LogLevelArg(level_name: str) -> int:
         arg_parser.add_argument("--log-level", type=LogLevelArg)
         arg_parser.parse_args(["--log-level", "DEBUG"])
 
-    :param level_name: any supported log-level name from the `logging` module.
+    :param level_name: any supported log-level name from the ``logging`` module.
     :raise argparse.ArgumentTypeError: for an unsupported value to `argparse`
-    :return: the log-level int corresponfding to the log-level name str.
+    :return: the log-level int corresponding to the log-level name str.
     """
 
     # preconditions

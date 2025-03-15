@@ -10,7 +10,7 @@ import warnings
 
 def deprecated(arg=None, since=None):
     """Decorator to mark a function as deprecated.
-    Emit a DeprecationWarning whenever a decorated function is called.
+    Emit a ``DeprecationWarning`` whenever a decorated function is called.
     """
 
     def decorator(func):
