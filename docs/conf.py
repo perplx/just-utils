@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "just-utils"
-copyright = "2021-24, Julien Dubuc"
+copyright = "2021-25, Julien Dubuc"
 author = "Julien Dubuc"
 release = "0.0.1"
 
@@ -23,8 +23,6 @@ extensions = [
 
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
-
-
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
