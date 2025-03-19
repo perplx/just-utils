@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 
+"""Like ``any()`` but returns the first element."""
+
+
+# standard imports
 from typing import Callable, Iterable, Optional, TypeVar
 
 
+# global constants
 DEFAULT_VALUE = None
 
 
+# type definitions
 T = TypeVar("T")
 C = Callable[[T], bool]
 
