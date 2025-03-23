@@ -13,23 +13,23 @@ def deprecated(arg=None, since=None):  # FIXME return type annotation?
     Emit ``DeprecationWarning`` when a decorated function is called.
 
     ex::
-        
+
         >>> @deprecated
         >>> def deprecated_func_1():
         ...     return None
-        py.warnings WARNING  just-utils/src/just/deprecate.py:100: DeprecationWarning: deprecated: deprecated_func_1
+        py.warnings WARNING  deprecate.py:100: DeprecationWarning: deprecated: deprecated_func_1
         deprecated_func_1()
 
         >>> @deprecated()
         >>> def deprecated_func_2():
         ...     return None
-        py.warnings WARNING  just-utils/src/just/deprecate.py:101: DeprecationWarning: deprecated: deprecated_func_2
+        py.warnings WARNING  deprecate.py:101: DeprecationWarning: deprecated: deprecated_func_2
         deprecated_func_2()
 
         >>> @deprecated(since="0.3")
         >>> def deprecated_func_3():
         ...     return None
-        py.warnings WARNING  just-utils/src/just/deprecate.py:102: DeprecationWarning: deprecated: deprecated_func_3 (since version: 0.3)
+        py.warnings WARNING  deprecate.py:102: DeprecationWarning: deprecated: deprecated_func_3 (since version: 0.3)
         deprecated_func_3()
     """
 
