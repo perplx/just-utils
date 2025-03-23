@@ -4,7 +4,7 @@
 
 
 # standard imports
-from typing import Callable, Iterable, Optional, TypeVar
+from typing import Any, Callable, Iterable, Optional, TypeVar
 
 
 # global constants
@@ -59,7 +59,7 @@ def main() -> None:
     """Simple test."""
 
     # test `first_next` and `first_condition` on integers
-    TESTS_INT = [
+    TESTS_INT: list[list[int]] = [
         [0, 0, 0],
         [0, 0, 0, 1, 0, 2],
         [1, 3, 8, 9],
@@ -73,7 +73,7 @@ def main() -> None:
         print()
 
     # test `first_next` and `first_condition` on false objects
-    TESTS_FALSE = [
+    TESTS_FALSE: list[list[Any]] = [
         [None, 0],
         [None, False],
         [None, 0, 0.0, False, dict(), list(), set(), 1],
