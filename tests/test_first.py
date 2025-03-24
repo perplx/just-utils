@@ -5,7 +5,6 @@
 
 # standard imports
 import unittest
-import logging
 
 # tested imports
 from just.first import first_condition, first_next
