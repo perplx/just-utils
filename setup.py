@@ -34,8 +34,9 @@ setup(
     setup_requires=[],
     install_requires=[],
     extras_require={
+        "dev": ["black", "flake8", "mypy", "pytest-cov", "vermin"],
         "docs": ["sphinx", "sphinx-autodoc-typehints", "sphinx-mdinclude", "python_docs_theme"],
-        "extra": ["black", "flake8", "mypy", "pytest-cov", "vermin"]
+        "types": ["types-setuptools"],
     },
 
     test_suite="tests",

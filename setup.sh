@@ -18,4 +18,4 @@ source $activate_path
 pip install --upgrade pip setuptools
 
 # install just-utils in the venv
-pip install .[docs,extra]
+pip install -e .[dev,docs]
