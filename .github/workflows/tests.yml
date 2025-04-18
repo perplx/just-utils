@@ -21,11 +21,11 @@ jobs:
 
   setup:
 
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.6.7", "3.13"]
+        python-version: ["3.7", "3.13"]  # FIXME find image with 3.6
 
     steps:
       - name: Check out
