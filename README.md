@@ -46,13 +46,13 @@ This will install Sphinx as well as all the related modules referenced in the do
 Optional Features
 -----------------
 
-These are some extra features that can be installed using the optional `[extra]` argument to `pip`:
+These are some development features that can be installed using the optional `[dev]` argument to `pip`:
 
 ```shell
-pip install $just_util_dir[extra]
+pip install $just_util_dir[dev]
 ```
 
-The extras installed will be:
+The packages installed will be:
 
 package                                                | description
 -------------------------------------------------------|-----------------------------------
