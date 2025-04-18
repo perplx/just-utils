@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>just package &#8212; just-utils 0.0.1 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/pydoctheme.css?v=23252803" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="_static/pygments_dark.css?v=b20cc3f5" />
+    
+    <script src="_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="just" href="modules.html" /><link rel="stylesheet" href="_static/pydoctheme_dark.css" media="(prefers-color-scheme: dark)" id="pydoctheme_dark_css">
+    <link rel="shortcut icon" type="image/png" href="_static/py.svg" />
+            <script type="text/javascript" src="_static/copybutton.js"></script>
+            <script type="text/javascript" src="_static/menu.js"></script>
+            <script type="text/javascript" src="_static/search-focus.js"></script>
+            <script type="text/javascript" src="_static/themetoggle.js"></script> 
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+    <nav class="nav-content" role="navigation">
+        <label for="menuToggler" class="toggler__label">
+            <span></span>
+        </label>
+        <span class="nav-items-wrapper">
+            <a href="https://www.python.org/" class="nav-logo">
+                <img src="_static/py.svg" alt="Python logo"/>
+            </a>
+            <span class="version_switcher_placeholder"></span>
+            <form role="search" class="search" action="search.html" method="get">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                    <path fill-rule="nonzero" fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                </svg>
+                <input placeholder="Quick search" aria-label="Quick search" type="search" name="q" />
+                <input type="submit" value="Go"/>
+            </form>
+        </span>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+            
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label>
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">just package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-just.args">just.args module</a><ul>
+<li><a class="reference internal" href="#just.args.DateTimeArg"><code class="docutils literal notranslate"><span class="pre">DateTimeArg</span></code></a></li>
+<li><a class="reference internal" href="#just.args.DirectoryArg"><code class="docutils literal notranslate"><span class="pre">DirectoryArg</span></code></a></li>
+<li><a class="reference internal" href="#just.args.LogLevelArg"><code class="docutils literal notranslate"><span class="pre">LogLevelArg()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-just.deprecate">just.deprecate module</a><ul>
+<li><a class="reference internal" href="#just.deprecate.deprecated"><code class="docutils literal notranslate"><span class="pre">deprecated()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-just.first">just.first module</a><ul>
+<li><a class="reference internal" href="#just.first.first_condition"><code class="docutils literal notranslate"><span class="pre">first_condition()</span></code></a></li>
+<li><a class="reference internal" href="#just.first.first_next"><code class="docutils literal notranslate"><span class="pre">first_next()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-just.heap">just.heap module</a><ul>
+<li><a class="reference internal" href="#just.heap.Heap"><code class="docutils literal notranslate"><span class="pre">Heap</span></code></a><ul>
+<li><a class="reference internal" href="#just.heap.Heap.peek"><code class="docutils literal notranslate"><span class="pre">Heap.peek()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap.Heap.pop"><code class="docutils literal notranslate"><span class="pre">Heap.pop()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap.Heap.push"><code class="docutils literal notranslate"><span class="pre">Heap.push()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap.Heap.pushpop"><code class="docutils literal notranslate"><span class="pre">Heap.pushpop()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap.Heap.replace"><code class="docutils literal notranslate"><span class="pre">Heap.replace()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-just.lock">just.lock module</a><ul>
+<li><a class="reference internal" href="#just.lock.LockFileExistsError"><code class="docutils literal notranslate"><span class="pre">LockFileExistsError</span></code></a></li>
+<li><a class="reference internal" href="#just.lock.lock_file"><code class="docutils literal notranslate"><span class="pre">lock_file()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-just.open">just.open module</a><ul>
+<li><a class="reference internal" href="#just.open.ezopen"><code class="docutils literal notranslate"><span class="pre">ezopen()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-just.timing">just.timing module</a><ul>
+<li><a class="reference internal" href="#just.timing.timed"><code class="docutils literal notranslate"><span class="pre">timed()</span></code></a></li>
+<li><a class="reference internal" href="#just.timing.timing"><code class="docutils literal notranslate"><span class="pre">timing()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-just">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="modules.html"
+                          title="previous chapter">just</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/just.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </nav>
+    </div>
+</div>
+  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="just"
+             accesskey="P">previous</a> |</li>
+          <li><img src="_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+              <a href="index.html">just-utils 0.0.1 documentation</a> &#187;
+              
+          </li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">just</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">just package</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="search" name="q" id="search-box" />
+          <input type="submit" value="Go" />
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="just-package">
+<h1>just package<a class="headerlink" href="#just-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-just.args">
+<span id="just-args-module"></span><h2>just.args module<a class="headerlink" href="#module-just.args" title="Link to this heading">¶</a></h2>
+<p>Argument-parsers for argparse</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="just.args.DateTimeArg">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">just.args.</span></span><span class="sig-name descname"><span class="pre">DateTimeArg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format_str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/args.html#DateTimeArg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.args.DateTimeArg" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Type parser for datetime strings for <code class="docutils literal notranslate"><span class="pre">argparse.ArgumentParser</span></code>.
+Uses <code class="docutils literal notranslate"><span class="pre">datetime.datetime.strptime</span></code> to parse datetime-strings on the command-line using a format-string.</p>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">arg_parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+<span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--date-time&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">DateTimeArg</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S.</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">))</span>
+<span class="n">arg_parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">([</span><span class="s2">&quot;--date-time&quot;</span><span class="p">,</span> <span class="s2">&quot;2020-02-29 12:34:56.789&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="just.args.DirectoryArg">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">just.args.</span></span><span class="sig-name descname"><span class="pre">DirectoryArg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/args.html#DirectoryArg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.args.DirectoryArg" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Type parser for directory paths for <code class="docutils literal notranslate"><span class="pre">argparse.ArgumentParser</span></code>.
+Checks if path is directory, has given mode (“r”, “w”, “rw”)</p>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">arg_parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+<span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--directory&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">DirectoryArg</span><span class="p">(</span><span class="s2">&quot;rw&quot;</span><span class="p">))</span>
+<span class="n">arg_parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">([</span><span class="s2">&quot;--directory&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="just.args.LogLevelArg">
+<span class="sig-prename descclassname"><span class="pre">just.args.</span></span><span class="sig-name descname"><span class="pre">LogLevelArg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/args.html#LogLevelArg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.args.LogLevelArg" title="Link to this definition">¶</a></dt>
+<dd><p>Translate a log-level name to its actual integer representation.
+Supports any log-level name in a case-insensitive fashion, including aliases
+(i.e. “debug” -&gt; <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code>, “warn” -&gt; <code class="docutils literal notranslate"><span class="pre">WARNING</span></code>, “fatal” -&gt; <code class="docutils literal notranslate"><span class="pre">CRITICAL</span></code>).</p>
+<p>Can be used as the value for the <code class="docutils literal notranslate"><span class="pre">type</span></code> parameter of an argument in
+<code class="docutils literal notranslate"><span class="pre">argparse.ArgumentParser</span></code>, enabling parameters like <code class="docutils literal notranslate"><span class="pre">--log-level</span> <span class="pre">FATAL</span></code>.
+Will raise an <code class="docutils literal notranslate"><span class="pre">argparse.ArgumentTypeError</span></code> for unsupported values, so that
+<code class="docutils literal notranslate"><span class="pre">argparse</span></code> will show useful error-messages to the user on the command-line.</p>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">arg_parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+<span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--log-level&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">LogLevelArg</span><span class="p">)</span>
+<span class="n">arg_parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">([</span><span class="s2">&quot;--log-level&quot;</span><span class="p">,</span> <span class="s2">&quot;DEBUG&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>level_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – any supported log-level name from the <code class="docutils literal notranslate"><span class="pre">logging</span></code> module.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>argparse.ArgumentTypeError</strong> – for an unsupported value to <code class="docutils literal notranslate"><span class="pre">argparse</span></code></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the log-level int corresponding to the log-level name str.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-just.deprecate">
+<span id="just-deprecate-module"></span><h2>just.deprecate module<a class="headerlink" href="#module-just.deprecate" title="Link to this heading">¶</a></h2>
+<p>Deprecation decorator</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="just.deprecate.deprecated">
+<span class="sig-prename descclassname"><span class="pre">just.deprecate.</span></span><span class="sig-name descname"><span class="pre">deprecated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">since</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/deprecate.html#deprecated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.deprecate.deprecated" title="Link to this definition">¶</a></dt>
+<dd><p>Decorator to mark a function as deprecated.
+Emit <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code> when a decorated function is called.</p>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@deprecated</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">deprecated_func_1</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="kc">None</span>
+<span class="go">py.warnings WARNING  deprecate.py:100: DeprecationWarning: deprecated: deprecated_func_1</span>
+<span class="go">deprecated_func_1()</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@deprecated</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">deprecated_func_2</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="kc">None</span>
+<span class="go">py.warnings WARNING  deprecate.py:101: DeprecationWarning: deprecated: deprecated_func_2</span>
+<span class="go">deprecated_func_2()</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@deprecated</span><span class="p">(</span><span class="n">since</span><span class="o">=</span><span class="s2">&quot;0.3&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">deprecated_func_3</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="kc">None</span>
+<span class="go">py.warnings WARNING  deprecate.py:102: DeprecationWarning: deprecated: deprecated_func_3 (since version: 0.3)</span>
+<span class="go">deprecated_func_3()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-just.first">
+<span id="just-first-module"></span><h2>just.first module<a class="headerlink" href="#module-just.first" title="Link to this heading">¶</a></h2>
+<p>Like <code class="docutils literal notranslate"><span class="pre">any()</span></code> but returns the first element.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="just.first.first_condition">
+<span class="sig-prename descclassname"><span class="pre">just.first.</span></span><span class="sig-name descname"><span class="pre">first_condition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/first.html#first_condition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.first.first_condition" title="Link to this definition">¶</a></dt>
+<dd><p>Return the first item in <code class="docutils literal notranslate"><span class="pre">iter</span></code> for which <code class="docutils literal notranslate"><span class="pre">call(item)</span></code> is true, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if no such item is in <code class="docutils literal notranslate"><span class="pre">iter</span></code>.</p>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">first_condition</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">10000</span><span class="p">)</span>
+<span class="go">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_condition</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_condition</span><span class="p">([</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">{},</span> <span class="p">[],</span> <span class="mi">1</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iter</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span>) – an <code class="docutils literal notranslate"><span class="pre">Iterable</span></code> of items of type <code class="docutils literal notranslate"><span class="pre">T</span></code></p></li>
+<li><p><strong>call</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)], <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]</span>) – returns whether the item is true.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the first item in <code class="docutils literal notranslate"><span class="pre">iter</span></code> that is true.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="just.first.first_next">
+<span class="sig-prename descclassname"><span class="pre">just.first.</span></span><span class="sig-name descname"><span class="pre">first_next</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iter</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/first.html#first_next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.first.first_next" title="Link to this definition">¶</a></dt>
+<dd><p>Return the first item in <code class="docutils literal notranslate"><span class="pre">iter</span></code> that is true, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if no item such is in <code class="docutils literal notranslate"><span class="pre">iter</span></code>.</p>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">first_next</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="go">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_next</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_next</span><span class="p">([</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">{},</span> <span class="p">[],</span> <span class="mi">1</span><span class="p">])</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>iter</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span>) – an <code class="docutils literal notranslate"><span class="pre">Iterable</span></code> of items of type <code class="docutils literal notranslate"><span class="pre">T</span></code></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the first item in <code class="docutils literal notranslate"><span class="pre">iter</span></code> that is true.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-just.heap">
+<span id="just-heap-module"></span><h2>just.heap module<a class="headerlink" href="#module-just.heap" title="Link to this heading">¶</a></h2>
+<p>Priority Heap class using the standard <code class="docutils literal notranslate"><span class="pre">heapq</span></code> module
+see: <a class="reference external" href="https://youtu.be/o9pEzgHorH0?t=851">https://youtu.be/o9pEzgHorH0?t=851</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="just.heap.Heap">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">just.heap.</span></span><span class="sig-name descname"><span class="pre">Heap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap.html#Heap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap.Heap" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Priority Heap class using the standard <code class="docutils literal notranslate"><span class="pre">heapq</span></code> module.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap.Heap.peek">
+<span class="sig-name descname"><span class="pre">peek</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap.html#Heap.peek"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap.Heap.peek" title="Link to this definition">¶</a></dt>
+<dd><p>Show the top of the heap.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap.Heap.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap.html#Heap.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap.Heap.pop" title="Link to this definition">¶</a></dt>
+<dd><p>Remove from <code class="docutils literal notranslate"><span class="pre">Heap</span></code> item with highest priority.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap.Heap.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap.html#Heap.push"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap.Heap.push" title="Link to this definition">¶</a></dt>
+<dd><p>Add item into the <code class="docutils literal notranslate"><span class="pre">Heap</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap.Heap.pushpop">
+<span class="sig-name descname"><span class="pre">pushpop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap.html#Heap.pushpop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap.Heap.pushpop" title="Link to this definition">¶</a></dt>
+<dd><p>Push item on the <code class="docutils literal notranslate"><span class="pre">Heap</span></code>, then pop and return the smallest item from the <code class="docutils literal notranslate"><span class="pre">Heap</span></code>.
+The combined action runs more efficiently than <code class="docutils literal notranslate"><span class="pre">heap.push()</span></code> followed by a separate call to <code class="docutils literal notranslate"><span class="pre">heap.pop()</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap.Heap.replace">
+<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap.html#Heap.replace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap.Heap.replace" title="Link to this definition">¶</a></dt>
+<dd><p>Pop and return the smallest item from the heap, and also push the new item.
+The heap size doesn’t change. If the heap is empty, <code class="docutils literal notranslate"><span class="pre">IndexError</span></code> is raised.</p>
+<p>This one step operation is more efficient than a <code class="docutils literal notranslate"><span class="pre">heap.pop()</span></code> followed by
+<code class="docutils literal notranslate"><span class="pre">heap.push()</span></code> and can be more appropriate when using a fixed-size heap.
+The pop/push combination always returns an element from the heap and
+replaces it with item.</p>
+<p>The value returned may be larger than the item added.
+If that isn’t desired, consider using <code class="docutils literal notranslate"><span class="pre">heap.pushpop()</span></code> instead.
+Its push/pop combination returns the smaller of the two values,
+leaving the larger value on the heap.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-just.lock">
+<span id="just-lock-module"></span><h2>just.lock module<a class="headerlink" href="#module-just.lock" title="Link to this heading">¶</a></h2>
+<p>Lock-file</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="just.lock.LockFileExistsError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">just.lock.</span></span><span class="sig-name descname"><span class="pre">LockFileExistsError</span></span><a class="reference internal" href="_modules/just/lock.html#LockFileExistsError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.lock.LockFileExistsError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">FileExistsError</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="just.lock.lock_file">
+<span class="sig-prename descclassname"><span class="pre">just.lock.</span></span><span class="sig-name descname"><span class="pre">lock_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/lock.html#lock_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.lock.lock_file" title="Link to this definition">¶</a></dt>
+<dd><p>Lock-file context-manager. Defines a scope of code protected by a lock-file.
+The lock-file at the given path is created when entering the context, and deleted when exiting the context.
+The context can only be entered if the lock-file does not already exist.</p>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">lock_file</span><span class="p">(</span><span class="s2">&quot;/tmp/example.lock&quot;</span><span class="p">):</span>
+    <span class="c1"># ensure that only one process can call `access_something_sensitive()`</span>
+    <span class="n">access_something_sensitive</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the path to the lock-file.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#just.lock.LockFileExistsError" title="just.lock.LockFileExistsError"><strong>LockFileExistsError</strong></a> – when the lock-file already exists</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a <code class="docutils literal notranslate"><span class="pre">ContextManager</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-just.open">
+<span id="just-open-module"></span><h2>just.open module<a class="headerlink" href="#module-just.open" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="just.open.ezopen">
+<span class="sig-prename descclassname"><span class="pre">just.open.</span></span><span class="sig-name descname"><span class="pre">ezopen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'r'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/open.html#ezopen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.open.ezopen" title="Link to this definition">¶</a></dt>
+<dd><p>Open a file whether it’s compressed or not.
+Open archive files using the appropriate compression based on the file extension.
+Open file normally if no extension matches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – the path to the file being opened.</p></li>
+<li><p><strong>mode</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the mode-string for opening the file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">IO</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the opened file-object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-just.timing">
+<span id="just-timing-module"></span><h2>just.timing module<a class="headerlink" href="#module-just.timing" title="Link to this heading">¶</a></h2>
+<p>Timing functions</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="just.timing.timed">
+<span class="sig-prename descclassname"><span class="pre">just.timing.</span></span><span class="sig-name descname"><span class="pre">timed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">do_print</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/timing.html#timed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.timing.timed" title="Link to this definition">¶</a></dt>
+<dd><p>Perform timing of the execution of the decorated function.
+Output to stdout and to a given logger.</p>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span><span class="p">()</span>  <span class="c1"># something to time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@timed</span><span class="p">(</span><span class="n">do_print</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">timing_test_print</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timing_test_print</span><span class="p">(</span><span class="s2">&quot;arg1&quot;</span><span class="p">,</span> <span class="n">arg2</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="go">func timing_test_print args (&#39;arg1&#39;,) kwargs {&#39;arg2&#39;: &#39;&#39;} took 0.002 seconds</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>do_print</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – whether to output to stdout</p></li>
+<li><p><strong>logger</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>]</span>) – the <code class="docutils literal notranslate"><span class="pre">Logger</span></code> where messages will be sent</p></li>
+<li><p><strong>level</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the log-level at which messages will be logged.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="just.timing.timing">
+<span class="sig-prename descclassname"><span class="pre">just.timing.</span></span><span class="sig-name descname"><span class="pre">timing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_print</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/timing.html#timing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.timing.timing" title="Link to this definition">¶</a></dt>
+<dd><p>Perform timing of the execution of the given context
+Output to stdout and to a given logger.</p>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span><span class="p">()</span>  <span class="c1"># something to time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">timing</span><span class="p">(</span><span class="s2">&quot;timing context print&quot;</span><span class="p">,</span> <span class="n">do_print</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">timing context print took 0.014 seconds</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the message identifying what was timed</p></li>
+<li><p><strong>do_print</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – whether to output to stdout</p></li>
+<li><p><strong>logger</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>]</span>) – the <code class="docutils literal notranslate"><span class="pre">Logger</span></code> where messages will be sent</p></li>
+<li><p><strong>level</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the log-level at which messages will be logged.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-just">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-just" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">just package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-just.args">just.args module</a><ul>
+<li><a class="reference internal" href="#just.args.DateTimeArg"><code class="docutils literal notranslate"><span class="pre">DateTimeArg</span></code></a></li>
+<li><a class="reference internal" href="#just.args.DirectoryArg"><code class="docutils literal notranslate"><span class="pre">DirectoryArg</span></code></a></li>
+<li><a class="reference internal" href="#just.args.LogLevelArg"><code class="docutils literal notranslate"><span class="pre">LogLevelArg()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-just.deprecate">just.deprecate module</a><ul>
+<li><a class="reference internal" href="#just.deprecate.deprecated"><code class="docutils literal notranslate"><span class="pre">deprecated()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-just.first">just.first module</a><ul>
+<li><a class="reference internal" href="#just.first.first_condition"><code class="docutils literal notranslate"><span class="pre">first_condition()</span></code></a></li>
+<li><a class="reference internal" href="#just.first.first_next"><code class="docutils literal notranslate"><span class="pre">first_next()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-just.heap">just.heap module</a><ul>
+<li><a class="reference internal" href="#just.heap.Heap"><code class="docutils literal notranslate"><span class="pre">Heap</span></code></a><ul>
+<li><a class="reference internal" href="#just.heap.Heap.peek"><code class="docutils literal notranslate"><span class="pre">Heap.peek()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap.Heap.pop"><code class="docutils literal notranslate"><span class="pre">Heap.pop()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap.Heap.push"><code class="docutils literal notranslate"><span class="pre">Heap.push()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap.Heap.pushpop"><code class="docutils literal notranslate"><span class="pre">Heap.pushpop()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap.Heap.replace"><code class="docutils literal notranslate"><span class="pre">Heap.replace()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-just.lock">just.lock module</a><ul>
+<li><a class="reference internal" href="#just.lock.LockFileExistsError"><code class="docutils literal notranslate"><span class="pre">LockFileExistsError</span></code></a></li>
+<li><a class="reference internal" href="#just.lock.lock_file"><code class="docutils literal notranslate"><span class="pre">lock_file()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-just.open">just.open module</a><ul>
+<li><a class="reference internal" href="#just.open.ezopen"><code class="docutils literal notranslate"><span class="pre">ezopen()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-just.timing">just.timing module</a><ul>
+<li><a class="reference internal" href="#just.timing.timed"><code class="docutils literal notranslate"><span class="pre">timed()</span></code></a></li>
+<li><a class="reference internal" href="#just.timing.timing"><code class="docutils literal notranslate"><span class="pre">timing()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-just">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="modules.html"
+                          title="previous chapter">just</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/just.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="just"
+             >previous</a> |</li>
+          <li><img src="_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+              <a href="index.html">just-utils 0.0.1 documentation</a> &#187;
+              
+          </li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >just</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">just package</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="search" name="q" id="search-box" />
+          <input type="submit" value="Go" />
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; 
+    Copyright
+     2021-25, Julien Dubuc.
+    <br />
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br />
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br />
+    
+    
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+    
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+
+  </body>
+</html>
