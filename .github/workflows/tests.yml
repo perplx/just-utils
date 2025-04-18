@@ -44,7 +44,7 @@ jobs:
 
       - name: Set up package
         run: |
-          python -m pip install -e .
+          python -m pip install -e .[dev]
 
       - name: Check format with black
         run: |

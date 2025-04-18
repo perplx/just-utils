@@ -13,17 +13,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-      #   # FIXME keep packages aligned between setup and this?
-      # - name: Install dependencies
-      #   run: |
-      #     pip install sphinx sphinx-autodoc-typehints sphinx-mdinclude python_docs_theme
+
       - name: Install project
         run: |
           pip install .[docs]
-        # FIXME keep paths aligned between setup and this?
+
+      # FIXME keep paths aligned between setup and this?
+      # FXIME WARNING: html_static_path entry '_static' does not exist
       - name: Sphinx build
         run: |
           sphinx-build docs/ _build
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
@@ -31,4 +31,4 @@ jobs:
           # publish_branch: your-branch  # default: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./_build/
-        #   force_orphan: true
+          # force_orphan: true
