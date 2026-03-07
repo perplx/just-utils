@@ -1,5 +1,3 @@
-@import url('classic.css');
-
 /* Common colours */
 :root {
     --good-color: rgb(41 100 51);
@@ -125,7 +123,9 @@ form.inline-search input {
 }
 
 form.inline-search input[type='submit'] {
-    width: 40px;
+    /* In some languages, more than 40px is required */
+    width: auto;
+    min-width: 40px;
 }
 
 div.document {
@@ -200,16 +200,6 @@ div.sphinxsidebar input[type='text'] {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Sphinx 4.x and earlier compat */
-    height: 100%;
-    background-color: #CCCCCC;
-    margin-left: 0;
-    color: #444444;
-    font-size: 1.2em;
-    cursor: pointer;
-    padding-top: 1px;
-    float: none;
-    /* after Sphinx 4.x and earlier is dropped, only the below is needed */
     width: 12px;
     min-width: 12px;
     border-radius: 0 5px 5px 0;
@@ -243,6 +233,37 @@ div.body hr {
 div.body pre {
     border-radius: 3px;
     border: 1px solid #ac9;
+}
+
+div.body {
+    .good pre {
+        border-left: 3px solid var(--good-border);
+    }
+    .bad pre {
+        border-left: 3px solid var(--bad-border);
+    }
+    .maybe pre {
+        border-left: 3px solid var(--middle-border);
+    }
+}
+
+div.code-block-caption {
+    background-color: #eee;
+    border: 1px solid #ac9;
+    border-bottom: none;
+    border-radius: 3px 3px 0 0;
+    padding: 0.3em 0.6em;
+    font-size: 90%;
+    color: #333;
+
+    & + div pre {
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: 0 !important;
+    }
+
+    & + div .copybutton {
+        border-top-right-radius: 0 !important;
+    }
 }
 
 /* Admonitions */
@@ -340,6 +361,10 @@ tt, code, pre {
     font-size: 96.5%;
 }
 
+div.body pre {
+    line-height: 120%;
+}
+
 div.body tt,
 div.body code {
     border-radius: 3px;
@@ -419,6 +444,26 @@ div.footer a:hover {
     color: #229;
 }
 
+/* C API thread safety annotations */
+:root {
+    --threadsafety-incompatible: var(--bad-color);
+    --threadsafety-compatible: var(--middle-color);
+    --threadsafety-safe: var(--good-color);
+}
+
+.threadsafety.threadsafety-incompatible {
+    color: var(--threadsafety-incompatible);
+}
+
+.threadsafety.threadsafety-compatible {
+    color: var(--threadsafety-compatible);
+}
+
+.threadsafety.threadsafety-safe {
+    color: var(--threadsafety-safe);
+}
+
+
 dl > dt span ~ em,
 .sig {
     font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
@@ -450,17 +495,32 @@ div.genindex-jumpbox a {
     top: 0;
     right: 0;
     font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
-    padding-left: 0.2em;
-    padding-right: 0.2em;
+    font-size: 80%;
+    padding-left: .5em;
+    padding-right: .5em;
+    height: 100%;
+    max-height: min(100%, 2.4em);
     border-radius: 0 3px 0 0;
-    color: #ac9; /* follows div.body pre */
-    border-color: #ac9; /* follows div.body pre */
-    border-style: solid; /* follows div.body pre */
-    border-width: 1px; /* follows div.body pre */
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #ac9; /* follows div.body pre */
+    display: none;
 }
 
-.copybutton[data-hidden='true'] {
-    text-decoration: line-through;
+.copybutton:hover {
+    background-color: #eee;
+}
+
+.copybutton:active {
+    background-color: #ddd;
+}
+
+.highlight:active .copybutton {
+    display: block;
+}
+
+.highlight:hover .copybutton {
+    display: block;
 }
 
 @media (max-width: 1023px) {
