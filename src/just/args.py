@@ -8,6 +8,13 @@ import argparse
 import datetime
 import logging
 import os
+import re
+
+
+try:
+    PatternError = re.PatternError
+except AttributeError:
+    PatternError = re.error
 
 
 # FIXME docstrings not in sphinx for dunder methods?
@@ -30,7 +37,7 @@ class DateTimeArg:
         """Create a ``datetime.datetime`` obj from the command-line arg string."""
         try:
             return datetime.datetime.strptime(date_str, self.format)
-        except ValueError as e:
+        except (ValueError, PatternError) as e:
             raise argparse.ArgumentTypeError(e)
 
 
