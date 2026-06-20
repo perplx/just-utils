@@ -17,7 +17,7 @@ C = Callable[[T], bool]
 
 
 # FIXME raise IndexError if none are found?
-def first_next(iter: Iterable[T]) -> Optional[T]:
+def first_next(iterable: Iterable[T]) -> Optional[T]:
     """Return the first item in ``iter`` that is true, or ``None`` if no item such is in ``iter``.
 
     ex::
@@ -29,14 +29,14 @@ def first_next(iter: Iterable[T]) -> Optional[T]:
         >>> first_next([None, 0, {}, [], 1])
         1
 
-    :param iter: an ``Iterable`` of items of type ``T``
+    :param iterable: an ``Iterable`` of items of type ``T``
     :return: the first item in ``iter`` that is true.
     """
-    return next((i for i in iter if i), None)
+    return next((i for i in iterable if i), None)
 
 
 # FIXME raise IndexError if none are found?
-def first_condition(iter: Iterable[T], call: C) -> Optional[T]:
+def first_condition(iterable: Iterable[T], callable: C) -> Optional[T]:
     """Return the first item in ``iter`` for which ``call(item)`` is true, or ``None`` if no such item is in ``iter``.
 
     ex::
@@ -48,11 +48,11 @@ def first_condition(iter: Iterable[T], call: C) -> Optional[T]:
         >>> first_condition([None, 0, {}, [], 1], lambda x: x is not None)
         0
 
-    :param iter: an ``Iterable`` of items of type ``T``
-    :param call: returns whether the item is true.
+    :param iterable: an ``Iterable`` of items of type ``T``
+    :param callable: returns whether the item is true.
     :return: the first item in ``iter`` that is true.
     """
-    return next((i for i in iter if call(i)), None)
+    return next((i for i in iterable if callable(i)), None)
 
 
 def main() -> None:
