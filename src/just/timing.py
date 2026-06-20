@@ -36,7 +36,7 @@ def timed(do_print: bool = True, logger: Optional[logging.Logger] = None, level:
 
     # validate parameters
     if logger is not None and not isinstance(logger, logging.Logger):
-        raise TypeError(f"logger is {type(logger)}, should be {type(logging.Logger)}")
+        raise TypeError(f"logger is {type(logger)}, should be {logging.Logger}")
     if level not in logging._levelToName:
         raise ValueError(f"logging level {repr(level)} not recognized, see {logging._levelToName}")
 
