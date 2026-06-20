@@ -41,7 +41,9 @@ setup(
     setup_requires=[],
     install_requires=[],
     extras_require={
-        "dev": ["black", "flake8", "mypy", "pytest-cov", "vermin"],
+        # black is pinned: its stable style changes yearly and newer majors drop older Pythons,
+        # so an unpinned install formats inconsistently across the supported Python range (see tests.yml)
+        "dev": ["black==25.11.0", "flake8", "mypy", "pytest-cov", "vermin"],
         "docs": ["sphinx", "sphinx-autodoc-typehints", "sphinx-mdinclude", "python_docs_theme"],
         "types": ["types-setuptools"],
     },
