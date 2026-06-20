@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=b20cc3f5" />
     <link rel="stylesheet" type="text/css" href="../../_static/classic.css?v=67a6116b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css?v=89a2f22a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css?v=4365c8fe" />
     
     <script src="../../_static/documentation_options.js?v=d45e8c67"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
@@ -163,7 +163,7 @@
 
     <span class="c1"># validate parameters</span>
     <span class="k">if</span> <span class="n">logger</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;logger is </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span><span class="si">}</span><span class="s2">, should be </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;logger is </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span><span class="si">}</span><span class="s2">, should be </span><span class="si">{</span><span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">level</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">logging</span><span class="o">.</span><span class="n">_levelToName</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;logging level </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">level</span><span class="p">)</span><span class="si">}</span><span class="s2"> not recognized, see </span><span class="si">{</span><span class="n">logging</span><span class="o">.</span><span class="n">_levelToName</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
