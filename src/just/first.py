@@ -13,7 +13,6 @@ DEFAULT_VALUE = None
 
 # type definitions
 T = TypeVar("T")
-C = Callable[[T], bool]
 
 
 # FIXME raise IndexError if none are found?
@@ -36,8 +35,9 @@ def first_next(iterable: Iterable[T]) -> Optional[T]:
 
 
 # FIXME raise IndexError if none are found?
-def first_condition(iterable: Iterable[T], callable: C) -> Optional[T]:
-    """Return the first item in ``iter`` for which ``call(item)`` is true, or ``None`` if no such item is in ``iter``.
+def first_condition(iterable: Iterable[T], condition: Callable[[T], bool]) -> Optional[T]:
+    """Return the first item in ``iterable`` for which ``condition(item)`` is true,
+    or ``None`` if no such item is in ``iterable``.
 
     ex::
 
@@ -49,10 +49,10 @@ def first_condition(iterable: Iterable[T], callable: C) -> Optional[T]:
         0
 
     :param iterable: an ``Iterable`` of items of type ``T``
-    :param callable: returns whether the item is true.
-    :return: the first item in ``iter`` that is true.
+    :param condition: returns whether the item is true.
+    :return: the first item in ``iterable`` that is true.
     """
-    return next((i for i in iterable if callable(i)), None)
+    return next((i for i in iterable if condition(i)), None)
 
 
 def main() -> None:
