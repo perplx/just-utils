@@ -11,6 +11,7 @@ import os
 import re
 
 
+# FIXME Python 3.12 changed the type of the excdption raised by strptime
 try:
     PatternError = re.PatternError
 except AttributeError:
