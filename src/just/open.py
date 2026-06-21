@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""Open files transparently whether or not they are compressed."""
+
+
+# standard imports
 import bz2
 import gzip
 from pathlib import Path
