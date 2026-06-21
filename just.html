@@ -295,8 +295,9 @@ Emit <code class="docutils literal notranslate"><span class="pre">DeprecationWar
 <p>Like <code class="docutils literal notranslate"><span class="pre">any()</span></code> but returns the first element.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="just.first.first_condition">
-<span class="sig-prename descclassname"><span class="pre">just.first.</span></span><span class="sig-name descname"><span class="pre">first_condition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/first.html#first_condition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.first.first_condition" title="Link to this definition">¶</a></dt>
-<dd><p>Return the first item in <code class="docutils literal notranslate"><span class="pre">iter</span></code> for which <code class="docutils literal notranslate"><span class="pre">call(item)</span></code> is true, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if no such item is in <code class="docutils literal notranslate"><span class="pre">iter</span></code>.</p>
+<span class="sig-prename descclassname"><span class="pre">just.first.</span></span><span class="sig-name descname"><span class="pre">first_condition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/first.html#first_condition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.first.first_condition" title="Link to this definition">¶</a></dt>
+<dd><p>Return the first item in <code class="docutils literal notranslate"><span class="pre">iterable</span></code> for which <code class="docutils literal notranslate"><span class="pre">condition(item)</span></code> is true,
+or <code class="docutils literal notranslate"><span class="pre">None</span></code> if no such item is in <code class="docutils literal notranslate"><span class="pre">iterable</span></code>.</p>
 <p>ex:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">first_condition</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">10000</span><span class="p">)</span>
 <span class="go">None</span>
@@ -310,14 +311,14 @@ Emit <code class="docutils literal notranslate"><span class="pre">DeprecationWar
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>iterable</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span>) – an <code class="docutils literal notranslate"><span class="pre">Iterable</span></code> of items of type <code class="docutils literal notranslate"><span class="pre">T</span></code></p></li>
-<li><p><strong>callable</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)], <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]</span>) – returns whether the item is true.</p></li>
+<li><p><strong>condition</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)], <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]</span>) – returns whether the item is true.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the first item in <code class="docutils literal notranslate"><span class="pre">iter</span></code> that is true.</p>
+<dd class="field-odd"><p>the first item in <code class="docutils literal notranslate"><span class="pre">iterable</span></code> that is true.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -438,6 +439,7 @@ The context can only be entered if the lock-file does not already exist.</p>
 </section>
 <section id="module-just.open">
 <span id="just-open-module"></span><h2>just.open module<a class="headerlink" href="#module-just.open" title="Link to this heading">¶</a></h2>
+<p>Open files transparently whether or not they are compressed.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="just.open.ezopen">
 <span class="sig-prename descclassname"><span class="pre">just.open.</span></span><span class="sig-name descname"><span class="pre">ezopen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'r'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/open.html#ezopen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.open.ezopen" title="Link to this definition">¶</a></dt>
