@@ -15,7 +15,7 @@ fi
 # initialize the venv
 python -m venv $venv_path
 source $activate_path
-pip install --upgrade pip setuptools
+python -m pip install --upgrade pip setuptools
 
 # install just-utils in the venv
 pip install -e .[dev,docs]
