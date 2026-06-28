@@ -6,6 +6,7 @@
 # standard imports
 import functools
 import warnings
+from typing import Callable
 
 
 def deprecated(arg=None, since=None):  # FIXME return type annotation?
@@ -33,7 +34,7 @@ def deprecated(arg=None, since=None):  # FIXME return type annotation?
         deprecated_func_3()
     """
 
-    def decorator(func):
+    def decorator(func: Callable):
         # preserve the metadata (name, docstring, etc.) of the wrapped function
         @functools.wraps(func)
         def wrapper(*args, **kwargs):

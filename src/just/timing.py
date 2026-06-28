@@ -8,7 +8,7 @@ import contextlib
 import functools
 import logging
 import time
-from typing import Optional
+from typing import Callable, Optional
 
 
 # use a decorator factory
@@ -40,7 +40,7 @@ def timed(do_print: bool = True, logger: Optional[logging.Logger] = None, level:
     if level not in logging._levelToName:
         raise ValueError(f"logging level {repr(level)} not recognized, see {logging._levelToName}")
 
-    def decorate(func):
+    def decorate(func: Callable):
         # preserves metadata (name, stack, etc.) of func when decorated
         @functools.wraps(func)
         def wrapped(*args, **kwargs):
