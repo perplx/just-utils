@@ -33,6 +33,16 @@ class Heap(Generic[T]):
     def push(self, item: T) -> None:
         """FIXME"""
         heapq.heappush(self._heap, item)
+
+    def pushpop(self, item: T) -> T:
+        """FIXME"""
+        item = heapq.heappushpop(self._heap, item)
+        return item
+
+    def replace(self, item: T) -> T:
+        """FIXME"""
+        item = heapq.heapreplace(self._heap, item)
+        return item
     
 
 def main() -> None:
