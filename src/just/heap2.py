@@ -11,6 +11,7 @@ T = TypeVar("T")
 # FIXME support key-function without type complications
 # FIXME support pushpop, extra operations, __str__, etc.
 # FIXME tests!!!!
+# FIXME docstrings!!!
 class Heap(Generic[T]):
     def __init__(self, data: Collection[T]):
         self._heap = list(data)  # FIXME copy or take>
@@ -19,17 +20,17 @@ class Heap(Generic[T]):
     def __len__(self) -> int:
         """Number of items in the `Heap`."""
         return len(self._heap)
-    
+
     def peek(self) -> T:
         """FIXME"""
         top = self._heap[0]
         return top
-    
+
     def pop(self) -> T:
         """FIXME"""
         item = heapq.heappop(self._heap)
         return item
-    
+
     def push(self, item: T) -> None:
         """FIXME"""
         heapq.heappush(self._heap, item)
@@ -43,7 +44,7 @@ class Heap(Generic[T]):
         """FIXME"""
         item = heapq.heapreplace(self._heap, item)
         return item
-    
+
 
 def main() -> None:
     """Simple test."""
