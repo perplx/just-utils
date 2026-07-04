@@ -11,11 +11,24 @@ class TestHeap2(unittest.TestCase):
         TEST_DATA = ["c", "bb", "aaa"]
         self.heap_test = Heap(TEST_DATA)
 
+    def test_len(self):
+        self.assertEqual(len(self.heap_test), 3)
+
     def test_peek(self):
         self.assertEqual(self.heap_test.peek(), "aaa")
 
     def test_pop(self):
         self.assertEqual(self.heap_test.pop(), "aaa")
+        self.assertEqual(self.heap_test.pop(), "bb")
+        self.assertEqual(self.heap_test.pop(), "c")
+        with self.assertRaises(IndexError):
+            _ = self.heap_test.pop()
+
+    def test_push(self):
+        self.heap_test.push("b2")
+        self.assertEqual(self.heap_test._heap, ["aaa", "b2", "c", "bb"])
+        self.assertEqual(self.heap_test.pop(), "aaa")
+        self.assertEqual(self.heap_test.pop(), "b2")
         self.assertEqual(self.heap_test.pop(), "bb")
         self.assertEqual(self.heap_test.pop(), "c")
         with self.assertRaises(IndexError):
