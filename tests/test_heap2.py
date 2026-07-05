@@ -14,6 +14,9 @@ class TestHeap2(unittest.TestCase):
     def test_len(self):
         self.assertEqual(len(self.heap_test), 3)
 
+    def test_str(self):
+        self.assertEqual(str(self.heap_test), "Heap(['aaa', 'bb', 'c'])")
+
     def test_peek(self):
         self.assertEqual(self.heap_test.peek(), "aaa")
 
