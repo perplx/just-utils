@@ -21,6 +21,10 @@ class Heap(Generic[T]):
         """Number of items in the `Heap`."""
         return len(self._heap)
 
+    def __str__(self) -> str:
+        """FIXME"""
+        return f"Heap({self._heap})"
+
     def peek(self) -> T:
         """FIXME"""
         top = self._heap[0]
@@ -50,7 +54,10 @@ def main() -> None:
     """Simple test."""
     l = [1, 2, 6, 3, 4, 1, 7, 9]
     heap = Heap(l)
-    raise NotImplementedError
+    print(f"heap: {heap}")
+    while len(heap) > 0:
+        top = heap.pop()
+        print(f"{top} <- {heap}")
 
 
 if __name__ == "__main__":
