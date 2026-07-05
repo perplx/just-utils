@@ -54,7 +54,9 @@ def timed(do_print: bool = True, logger: Optional[logging.Logger] = None, level:
             if do_print:
                 print(f"func {func.__name__} args {args} kwargs {kwargs} took {time_taken:.3f} seconds")
             if logger is not None:
-                logger.info("func %s args %r kwargs %r took %.3f seconds", func.__name__, args, kwargs, time_taken)
+                logger.log(
+                    level, "func %s args %r kwargs %r took %.3f seconds", func.__name__, args, kwargs, time_taken
+                )
 
             # return the result of the wrapped function
             return result
