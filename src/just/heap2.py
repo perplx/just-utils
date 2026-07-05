@@ -48,7 +48,7 @@ class Heap(Generic[T]):
 
 def main() -> None:
     """Simple test."""
-    l = [1,2,6,3,4,1,7,9]
+    l = [1, 2, 6, 3, 4, 1, 7, 9]
     heap = Heap(l)
     raise NotImplementedError
 
