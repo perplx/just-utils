@@ -6,6 +6,7 @@
 # standard imports
 import bz2
 import gzip
+import os
 from pathlib import Path
 from typing import Any, IO, Union
 
@@ -21,8 +22,7 @@ def ezopen(file_path: Union[Path, str], mode: str = "r") -> IO[Any]:
     """
 
     # support Path objects
-    if isinstance(file_path, Path):
-        file_path = str(file_path)
+    file_path = os.fspath(file_path)  # PathLike -> str
 
     # open compressed files based on their extensions
     if file_path.endswith(".bz2"):
