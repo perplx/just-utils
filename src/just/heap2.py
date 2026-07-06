@@ -1,4 +1,7 @@
-"""Now with type annotations"""
+"""Implementaton of a min-heap piority-queue class, based on the standard library `heapq` module.
+see: https://docs.python.org/3/library/heapq.html
+Now with type annotations.
+"""
 
 import heapq
 from typing import Collection, Generic, TypeVar
@@ -7,13 +10,17 @@ from typing import Collection, Generic, TypeVar
 T = TypeVar("T")
 
 
-# FIXME support maxheap? (vesrion of python...)
+# FIXME support maxheap? (version of python: 3.14...)
 # FIXME support key-function without type complications
 # FIXME support pushpop, extra operations, __str__, etc.
 # FIXME tests!!!!
 # FIXME docstrings!!!
+# FIXME link to youtube video?
 class Heap(Generic[T]):
+    """FIXME"""
+
     def __init__(self, data: Collection[T]):
+        """FIXME"""
         self._heap = list(data)  # FIXME copy or take>
         heapq.heapify(self._heap)
 
@@ -32,7 +39,7 @@ class Heap(Generic[T]):
 
     def pop(self) -> T:
         """FIXME"""
-        item = heapq.heappop(self._heap)
+        item = heapq.heappop(self._heap)  # FIXME return-type of heappop!?
         return item
 
     def push(self, item: T) -> None:
