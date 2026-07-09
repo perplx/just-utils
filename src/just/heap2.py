@@ -4,13 +4,13 @@ Now with type annotations.
 """
 
 import heapq
-from typing import Callable, Generic, Iterable, Protocol, TypeVar
+from typing import Any, Callable, Generic, Iterable, Protocol, TypeVar
 
 
 class SupportsLessThan(Protocol):
     """A type that can be ordered with `<`, as required by `heapq`."""
 
-    def __lt__(self, other: object) -> bool: ...
+    def __lt__(self, other: Any, /) -> bool: ...
 
 
 T = TypeVar("T", bound=SupportsLessThan)
