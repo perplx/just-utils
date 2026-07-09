@@ -4,10 +4,19 @@ Now with type annotations.
 """
 
 import heapq
-from typing import Collection, Generic, TypeVar
+from typing import Callable, Generic, Iterable, Protocol, TypeVar
 
 
 T = TypeVar("T")
+
+
+class SupportsLessThan(Protocol):
+    """A type that can be ordered with `<`, as required by `heapq`."""
+
+    def __lt__(self, other: object) -> bool: ...
+
+
+K = TypeVar("K", bound=SupportsLessThan)
 
 
 # FIXME support maxheap? (version of python: 3.14...)
@@ -19,7 +28,7 @@ T = TypeVar("T")
 class Heap(Generic[T]):
     """FIXME"""
 
-    def __init__(self, data: Collection[T]):
+    def __init__(self, data: Iterable[T]):
         """FIXME"""
         self._heap = list(data)  # FIXME copy or take>
         heapq.heapify(self._heap)
@@ -39,8 +48,8 @@ class Heap(Generic[T]):
 
     def pop(self) -> T:
         """FIXME"""
-        item = heapq.heappop(self._heap)  # FIXME return-type of heappop!?
-        return item
+        top: T = heapq.heappop(self._heap)
+        return top
 
     def push(self, item: T) -> None:
         """FIXME"""
@@ -48,13 +57,59 @@ class Heap(Generic[T]):
 
     def pushpop(self, item: T) -> T:
         """FIXME"""
-        item = heapq.heappushpop(self._heap, item)
-        return item
+        top: T = heapq.heappushpop(self._heap, item)
+        return top
 
     def replace(self, item: T) -> T:
         """FIXME"""
-        item = heapq.heapreplace(self._heap, item)
-        return item
+        top: T = heapq.heapreplace(self._heap, item)
+        return top
+
+
+class KeyHeap(Generic[K, T]):
+    """A min-heap ordered by a key-function, the way `key=` orders `sorted()`.
+
+    Internally stores `(key(item), item)` tuples so ordering follows the key,
+    while the public API accepts and returns the original items of type `T`.
+
+    Note: if two items produce keys that compare equal, `heapq` falls back to
+    comparing the items themselves, so `T` must be orderable in that case (or
+    keys must be unique). This matches the classic `(priority, item)` idiom.
+    """
+
+    def __init__(self, data: Iterable[T], key: Callable[[T], K]):
+        """Build a heap from `data`, prioritised by `key`."""
+        self._key = key
+        self._heap: list[tuple[K, T]] = [(key(item), item) for item in data]
+        heapq.heapify(self._heap)
+
+    def __len__(self) -> int:
+        """Number of items in the `KeyHeap`."""
+        return len(self._heap)
+
+    def __str__(self) -> str:
+        """Show the stored items (not their keys)."""
+        return f"KeyHeap({[item for _, item in self._heap]})"
+
+    def peek(self) -> T:
+        """Return the item with the smallest key without removing it."""
+        return self._heap[0][1]
+
+    def pop(self) -> T:
+        """Remove and return the item with the smallest key."""
+        return heapq.heappop(self._heap)[1]
+
+    def push(self, item: T) -> None:
+        """Add `item` to the heap."""
+        heapq.heappush(self._heap, (self._key(item), item))
+
+    def pushpop(self, item: T) -> T:
+        """Push `item`, then pop and return the item with the smallest key."""
+        return heapq.heappushpop(self._heap, (self._key(item), item))[1]
+
+    def replace(self, item: T) -> T:
+        """Pop and return the item with the smallest key, then push `item`."""
+        return heapq.heapreplace(self._heap, (self._key(item), item))[1]
 
 
 def main() -> None:
