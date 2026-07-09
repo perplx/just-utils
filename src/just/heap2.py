@@ -20,9 +20,6 @@ K = TypeVar("K", bound=SupportsLessThan)
 
 
 # FIXME support maxheap? (version of python: 3.14...)
-# FIXME support key-function without type complications
-# FIXME support pushpop, extra operations, __str__, etc.
-# FIXME tests!!!!
 # FIXME docstrings!!!
 # FIXME link to youtube video?
 class Heap(Generic[T]):
@@ -30,7 +27,7 @@ class Heap(Generic[T]):
 
     def __init__(self, data: Iterable[T]):
         """FIXME"""
-        self._heap = list(data)  # FIXME copy or take>
+        self._heap = list(data)
         heapq.heapify(self._heap)
 
     def __len__(self) -> int:
@@ -38,34 +35,31 @@ class Heap(Generic[T]):
         return len(self._heap)
 
     def __str__(self) -> str:
-        """FIXME"""
+        """Show the stored items."""
         return f"Heap({self._heap})"
 
     def peek(self) -> T:
-        """FIXME"""
-        top = self._heap[0]
-        return top
+        """Return the smallest item without removing it."""
+        return self._heap[0]
 
     def pop(self) -> T:
-        """FIXME"""
-        top: T = heapq.heappop(self._heap)
-        return top
+        """Remove and return the smallest item."""
+        return heapq.heappop(self._heap)
 
     def push(self, item: T) -> None:
-        """FIXME"""
+        """Add `item` to the heap."""
         heapq.heappush(self._heap, item)
 
     def pushpop(self, item: T) -> T:
-        """FIXME"""
-        top: T = heapq.heappushpop(self._heap, item)
-        return top
+        """Push `item`, then pop and return the smallest item."""
+        return heapq.heappushpop(self._heap, item)
 
     def replace(self, item: T) -> T:
-        """FIXME"""
-        top: T = heapq.heapreplace(self._heap, item)
-        return top
+        """Pop and return the smallest item, then push `item`."""
+        return heapq.heapreplace(self._heap, item)
 
 
+# FIXME __repr__ to show key?
 class KeyHeap(Generic[K, T]):
     """A min-heap ordered by a key-function, the way `key=` orders `sorted()`.
 
