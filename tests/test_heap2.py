@@ -11,6 +11,10 @@ class TestHeap2(unittest.TestCase):
         TEST_DATA = ["c", "bb", "aaa"]
         self.heap_test = Heap[int](TEST_DATA)
 
+    def test_bool(self):
+        self.assertTrue(self.heap_test)
+        self.assertFalse(Heap([]))
+
     def test_len(self):
         self.assertEqual(len(self.heap_test), 3)
 
@@ -81,6 +85,10 @@ class TestKeyHeap(unittest.TestCase):
         # TEST_DATA is mutable!
         TEST_DATA = ["c", "bb", "aaa"]
         self.heap_test = KeyHeap[int, str](TEST_DATA, key=len)
+
+    def test_bool(self):
+        self.assertTrue(self.heap_test)
+        self.assertFalse(KeyHeap([], key=len))
 
     def test_len(self):
         self.assertEqual(len(self.heap_test), 3)
