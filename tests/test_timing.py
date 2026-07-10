@@ -76,6 +76,8 @@ class TestTimed(unittest.TestCase):
             def test():
                 pass
 
+    # FIXME test logger with insufficient level, but assertNoLogs is python 3.10?
+
 
 class TestTiming(unittest.TestCase):
     """Tests for just.timing.timing context-manager"""
