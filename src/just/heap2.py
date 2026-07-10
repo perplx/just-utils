@@ -10,7 +10,8 @@ from typing import Any, Callable, Generic, Iterable, Protocol, TypeVar
 class SupportsLessThan(Protocol):
     """A type that can be ordered with `<`, as required by `heapq`."""
 
-    def __lt__(self, other: Any) -> bool: ...
+    def __lt__(self, other: Any) -> bool:
+        """Return whether `self` sorts before `other`."""
 
 
 T = TypeVar("T", bound=SupportsLessThan)
