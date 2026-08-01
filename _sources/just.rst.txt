@@ -40,6 +40,15 @@ just.heap module
    :show-inheritance:
    :exclude-members: main
 
+just.heap2 module
+-----------------
+
+.. automodule:: just.heap2
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :exclude-members: main
+
 just.lock module
 ----------------
 

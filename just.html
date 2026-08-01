@@ -90,6 +90,26 @@
 </li>
 </ul>
 </li>
+<li><a class="reference internal" href="#module-just.heap2">just.heap2 module</a><ul>
+<li><a class="reference internal" href="#just.heap2.Heap"><code class="docutils literal notranslate"><span class="pre">Heap</span></code></a><ul>
+<li><a class="reference internal" href="#just.heap2.Heap.peek"><code class="docutils literal notranslate"><span class="pre">Heap.peek()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.Heap.pop"><code class="docutils literal notranslate"><span class="pre">Heap.pop()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.Heap.push"><code class="docutils literal notranslate"><span class="pre">Heap.push()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.Heap.pushpop"><code class="docutils literal notranslate"><span class="pre">Heap.pushpop()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.Heap.replace"><code class="docutils literal notranslate"><span class="pre">Heap.replace()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#just.heap2.KeyHeap"><code class="docutils literal notranslate"><span class="pre">KeyHeap</span></code></a><ul>
+<li><a class="reference internal" href="#just.heap2.KeyHeap.peek"><code class="docutils literal notranslate"><span class="pre">KeyHeap.peek()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.KeyHeap.pop"><code class="docutils literal notranslate"><span class="pre">KeyHeap.pop()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.KeyHeap.push"><code class="docutils literal notranslate"><span class="pre">KeyHeap.push()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.KeyHeap.pushpop"><code class="docutils literal notranslate"><span class="pre">KeyHeap.pushpop()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.KeyHeap.replace"><code class="docutils literal notranslate"><span class="pre">KeyHeap.replace()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#just.heap2.SupportsLessThan"><code class="docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-just.lock">just.lock module</a><ul>
 <li><a class="reference internal" href="#just.lock.LockFileExistsError"><code class="docutils literal notranslate"><span class="pre">LockFileExistsError</span></code></a></li>
 <li><a class="reference internal" href="#just.lock.lock_file"><code class="docutils literal notranslate"><span class="pre">lock_file()</span></code></a></li>
@@ -402,6 +422,148 @@ leaving the larger value on the heap.</p>
 </dd></dl>
 
 </section>
+<section id="module-just.heap2">
+<span id="just-heap2-module"></span><h2>just.heap2 module<a class="headerlink" href="#module-just.heap2" title="Link to this heading">¶</a></h2>
+<p>Implementaton of a min-heap piority-queue class, based on the standard library <cite>heapq</cite> module.
+see: <a class="reference external" href="https://docs.python.org/3/library/heapq.html">https://docs.python.org/3/library/heapq.html</a>
+Now with type annotations.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="just.heap2.Heap">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.heap2.</span></span><span class="sig-name descname"><span class="pre">Heap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<p>FIXME</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap2.Heap.peek">
+<span class="sig-name descname"><span class="pre">peek</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap.peek"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap.peek" title="Link to this definition">¶</a></dt>
+<dd><p>Return the smallest item without removing it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>, bound= <a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a>)</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap2.Heap.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap.pop" title="Link to this definition">¶</a></dt>
+<dd><p>Remove and return the smallest item.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>, bound= <a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a>)</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap2.Heap.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap.push"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap.push" title="Link to this definition">¶</a></dt>
+<dd><p>Add <cite>item</cite> to the heap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap2.Heap.pushpop">
+<span class="sig-name descname"><span class="pre">pushpop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap.pushpop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap.pushpop" title="Link to this definition">¶</a></dt>
+<dd><p>Push <cite>item</cite>, then pop and return the smallest item.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>, bound= <a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a>)</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap2.Heap.replace">
+<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap.replace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap.replace" title="Link to this definition">¶</a></dt>
+<dd><p>Pop and return the smallest item, then push <cite>item</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>, bound= <a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a>)</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="just.heap2.KeyHeap">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.heap2.</span></span><span class="sig-name descname"><span class="pre">KeyHeap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">K</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<p>A min-heap ordered by a key-function, the way <cite>key=</cite> orders <cite>sorted()</cite>.</p>
+<p>Internally stores <cite>(key(item), item)</cite> tuples so ordering follows the key,
+while the public API accepts and returns the original items of type <cite>T</cite>.</p>
+<p>Note: if two items produce keys that compare equal, <cite>heapq</cite> falls back to
+comparing the items themselves, so <cite>T</cite> must be orderable in that case (or
+keys must be unique). This matches the classic <cite>(priority, item)</cite> idiom.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap2.KeyHeap.peek">
+<span class="sig-name descname"><span class="pre">peek</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap.peek"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap.peek" title="Link to this definition">¶</a></dt>
+<dd><p>Return the item with the smallest key without removing it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>, bound= <a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a>)</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap2.KeyHeap.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap.pop" title="Link to this definition">¶</a></dt>
+<dd><p>Remove and return the item with the smallest key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>, bound= <a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a>)</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap2.KeyHeap.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap.push"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap.push" title="Link to this definition">¶</a></dt>
+<dd><p>Add <cite>item</cite> to the heap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap2.KeyHeap.pushpop">
+<span class="sig-name descname"><span class="pre">pushpop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap.pushpop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap.pushpop" title="Link to this definition">¶</a></dt>
+<dd><p>Push <cite>item</cite>, then pop and return the item with the smallest key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>, bound= <a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a>)</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap2.KeyHeap.replace">
+<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap.replace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap.replace" title="Link to this definition">¶</a></dt>
+<dd><p>Pop and return the item with the smallest key, then push <cite>item</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>, bound= <a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a>)</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="just.heap2.SupportsLessThan">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.heap2.</span></span><span class="sig-name descname"><span class="pre">SupportsLessThan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#SupportsLessThan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.SupportsLessThan" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></p>
+<p>A type that can be ordered with <cite>&lt;</cite>, as required by <cite>heapq</cite>.</p>
+</dd></dl>
+
+</section>
 <section id="module-just.lock">
 <span id="just-lock-module"></span><h2>just.lock module<a class="headerlink" href="#module-just.lock" title="Link to this heading">¶</a></h2>
 <p>Lock-file</p>
@@ -559,6 +721,26 @@ Output to stdout and to a given logger.</p>
 <li><a class="reference internal" href="#just.heap.Heap.replace"><code class="docutils literal notranslate"><span class="pre">Heap.replace()</span></code></a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-just.heap2">just.heap2 module</a><ul>
+<li><a class="reference internal" href="#just.heap2.Heap"><code class="docutils literal notranslate"><span class="pre">Heap</span></code></a><ul>
+<li><a class="reference internal" href="#just.heap2.Heap.peek"><code class="docutils literal notranslate"><span class="pre">Heap.peek()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.Heap.pop"><code class="docutils literal notranslate"><span class="pre">Heap.pop()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.Heap.push"><code class="docutils literal notranslate"><span class="pre">Heap.push()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.Heap.pushpop"><code class="docutils literal notranslate"><span class="pre">Heap.pushpop()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.Heap.replace"><code class="docutils literal notranslate"><span class="pre">Heap.replace()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#just.heap2.KeyHeap"><code class="docutils literal notranslate"><span class="pre">KeyHeap</span></code></a><ul>
+<li><a class="reference internal" href="#just.heap2.KeyHeap.peek"><code class="docutils literal notranslate"><span class="pre">KeyHeap.peek()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.KeyHeap.pop"><code class="docutils literal notranslate"><span class="pre">KeyHeap.pop()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.KeyHeap.push"><code class="docutils literal notranslate"><span class="pre">KeyHeap.push()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.KeyHeap.pushpop"><code class="docutils literal notranslate"><span class="pre">KeyHeap.pushpop()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.KeyHeap.replace"><code class="docutils literal notranslate"><span class="pre">KeyHeap.replace()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#just.heap2.SupportsLessThan"><code class="docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-just.lock">just.lock module</a><ul>
