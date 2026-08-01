@@ -3,7 +3,7 @@ import unittest
 from just.heap2 import Heap, KeyHeap
 
 
-class TestHeap2(unittest.TestCase):
+class TestHeap(unittest.TestCase):
     """Tests for class just.heap.Heap"""
 
     def setUp(self):
