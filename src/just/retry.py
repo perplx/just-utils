@@ -5,22 +5,25 @@ see: https://lobste.rs/s/xhe7sr/python_cocktail_mix_context_manager
 import functools
 import logging
 import time
-from typing import Callable, Type
+from typing import Callable, Optional, ParamSpec, Type, TypeVar
 
 
 logger = logging.getLogger(__name__)
 
 
+P = ParamSpec("P")
+R = TypeVar("R")
+
+
 # FIXME default value for error?
 # FIXME support multiple exceptions in tuple? Union[Type[Exception], Tuple[Type[Exception], ...]]
 # FIXME support logger as parameter?
-# FIXME preserve param-spec of decorated function
 def retry(error: Type[Exception], tries: int, delay: float = 0.0):
-    def decorate(func: Callable):
+    def decorate(func: Callable[P, R]) -> Callable[P, R]:
         # preserves metadata (name, stack, etc.) of func when decorated
         @functools.wraps(func)
-        def wrapper(*args, **kwargs):
-            caught = None
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
+            caught: Optional[Exception] = None
             for i in range(tries):
                 try:
                     result = func(*args, **kwargs)
