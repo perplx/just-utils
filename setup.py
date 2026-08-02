@@ -43,9 +43,11 @@ setup(
     extras_require={
         # black is pinned: its stable style changes yearly and newer majors drop older Pythons,
         # so an unpinned install formats inconsistently across the supported Python range (see tests.yml)
-        "dev": ["black<26", "flake8", "mypy", "pytest-cov", "vermin"],
+        "dev": ["just-utils[docs,lint,test,types]"],
         "docs": ["sphinx", "sphinx-autodoc-typehints", "sphinx-mdinclude", "python_docs_theme"],
-        "types": ["types-setuptools"],
+        "lint": ["black<26", "flake8", "vermin"],
+        "test": ["pytest-cov"],
+        "types": ["mypy", "types-setuptools"],
     },
 
     test_suite="tests",
