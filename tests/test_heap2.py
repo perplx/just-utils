@@ -4,7 +4,7 @@ from just.heap2 import Heap, KeyHeap
 
 
 class TestHeap(unittest.TestCase):
-    """Tests for class just.heap.Heap"""
+    """Tests for class `just.heap.Heap`."""
 
     def setUp(self):
         # TEST_DATA is mutable!
@@ -75,9 +75,9 @@ class TestHeap(unittest.TestCase):
 
 
 class TestKeyHeap(unittest.TestCase):
-    """Tests for class just.heap.KeyHeap, ordered by `len`.
+    """Tests for class `just.heap.KeyHeap`, stores `str` objects ordered by `len`.
 
-    Identical to TestHeap2, but priority is the string length instead of the
+    Identical to TestHeap, but priority is the string length instead of the
     natural string ordering, so the expected order is reversed accordingly.
     """
 
