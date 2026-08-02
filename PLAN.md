@@ -180,16 +180,127 @@ but a REPL prints nothing for `None`.
 Adding `--doctest-modules` to the pytest run would make every `ex::` block a real test — high value
 for a repo whose purpose is being copied from later.
 
-Housekeeping
-------------
+Project Structure
+=================
 
+Defects
+-------
+
+These are bugs rather than nice-to-haves, and each is small.
+
+**`src/just/py.typed` does not exist.** [setup.py:39](setup.py#L39) declares
+`package_data={"just": ["py.typed"]}`, but there is no such file in [src/just/](src/just/).
+Without that PEP 561 marker, every downstream `mypy` silently ignores all the annotations —
+the type hints are decorative outside this repo. Fixed by adding one empty file.
+
+**No `python_requires=`.** [setup.py](setup.py) carries classifiers for 3.6 through 3.13 but no
+`python_requires`, so `pip` will install on any interpreter and the failure surfaces at import time.
+
+**The version floor is stale, and the 3.7 CI job cannot be passing.** A `vermin` run reports:
+
+    src/just/heap2.py   !2, 3.8      (typing.Protocol)
+    src/just/args.py    !2, 3.13     (re.PatternError — false positive)
+
+`heap2` needs **3.8+**, but the classifiers claim 3.6/3.7, [pyproject.toml:4](pyproject.toml#L4)
+sets `target-version = ["py36"]`, and [tests.yml:28](.github/workflows/tests.yml#L28) still runs a
+`"3.7"` matrix entry, which imports `heap2` and cannot. Separately, the `re.PatternError` hit at
+[args.py:17](src/just/args.py#L17) is guarded by `try` / `except AttributeError`; `vermin` cannot see
+the guard, so it needs a `# novermin` comment or the reported floor stays wrong at 3.13.
+
+Optional Extras
+---------------
+
+[setup.py:43-49](setup.py#L43-L49) currently has `dev` (a grab-bag of four unrelated tools), `docs`,
+and a `types` extra holding only `types-setuptools` while `mypy` itself sits in `dev`. Since testing
+and documentation are already framed as separable features, the extras should match:
+
+extra    | contents
+---------|--------------------------------------------------
+`test`   | `pytest`, `pytest-cov`
+`lint`   | `black<26`, `flake8`, `vermin`
+`types`  | `mypy`, `types-setuptools`
+`docs`   | unchanged
+`dev`    | `just-utils[test,lint,types,docs]` — recursive extras work fine in `pip`
+
+That yields one extra per CI job, so `pip install -e .[types]` and the `mypy` step install exactly
+the same thing.
+
+Tool Configuration
+------------------
+
+- **No pytest configuration at all** — neither `[tool:pytest]` in [setup.cfg](setup.cfg) nor
+  `[tool.pytest.ini_options]` in [pyproject.toml](pyproject.toml). Add `testpaths`, `-ra`,
+  `--strict-markers`, and `--doctest-modules` (that last one is what turns the `ex::` blocks into
+  real tests, per the Doctests note above).
+- **No mypy configuration**, despite `mypy` being a dependency with its own script and a
+  `.mypy_cache/` in the tree. A `[mypy]` section with `strict = True` plus per-module relaxations is
+  itself a good reference artifact.
+- **No `fail_under`** in `[coverage:report]`. The coverage badge is published, but nothing fails
+  when coverage drops.
+- **No `[build-system]` table** in [pyproject.toml](pyproject.toml), so builds go through the legacy
+  setuptools fallback path. Three lines fixes it, and it is the modern-packaging demonstration this
+  repo ought to carry.
+
+Also worth adding to [setup.py](setup.py): `license="MIT"`, a `long_description` read from
+[README.md](README.md) with `long_description_content_type="text/markdown"` (it is a hardcoded
+one-liner today), and `project_urls`.
+
+Continuous Integration
+----------------------
+
+- **`mypy` and `vermin` never run in CI**, though both are in `[dev]` and have scripts. Two steps
+  closes the loop — and `vermin` in CI is what would have caught the 3.8 floor above.
+- **The flake8 step cannot fail.** [tests.yml:56-61](.github/workflows/tests.yml#L56-L61) is the
+  unmodified GitHub template: the second invocation passes `--exit-zero`, and its
+  `--max-line-length=127` contradicts the 120 in [setup.cfg:16](setup.cfg#L16). Replacing both lines
+  with a plain `flake8 src/ tests/ setup.py` picks up setup.cfg instead.
+- **`on: [push]` only** — no `pull_request` trigger.
+- **Add `windows-latest` and `macos-latest` to the matrix.** Justified here rather than
+  cargo-culted: `just.lock` does exclusive file creation and unlinking, `just.open` handles paths,
+  and the planned `just.atomic` (`os.replace`) and `just.signals` (SIGTERM) are precisely where
+  POSIX assumptions break on Windows — the development platform.
+- **The coverage-badge steps run once per matrix entry.** Guard them with
+  `if: matrix.python-version == '3.14' && matrix.os == 'ubuntu-latest'`.
+- **Drift between the two workflows**: tests.yml uses `checkout@v3` / `setup-python@v4`, docs.yml
+  uses v4 / v5. Also missing from tests.yml: `cache: pip` on setup-python, a `concurrency:` group to
+  cancel superseded runs, and a `permissions:` block (docs.yml has one).
+
+Repository Files
+----------------
+
+- **`CHANGELOG.md`** — thematically required by
+  [`@deprecated(since=...)`](src/just/deprecate.py#L12): the `since` string has to point somewhere.
+- **`__version__` in [src/just/\_\_init\_\_.py](src/just/__init__.py)** (currently empty),
+  single-sourced into setup.py. The version lives only in setup.py today, so it is unavailable at
+  run-time.
+- **Decide on the generated docs.** `docs/just.rst` and `docs/modules.rst` are committed,
+  `run_docs_build.sh` regenerates them, `run_docs_clean.sh` deletes them, and `docs.yml` never runs
+  `sphinx-apidoc` — so the deployed docs only pick up a new module if the regenerated `.rst` gets
+  committed. Either gitignore them and run `sphinx-apidoc` in the workflow, or stop regenerating them
+  locally. Also add `-W` to fail the docs build on warnings; it would surface the `_static` warning
+  already noted in docs.yml.
+- `.venv/` is listed under the `# vscode` comment in [.gitignore](.gitignore).
 - `just-utils/` at the repo root is an empty leftover directory.
-- [setup.py](setup.py) classifies 3.6+, while `heap2` uses `Protocol` (3.8+) and `list[tuple[...]]`
-  (3.9+). Worth a `vermin` run ([scripts/run_vermin.sh](scripts/run_vermin.sh)) to resync the claim.
+
+Scripts
+-------
+
+- **`pushd` / `popd` under `#!/bin/sh` is a bashism** in `run_docs_build.sh`, `run_docs_clean.sh`
+  and `run_docs_server.sh` — they break under `dash`, which is `/bin/sh` on the Ubuntu CI runner.
+  Use `cd` in a subshell, or switch the shebang to `#!/bin/bash`.
+- `run_docs_build.sh` invokes `./make.bat` from a POSIX script — Windows-only, and it is the one
+  script CI would most want to reuse.
+- **One entry point.** A `Makefile` (or `run_all.sh`) with `format lint types test docs coverage all`
+  targets, which CI then calls, is the standard fix for scripts and CI drifting apart — exactly what
+  happened with the flake8 line-length above. `tox` or `nox` would do it properly across the version
+  matrix, at the cost of a dev-only external dependency.
+- `run_black.sh` only has `--check`, so the most-used tool has no format-in-place script.
 
 Suggested Order
 ===============
 
+0. The three defects above: `py.typed`, `python_requires`, and the 3.8 version floor
+   (classifiers, black `target-version`, CI matrix, `# novermin` on [args.py:17](src/just/args.py#L17)).
 1. `just.human` — unblocks the `just.timing` and `just.args` extensions.
 2. `just.retry`
 3. `just.timing` fixes (the `@timed()` FIXME, `ContextDecorator`, `try/finally`).
@@ -197,3 +308,7 @@ Suggested Order
 5. `just.log`, then the `just.args` additions.
 6. `just.heap2` completion, then deprecate `just.heap`.
 7. Everything else, as needed.
+
+Structural work is independent of the module work and can interleave; the extras split and the
+pytest configuration are worth doing early, since `--doctest-modules` and a `test` extra change how
+every new module gets tested.
