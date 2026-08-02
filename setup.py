@@ -38,6 +38,7 @@ setup(
     package_dir={"": "src"},
     package_data={"just": ["py.typed"]},
 
+    python_requires=">=3.6",
     setup_requires=[],
     install_requires=[],
     extras_require={
