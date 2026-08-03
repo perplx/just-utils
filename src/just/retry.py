@@ -23,13 +23,14 @@ def retry(error: Type[Exception], tries: int, delay: float = 0.0):
         # preserves metadata (name, stack, etc.) of func when decorated
         @functools.wraps(func)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
-            for i in range(tries):
+            for i in range(1, tries+1):
                 try:
                     return func(*args, **kwargs)
                 except error as e:
-                    if i >= tries - 1:
+                    if i >= tries:
+                        logger.error("caught %s - aborting %d / %d ...", e, i, tries)
                         raise  # last attempt: the caller gets the exception
-                    logger.warning("caught %s - retrying...", e)
+                    logger.warning("caught %s - retrying %d / %d ...", e, i, tries)
                     if delay > 0:
                         time.sleep(delay)
             raise ValueError(f"tries must be at least 1, got {tries}")
