@@ -5,7 +5,7 @@ see: https://lobste.rs/s/xhe7sr/python_cocktail_mix_context_manager
 import functools
 import logging
 import time
-from typing import Callable, Optional, ParamSpec, Type, TypeVar
+from typing import Callable, ParamSpec, Type, TypeVar
 
 
 logger = logging.getLogger(__name__)
@@ -23,17 +23,16 @@ def retry(error: Type[Exception], tries: int, delay: float = 0.0):
         # preserves metadata (name, stack, etc.) of func when decorated
         @functools.wraps(func)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
-            caught: Optional[Exception] = None
             for i in range(tries):
                 try:
-                    result = func(*args, **kwargs)
-                    return result
+                    return func(*args, **kwargs)
                 except error as e:
-                    logger.warning("cauget %s - retrying...", e)
-                    caught = e
+                    if i >= tries - 1:
+                        raise  # last attempt: the caller gets the exception
+                    logger.warning("caught %s - retrying...", e)
                     if delay > 0:
                         time.sleep(delay)
-            raise caught
+            raise ValueError(f"tries must be at least 1, got {tries}")
         return wrapper
     return decorate
 
