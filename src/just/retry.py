@@ -1,5 +1,6 @@
 """FIXME
-see: https://lobste.rs/s/xhe7sr/python_cocktail_mix_context_manager
+see: https://www.bitecode.dev/p/python-cocktail-mix-a-context-manager
+see: https://lobste.rs/s/xhe7sr/python_cocktail_mix_context_manager'
 """
 
 import functools
@@ -38,6 +39,40 @@ def retry(error: Type[Exception], tries: int, delay: float = 0.0):
     return decorate
 
 
+class RetryContext:
+
+    def __init__(self, success: Callable, attempt: int):
+        self._success = success
+        self._attempt = attempt
+
+    def __enter__(self):
+        pass
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        if exc_value:
+            logger.warning("failed attempt %d", self._attempt)
+        else:
+            self._success()
+        return True  # FIXME swallow exception?
+
+
+class RetryIterator:
+    def __init__(self, attempts: int):
+        self._max_attempts = attempts
+        self._success = False
+
+    def __iter__(self):
+        for i in range(self._max_attempts):
+            yield RetryContext(self.succeed, i+1)
+            if self._success:
+                break
+            else:
+                logger.warning("caught something - retrying %d / %d ...", i+1, self._max_attempts)
+
+    def succeed(self):
+        self._success = True
+
+
 def main() -> None:
     """Simple test."""
 
@@ -55,13 +90,23 @@ def main() -> None:
 
         return call
 
-    flaky_func = flaky(20)
+    # test decorator
+
+    flaky_func = flaky(3)
 
     @retry(RuntimeError, tries=4, delay=0.1)
     def test_func() -> str:
         return flaky_func()
 
     print(test_func())
+
+    # test context-manager
+
+    flaky_func = flaky(30)
+
+    for attempt in RetryIterator(attempts=5):
+        with attempt:
+            print(flaky_func())
 
 
 if __name__ == "__main__":
