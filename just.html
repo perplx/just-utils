@@ -75,8 +75,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#module-just.first">just.first module</a><ul>
-<li><a class="reference internal" href="#just.first.first_condition"><code class="docutils literal notranslate"><span class="pre">first_condition()</span></code></a></li>
-<li><a class="reference internal" href="#just.first.first_next"><code class="docutils literal notranslate"><span class="pre">first_next()</span></code></a></li>
+<li><a class="reference internal" href="#just.first.first"><code class="docutils literal notranslate"><span class="pre">first()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-just.heap">just.heap module</a><ul>
@@ -314,16 +313,28 @@ Emit <code class="docutils literal notranslate"><span class="pre">DeprecationWar
 <span id="just-first-module"></span><h2>just.first module<a class="headerlink" href="#module-just.first" title="Link to this heading">¶</a></h2>
 <p>Like <code class="docutils literal notranslate"><span class="pre">any()</span></code> but returns the first element.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="just.first.first_condition">
-<span class="sig-prename descclassname"><span class="pre">just.first.</span></span><span class="sig-name descname"><span class="pre">first_condition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/first.html#first_condition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.first.first_condition" title="Link to this definition">¶</a></dt>
-<dd><p>Return the first item in <code class="docutils literal notranslate"><span class="pre">iterable</span></code> for which <code class="docutils literal notranslate"><span class="pre">condition(item)</span></code> is true,
-or <code class="docutils literal notranslate"><span class="pre">None</span></code> if no such item is in <code class="docutils literal notranslate"><span class="pre">iterable</span></code>.</p>
-<p>ex:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">first_condition</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">10000</span><span class="p">)</span>
+<dt class="sig sig-object py" id="just.first.first">
+<span class="sig-prename descclassname"><span class="pre">just.first.</span></span><span class="sig-name descname"><span class="pre">first</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;class</span> <span class="pre">'bool'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;object</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/first.html#first"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.first.first" title="Link to this definition">¶</a></dt>
+<dd><p>Return the first item in <code class="docutils literal notranslate"><span class="pre">iterable</span></code> for which <code class="docutils literal notranslate"><span class="pre">condition(item)</span></code> is true.
+If no condition is provided, <code class="docutils literal notranslate"><span class="pre">bool()</span></code> is used, it check the truth-value of <code class="docutils literal notranslate"><span class="pre">item</span></code>.
+If no item is found to satisfy the condition, raise <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p>
+<p>no condition given
+ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">first</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="go">None</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">first_condition</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first</span><span class="p">([</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">{},</span> <span class="p">[],</span> <span class="mi">1</span><span class="p">])</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>condition given
+ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">first</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="go">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
 <span class="go">8</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">first_condition</span><span class="p">([</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">{},</span> <span class="p">[],</span> <span class="mi">1</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first</span><span class="p">([</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">{},</span> <span class="p">[],</span> <span class="mi">1</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
 <span class="go">0</span>
 </pre></div>
 </div>
@@ -331,7 +342,7 @@ or <code class="docutils literal notranslate"><span class="pre">None</span></cod
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>iterable</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span>) – an <code class="docutils literal notranslate"><span class="pre">Iterable</span></code> of items of type <code class="docutils literal notranslate"><span class="pre">T</span></code></p></li>
-<li><p><strong>condition</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)], <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]</span>) – returns whether the item is true.</p></li>
+<li><p><strong>condition</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)], <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span>) – returns whether the item is true.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -340,31 +351,8 @@ or <code class="docutils literal notranslate"><span class="pre">None</span></cod
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the first item in <code class="docutils literal notranslate"><span class="pre">iterable</span></code> that is true.</p>
 </dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="just.first.first_next">
-<span class="sig-prename descclassname"><span class="pre">just.first.</span></span><span class="sig-name descname"><span class="pre">first_next</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/first.html#first_next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.first.first_next" title="Link to this definition">¶</a></dt>
-<dd><p>Return the first item in <code class="docutils literal notranslate"><span class="pre">iter</span></code> that is true, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if no item such is in <code class="docutils literal notranslate"><span class="pre">iter</span></code>.</p>
-<p>ex:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">first_next</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="go">None</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">first_next</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="go">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">first_next</span><span class="p">([</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">{},</span> <span class="p">[],</span> <span class="mi">1</span><span class="p">])</span>
-<span class="go">1</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>iterable</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span>) – an <code class="docutils literal notranslate"><span class="pre">Iterable</span></code> of items of type <code class="docutils literal notranslate"><span class="pre">T</span></code></p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the first item in <code class="docutils literal notranslate"><span class="pre">iter</span></code> that is true.</p>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – when no item is found to satisfy the condition</p>
 </dd>
 </dl>
 </dd></dl>
@@ -708,8 +696,7 @@ Output to stdout and to a given logger.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-just.first">just.first module</a><ul>
-<li><a class="reference internal" href="#just.first.first_condition"><code class="docutils literal notranslate"><span class="pre">first_condition()</span></code></a></li>
-<li><a class="reference internal" href="#just.first.first_next"><code class="docutils literal notranslate"><span class="pre">first_next()</span></code></a></li>
+<li><a class="reference internal" href="#just.first.first"><code class="docutils literal notranslate"><span class="pre">first()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-just.heap">just.heap module</a><ul>
