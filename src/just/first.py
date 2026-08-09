@@ -14,49 +14,51 @@ DEFAULT_VALUE = None
 # type definitions
 T = TypeVar("T")
 
-
-# FIXME raise IndexError if none are found?
-def first_next(iterable: Iterable[T]) -> Optional[T]:
-    """Return the first item in ``iter`` that is true, or ``None`` if no item such is in ``iter``.
-
-    ex::
-
-        >>> first_next([0, 0, 0])
-        None
-        >>> first_next([0, 0, 0, 1, 0, 2])
-        1
-        >>> first_next([None, 0, {}, [], 1])
-        1
-
-    :param iterable: an ``Iterable`` of items of type ``T``
-    :return: the first item in ``iter`` that is true.
-    """
-    return next((i for i in iterable if i), None)
+# sentinel value
+_MISSING = object()
 
 
 # FIXME raise IndexError if none are found?
-def first_condition(iterable: Iterable[T], condition: Callable[[T], bool]) -> Optional[T]:
-    """Return the first item in ``iterable`` for which ``condition(item)`` is true,
-    or ``None`` if no such item is in ``iterable``.
+def first(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_MISSING) -> Optional[T]:
+    """Return the first item in ``iterable`` for which ``condition(item)`` is true.
+    If no condition is provided, ``bool()`` is used, it check the truth-value of ``item``.
+    If no item is found to satisfy the condition, raise ``ValueError``.
 
+    no condition given
     ex::
 
-        >>> first_condition([1, 3, 8, 9], lambda x: x > 10000)
+        >>> first([0, 0, 0], default=None)
         None
-        >>> first_condition([1, 3, 8, 9], lambda x: int(x) % 3 == 2)
+        >>> first([0, 0, 0, 1, 0, 2])
+        1
+        >>> first([None, 0, {}, [], 1])
+        1
+
+    condition given
+    ex::
+        >>> first([1, 3, 8, 9], lambda x: x > 10000, default=None)
+        None
+        >>> first([1, 3, 8, 9], lambda x: int(x) % 3 == 2)
         8
-        >>> first_condition([None, 0, {}, [], 1], lambda x: x is not None)
+        >>> first([None, 0, {}, [], 1], lambda x: x is not None)
         0
 
     :param iterable: an ``Iterable`` of items of type ``T``
     :param condition: returns whether the item is true.
     :return: the first item in ``iterable`` that is true.
+    :raise ValueError: when no item is found to satisfy the condition
     """
-    return next((i for i in iterable if condition(i)), None)
+    item = next((i for i in iterable if condition(i)), default)
+    if item == _MISSING:
+        raise ValueError(f"no item found to satisfy condition: {condition}")
+    return item
 
 
 def main() -> None:
     """Simple test."""
+
+    def test(items, condition):
+        pass
 
     # test `first_next` and `first_condition` on integers
     TESTS_INT: List[List[int]] = [
@@ -66,10 +68,10 @@ def main() -> None:
     ]
     for test in TESTS_INT:
         print(test)
-        print(f"{first_next.__name__}: {first_next(test)}")
-        print(f"{first_condition.__name__}: {first_condition(test, lambda x: x)}")
-        print(f"{first_condition.__name__} (> 10000): {first_condition(test, lambda x: x > 10000)}")
-        print(f"{first_condition.__name__} (% 3 == 2): {first_condition(test, lambda x: x % 3 == 2)}")
+        print(f"{first.__name__}: {first(test, default=None)}")
+        print(f"{first.__name__}: {first(test, lambda x: x, default=None)}")
+        print(f"{first.__name__} (> 10000): {first(test, lambda x: x > 10000, default=None)}")
+        print(f"{first.__name__} (% 3 == 2): {first(test, lambda x: x % 3 == 2, default=None)}")
         print()
 
     # test `first_next` and `first_condition` on false objects
@@ -80,11 +82,10 @@ def main() -> None:
     ]
     for test in TESTS_FALSE:
         print(test)
-        print(f"{first_next.__name__}: {first_next(test)}")
-        print(f"{first_condition.__name__}: {first_condition(test, lambda x: x)}")
-        print(f"{first_condition.__name__} (not None): {first_condition(test, lambda x: x is not None)}")
+        print(f"{first.__name__}: {first(test, default=None)}")
+        print(f"{first.__name__}: {first(test, lambda x: x, default=None)}")
+        print(f"{first.__name__} (not None): {first(test, lambda x: x is not None, default=None)}")
         print()
-
 
 if __name__ == "__main__":
     main()
