@@ -49,7 +49,7 @@ def first(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_
     :raise ValueError: when no item is found to satisfy the condition
     """
     item = next((i for i in iterable if condition(i)), default)
-    if item == _MISSING:
+    if item is _MISSING:
         raise ValueError(f"no item found to satisfy condition: {condition}")
     return item
 
