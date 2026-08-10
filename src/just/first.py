@@ -7,10 +7,6 @@
 from typing import Any, Callable, Iterable, List, Optional, TypeVar
 
 
-# global constants
-DEFAULT_VALUE = None
-
-
 # type definitions
 T = TypeVar("T")
 
@@ -57,21 +53,18 @@ def first(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_
 def main() -> None:
     """Simple test."""
 
-    def test(items, condition):
-        pass
-
     # test `first_next` and `first_condition` on integers
     TESTS_INT: List[List[int]] = [
         [0, 0, 0],
         [0, 0, 0, 1, 0, 2],
         [1, 3, 8, 9],
     ]
-    for test in TESTS_INT:
-        print(test)
-        print(f"{first.__name__}: {first(test, default=None)}")
-        print(f"{first.__name__}: {first(test, lambda x: x, default=None)}")
-        print(f"{first.__name__} (> 10000): {first(test, lambda x: x > 10000, default=None)}")
-        print(f"{first.__name__} (% 3 == 2): {first(test, lambda x: x % 3 == 2, default=None)}")
+    for items in TESTS_INT:
+        print(items)
+        print(f"{first.__name__}: {first(items, default=None)}")
+        print(f"{first.__name__}: {first(items, lambda x: x, default=None)}")
+        print(f"{first.__name__} (> 10000): {first(items, lambda x: x > 10000, default=None)}")
+        print(f"{first.__name__} (% 3 == 2): {first(items, lambda x: x % 3 == 2, default=None)}")
         print()
 
     # test `first_next` and `first_condition` on false objects
@@ -80,11 +73,11 @@ def main() -> None:
         [None, False],
         [None, 0, 0.0, False, dict(), list(), set(), 1],
     ]
-    for test in TESTS_FALSE:
-        print(test)
-        print(f"{first.__name__}: {first(test, default=None)}")
-        print(f"{first.__name__}: {first(test, lambda x: x, default=None)}")
-        print(f"{first.__name__} (not None): {first(test, lambda x: x is not None, default=None)}")
+    for items in TESTS_FALSE:
+        print(items)
+        print(f"{first.__name__}: {first(items, default=None)}")
+        print(f"{first.__name__}: {first(items, lambda x: x, default=None)}")
+        print(f"{first.__name__} (not None): {first(items, lambda x: x is not None, default=None)}")
         print()
 
 if __name__ == "__main__":
