@@ -4,10 +4,11 @@
 
 
 # standard imports
+import itertools
 import unittest
 
 # tested imports
-from just.first import first, last
+from just.first import first, last, only
 
 
 class TestFirst(unittest.TestCase):
@@ -70,3 +71,55 @@ class TestLast(unittest.TestCase):
 
         self.assertEqual(last(iter([1, 2, 3])), 3)
         self.assertEqual(last(i for i in range(10) if i % 3 == 2), 8)
+
+
+class TestOnly(unittest.TestCase):
+    """test for `just.first.only`"""
+
+    def test_only(self):
+        """test `just.first.only` with no condition."""
+
+        self.assertEqual(only([], default=None), None)
+        self.assertEqual(only([0, 0, 0], default=None), None)
+        self.assertEqual(only([0, 1, 0]), 1)
+        self.assertEqual(only([5]), 5)
+
+    def test_only_condition(self):
+        """test `just.first.only` with condition."""
+
+        self.assertEqual(only([1, 3, 8, 9], lambda x: x > 8), 9)
+        self.assertEqual(only([None, 0, None], lambda x: x is not None), 0)
+
+    def test_only_missing(self):
+        """test `just.first.only` with no matching item."""
+
+        with self.assertRaises(ValueError):
+            only([])
+        with self.assertRaises(ValueError):
+            only([0, 0, 0])
+
+    def test_only_several(self):
+        """test `just.first.only` with more than one matching item."""
+
+        with self.assertRaises(ValueError):
+            only([1, 2])
+        with self.assertRaises(ValueError):
+            only([1, 3, 8, 5], lambda x: x % 3 == 2)
+
+    def test_only_several_default(self):
+        """test `just.first.only` raises on several items even given a `default`.
+
+        A `default` answers "nothing matched", not "the input was ambiguous".
+        """
+
+        with self.assertRaises(ValueError):
+            only([1, 2], default=None)
+
+    def test_only_lazy(self):
+        """test `just.first.only` stops at the second match."""
+
+        counter = itertools.count()
+        with self.assertRaises(ValueError):
+            only(counter)
+        # `only` gave up after the second match, it did not drain the iterator
+        self.assertEqual(next(counter), 3)

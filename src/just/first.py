@@ -59,6 +59,19 @@ def last(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_M
     return item
 
 
+def only(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_MISSING) -> Optional[T]:
+    # A single iterator, so the second `next()` resumes where the first one stopped.
+    matches = filter(condition, iterable)
+    item = next(matches, _MISSING)
+    if item is _MISSING:
+        if default is _MISSING:
+            raise ValueError(f"no item found to satisfy condition: {condition}")
+        return default
+    if next(matches, _MISSING) is not _MISSING:
+        raise ValueError(f"more than one item found to satisfy condition: {condition}")
+    return item
+
+
 def main() -> None:
     """Simple test."""
 
