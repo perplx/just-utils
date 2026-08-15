@@ -49,6 +49,16 @@ def first(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_
     return item
 
 
+def last(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_MISSING) -> Optional[T]:
+    item = default
+    for i in iterable:
+        if condition(i):
+            item = i
+    if item is _MISSING:
+        raise ValueError(f"no item found to satisfy condition: {condition}")
+    return item
+
+
 def main() -> None:
     """Simple test."""
 
