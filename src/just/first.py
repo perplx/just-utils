@@ -14,7 +14,6 @@ T = TypeVar("T")
 _MISSING = object()
 
 
-# FIXME raise IndexError if none are found?
 def first(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_MISSING) -> Optional[T]:
     """Return the first item in ``iterable`` for which ``condition(item)`` is true.
     If no condition is provided, ``bool()`` is used, it check the truth-value of ``item``.
