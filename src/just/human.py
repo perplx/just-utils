@@ -45,7 +45,12 @@ def format_bytes(num_bytes: int) -> str:
 
 
 def parse_bytes(num_bytes: str) -> int:
-    raise NotImplementedError
+    value_str = num_bytes[:-1]
+    unit_str = num_bytes[-1]
+    unit_pos = LS_UNITS.index(unit_str)
+    unit_mul = 1024 ** unit_pos
+    value_num = float(value_str)
+    return value_num * unit_mul
 
 
 def format_duration(num_seconds: float) -> str:
