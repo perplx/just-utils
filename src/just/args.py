@@ -9,6 +9,8 @@ import datetime
 import logging
 import os
 import re
+from enum import Enum
+from typing import Type
 
 
 # FIXME Python 3.12 changed the type of the excdption raised by strptime
@@ -87,6 +89,19 @@ class DirectoryArg:
         return dir_path
 
 
+class EnumArg:
+    """FIXME"""
+
+    def __init__(self, enum_type: Type[Enum]):
+        self._enum_type = enum_type
+
+    def __call__(self, enum_str: str) -> Enum:
+        try:
+            return getattr(self._enum_type, enum_str)  # FIXME use `upper()` to make case-insensitive?
+        except AttributeError:
+            raise argparse.ArgumentTypeError(f"parameter {enum_str} invalid value for enum type {self._enum_type}")
+
+
 # FIXME use logging.getLevelName, even though it's weird, to avoid using private variables?
 def LogLevelArg(level_name: str) -> int:
     """Translate a log-level name to its actual integer representation.
@@ -122,10 +137,16 @@ def LogLevelArg(level_name: str) -> int:
 def main() -> None:
     """Simple test."""
 
+    class TestEnum(Enum):
+        ONE = 1
+        TWO = 2
+        THREE = 3
+
     # define command-line parameters to test
     arg_parser = argparse.ArgumentParser(description=__doc__)
     arg_parser.add_argument("--date-time", type=DateTimeArg("%Y-%m-%d %H:%M:%S.%f"))
     arg_parser.add_argument("--directory", type=DirectoryArg("rw"))
+    arg_parser.add_argument("--enum-name", type=EnumArg(TestEnum))
     arg_parser.add_argument("--log-level", type=LogLevelArg)
 
     # print command-line help
@@ -137,6 +158,7 @@ def main() -> None:
     TEST_ARGS = [
         "--date-time", "2020-02-29 12:34:56.789",
         "--directory", ".",
+        "--enum-name", "ONE",
         "--log-level", "DEBUG"
     ]
     # fmt: on
