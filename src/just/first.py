@@ -22,7 +22,7 @@ def first(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_
     no condition given
     ex::
 
-        >>> first([0, 0, 0], default=None)
+        >>> print(first([0, 0, 0], default=None))
         None
         >>> first([0, 0, 0, 1, 0, 2])
         1
@@ -31,7 +31,7 @@ def first(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_
 
     condition given
     ex::
-        >>> first([1, 3, 8, 9], lambda x: x > 10000, default=None)
+        >>> print(first([1, 3, 8, 9], lambda x: x > 10000, default=None))
         None
         >>> first([1, 3, 8, 9], lambda x: int(x) % 3 == 2)
         8
