@@ -228,7 +228,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enum_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">Enum</span><span class="p">]):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_enum_type</span> <span class="o">=</span> <span class="n">enum_type</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enum_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Enum</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enum_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Enum</span><span class="p">:</span>  <span class="c1"># FIXME define return-type as aelf._enum_type somehow</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_enum_type</span><span class="p">,</span> <span class="n">enum_str</span><span class="p">)</span>  <span class="c1"># FIXME use `upper()` to make case-insensitive?</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
