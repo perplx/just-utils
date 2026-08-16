@@ -297,23 +297,45 @@ Will raise an <code class="docutils literal notranslate"><span class="pre">argpa
 <dd><p>Decorator to mark a function as deprecated.
 Emit <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code> when a decorated function is called.</p>
 <p>ex:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@deprecated</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">deprecated_func_1</span><span class="p">():</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="kc">None</span>
-<span class="go">py.warnings WARNING  deprecate.py:100: DeprecationWarning: deprecated: deprecated_func_1</span>
-<span class="go">deprecated_func_1()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>The warning goes to stderr, so the examples below capture it with
+``warnings.catch_warnings(record=True)`` rather than printing it.
 
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@deprecated</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">deprecated_func_2</span><span class="p">():</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="kc">None</span>
-<span class="go">py.warnings WARNING  deprecate.py:101: DeprecationWarning: deprecated: deprecated_func_2</span>
-<span class="go">deprecated_func_2()</span>
+&gt;&gt;&gt; import warnings
 
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@deprecated</span><span class="p">(</span><span class="n">since</span><span class="o">=</span><span class="s2">&quot;0.3&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">deprecated_func_3</span><span class="p">():</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="kc">None</span>
-<span class="go">py.warnings WARNING  deprecate.py:102: DeprecationWarning: deprecated: deprecated_func_3 (since version: 0.3)</span>
-<span class="go">deprecated_func_3()</span>
+without parentheses
+
+&gt;&gt;&gt; @deprecated
+... def deprecated_func_1():
+...     return None
+&gt;&gt;&gt; with warnings.catch_warnings(record=True) as caught:
+...     warnings.simplefilter(&quot;always&quot;)
+...     deprecated_func_1()
+&gt;&gt;&gt; caught[0].category.__name__
+&#39;DeprecationWarning&#39;
+&gt;&gt;&gt; str(caught[0].message)
+&#39;deprecated: deprecated_func_1&#39;
+
+with parentheses
+
+&gt;&gt;&gt; @deprecated()
+... def deprecated_func_2():
+...     return None
+&gt;&gt;&gt; with warnings.catch_warnings(record=True) as caught:
+...     warnings.simplefilter(&quot;always&quot;)
+...     deprecated_func_2()
+&gt;&gt;&gt; str(caught[0].message)
+&#39;deprecated: deprecated_func_2&#39;
+
+with a version
+
+&gt;&gt;&gt; @deprecated(since=&quot;0.3&quot;)
+... def deprecated_func_3():
+...     return None
+&gt;&gt;&gt; with warnings.catch_warnings(record=True) as caught:
+...     warnings.simplefilter(&quot;always&quot;)
+...     deprecated_func_3()
+&gt;&gt;&gt; str(caught[0].message)
+&#39;deprecated: deprecated_func_3 (since version: 0.3)&#39;
 </pre></div>
 </div>
 </dd></dl>
@@ -652,13 +674,12 @@ Open file normally if no extension matches.</p>
 <dd><p>Perform timing of the execution of the decorated function.
 Output to stdout and to a given logger.</p>
 <p>ex:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span><span class="p">()</span>  <span class="c1"># something to time</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">time</span>  <span class="c1"># something to time</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@timed</span><span class="p">(</span><span class="n">do_print</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">timing_test_print</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>
-<span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">timing_test_print</span><span class="p">(</span><span class="s2">&quot;arg1&quot;</span><span class="p">,</span> <span class="n">arg2</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-<span class="go">func timing_test_print args (&#39;arg1&#39;,) kwargs {&#39;arg2&#39;: &#39;&#39;} took 0.002 seconds</span>
+<span class="go">func timing_test_print args (&#39;arg1&#39;,) kwargs {&#39;arg2&#39;: &#39;&#39;} took ... seconds</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -678,11 +699,10 @@ Output to stdout and to a given logger.</p>
 <dd><p>Perform timing of the execution of the given context
 Output to stdout and to a given logger.</p>
 <p>ex:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span><span class="p">()</span>  <span class="c1"># something to time</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">time</span>  <span class="c1"># something to time</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">timing</span><span class="p">(</span><span class="s2">&quot;timing context print&quot;</span><span class="p">,</span> <span class="n">do_print</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>
-<span class="gp">...</span>
-<span class="go">timing context print took 0.014 seconds</span>
+<span class="go">timing context print took ... seconds</span>
 </pre></div>
 </div>
 <dl class="field-list simple">

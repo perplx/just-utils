@@ -148,13 +148,12 @@
 
 <span class="sd">    ex::</span>
 
-<span class="sd">        &gt;&gt;&gt; from time import sleep()  # something to time</span>
+<span class="sd">        &gt;&gt;&gt; import time  # something to time</span>
 <span class="sd">        &gt;&gt;&gt; @timed(do_print=True)</span>
 <span class="sd">        ... def timing_test_print(arg1, arg2):</span>
 <span class="sd">        ...     time.sleep(0.001)</span>
-<span class="sd">        ...</span>
-<span class="sd">        &gt;&gt;&gt; timing_test_print(&quot;arg1&quot;, arg2=&quot;&quot;)</span>
-<span class="sd">        func timing_test_print args (&#39;arg1&#39;,) kwargs {&#39;arg2&#39;: &#39;&#39;} took 0.002 seconds</span>
+<span class="sd">        &gt;&gt;&gt; timing_test_print(&quot;arg1&quot;, arg2=&quot;&quot;)  # doctest: +ELLIPSIS</span>
+<span class="sd">        func timing_test_print args (&#39;arg1&#39;,) kwargs {&#39;arg2&#39;: &#39;&#39;} took ... seconds</span>
 
 <span class="sd">    :param do_print: whether to output to stdout</span>
 <span class="sd">    :param logger: the ``Logger`` where messages will be sent</span>
@@ -205,11 +204,10 @@
 
 <span class="sd">    ex::</span>
 
-<span class="sd">        &gt;&gt;&gt; from time import sleep()  # something to time</span>
-<span class="sd">        &gt;&gt;&gt; with timing(&quot;timing context print&quot;, do_print=True):</span>
+<span class="sd">        &gt;&gt;&gt; import time  # something to time</span>
+<span class="sd">        &gt;&gt;&gt; with timing(&quot;timing context print&quot;, do_print=True):  # doctest: +ELLIPSIS</span>
 <span class="sd">        ...     time.sleep(0.001)</span>
-<span class="sd">        ...</span>
-<span class="sd">        timing context print took 0.014 seconds</span>
+<span class="sd">        timing context print took ... seconds</span>
 
 <span class="sd">    :param message: the message identifying what was timed</span>
 <span class="sd">    :param do_print: whether to output to stdout</span>

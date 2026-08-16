@@ -142,23 +142,45 @@
 
 <span class="sd">    ex::</span>
 
+<span class="sd">        The warning goes to stderr, so the examples below capture it with</span>
+<span class="sd">        ``warnings.catch_warnings(record=True)`` rather than printing it.</span>
+
+<span class="sd">        &gt;&gt;&gt; import warnings</span>
+
+<span class="sd">        without parentheses</span>
+
 <span class="sd">        &gt;&gt;&gt; @deprecated</span>
-<span class="sd">        &gt;&gt;&gt; def deprecated_func_1():</span>
+<span class="sd">        ... def deprecated_func_1():</span>
 <span class="sd">        ...     return None</span>
-<span class="sd">        py.warnings WARNING  deprecate.py:100: DeprecationWarning: deprecated: deprecated_func_1</span>
-<span class="sd">        deprecated_func_1()</span>
+<span class="sd">        &gt;&gt;&gt; with warnings.catch_warnings(record=True) as caught:</span>
+<span class="sd">        ...     warnings.simplefilter(&quot;always&quot;)</span>
+<span class="sd">        ...     deprecated_func_1()</span>
+<span class="sd">        &gt;&gt;&gt; caught[0].category.__name__</span>
+<span class="sd">        &#39;DeprecationWarning&#39;</span>
+<span class="sd">        &gt;&gt;&gt; str(caught[0].message)</span>
+<span class="sd">        &#39;deprecated: deprecated_func_1&#39;</span>
+
+<span class="sd">        with parentheses</span>
 
 <span class="sd">        &gt;&gt;&gt; @deprecated()</span>
-<span class="sd">        &gt;&gt;&gt; def deprecated_func_2():</span>
+<span class="sd">        ... def deprecated_func_2():</span>
 <span class="sd">        ...     return None</span>
-<span class="sd">        py.warnings WARNING  deprecate.py:101: DeprecationWarning: deprecated: deprecated_func_2</span>
-<span class="sd">        deprecated_func_2()</span>
+<span class="sd">        &gt;&gt;&gt; with warnings.catch_warnings(record=True) as caught:</span>
+<span class="sd">        ...     warnings.simplefilter(&quot;always&quot;)</span>
+<span class="sd">        ...     deprecated_func_2()</span>
+<span class="sd">        &gt;&gt;&gt; str(caught[0].message)</span>
+<span class="sd">        &#39;deprecated: deprecated_func_2&#39;</span>
+
+<span class="sd">        with a version</span>
 
 <span class="sd">        &gt;&gt;&gt; @deprecated(since=&quot;0.3&quot;)</span>
-<span class="sd">        &gt;&gt;&gt; def deprecated_func_3():</span>
+<span class="sd">        ... def deprecated_func_3():</span>
 <span class="sd">        ...     return None</span>
-<span class="sd">        py.warnings WARNING  deprecate.py:102: DeprecationWarning: deprecated: deprecated_func_3 (since version: 0.3)</span>
-<span class="sd">        deprecated_func_3()</span>
+<span class="sd">        &gt;&gt;&gt; with warnings.catch_warnings(record=True) as caught:</span>
+<span class="sd">        ...     warnings.simplefilter(&quot;always&quot;)</span>
+<span class="sd">        ...     deprecated_func_3()</span>
+<span class="sd">        &gt;&gt;&gt; str(caught[0].message)</span>
+<span class="sd">        &#39;deprecated: deprecated_func_3 (since version: 0.3)&#39;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">):</span>
