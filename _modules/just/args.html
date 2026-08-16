@@ -134,6 +134,8 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Type</span>
 
 
 <span class="c1"># FIXME Python 3.12 changed the type of the excdption raised by strptime</span>
@@ -218,6 +220,22 @@
 
 
 
+<div class="viewcode-block" id="EnumArg">
+<a class="viewcode-back" href="../../just.html#just.args.EnumArg">[docs]</a>
+<span class="k">class</span> <span class="nc">EnumArg</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;FIXME&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enum_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">Enum</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_enum_type</span> <span class="o">=</span> <span class="n">enum_type</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enum_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Enum</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_enum_type</span><span class="p">,</span> <span class="n">enum_str</span><span class="p">)</span>  <span class="c1"># FIXME use `upper()` to make case-insensitive?</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;parameter </span><span class="si">{</span><span class="n">enum_str</span><span class="si">}</span><span class="s2"> invalid value for enum type </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_enum_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
 <span class="c1"># FIXME use logging.getLevelName, even though it&#39;s weird, to avoid using private variables?</span>
 <div class="viewcode-block" id="LogLevelArg">
 <a class="viewcode-back" href="../../just.html#just.args.LogLevelArg">[docs]</a>
@@ -256,10 +274,16 @@
 <span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Simple test.&quot;&quot;&quot;</span>
 
+    <span class="k">class</span> <span class="nc">TestEnum</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+        <span class="n">ONE</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">TWO</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">THREE</span> <span class="o">=</span> <span class="mi">3</span>
+
     <span class="c1"># define command-line parameters to test</span>
     <span class="n">arg_parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="vm">__doc__</span><span class="p">)</span>
     <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--date-time&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">DateTimeArg</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S.</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">))</span>
     <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--directory&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">DirectoryArg</span><span class="p">(</span><span class="s2">&quot;rw&quot;</span><span class="p">))</span>
+    <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--enum-name&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">EnumArg</span><span class="p">(</span><span class="n">TestEnum</span><span class="p">))</span>
     <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--log-level&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">LogLevelArg</span><span class="p">)</span>
 
     <span class="c1"># print command-line help</span>
@@ -271,6 +295,7 @@
     <span class="n">TEST_ARGS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s2">&quot;--date-time&quot;</span><span class="p">,</span> <span class="s2">&quot;2020-02-29 12:34:56.789&quot;</span><span class="p">,</span>
         <span class="s2">&quot;--directory&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--enum-name&quot;</span><span class="p">,</span> <span class="s2">&quot;ONE&quot;</span><span class="p">,</span>
         <span class="s2">&quot;--log-level&quot;</span><span class="p">,</span> <span class="s2">&quot;DEBUG&quot;</span>
     <span class="p">]</span>
     <span class="c1"># fmt: on</span>
