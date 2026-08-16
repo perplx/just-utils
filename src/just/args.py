@@ -95,7 +95,7 @@ class EnumArg:
     def __init__(self, enum_type: Type[Enum]):
         self._enum_type = enum_type
 
-    def __call__(self, enum_str: str) -> Enum:
+    def __call__(self, enum_str: str) -> Enum:  # FIXME define return-type as aelf._enum_type somehow
         try:
             return getattr(self._enum_type, enum_str)  # FIXME use `upper()` to make case-insensitive?
         except AttributeError:
