@@ -21,13 +21,12 @@ def timed(do_print: bool = True, logger: Optional[logging.Logger] = None, level:
 
     ex::
 
-        >>> from time import sleep()  # something to time
+        >>> import time  # something to time
         >>> @timed(do_print=True)
         ... def timing_test_print(arg1, arg2):
         ...     time.sleep(0.001)
-        ...
-        >>> timing_test_print("arg1", arg2="")
-        func timing_test_print args ('arg1',) kwargs {'arg2': ''} took 0.002 seconds
+        >>> timing_test_print("arg1", arg2="")  # doctest: +ELLIPSIS
+        func timing_test_print args ('arg1',) kwargs {'arg2': ''} took ... seconds
 
     :param do_print: whether to output to stdout
     :param logger: the ``Logger`` where messages will be sent
@@ -75,11 +74,10 @@ def timing(message: str, do_print: bool = True, logger: Optional[logging.Logger]
 
     ex::
 
-        >>> from time import sleep()  # something to time
-        >>> with timing("timing context print", do_print=True):
+        >>> import time  # something to time
+        >>> with timing("timing context print", do_print=True):  # doctest: +ELLIPSIS
         ...     time.sleep(0.001)
-        ...
-        timing context print took 0.014 seconds
+        timing context print took ... seconds
 
     :param message: the message identifying what was timed
     :param do_print: whether to output to stdout

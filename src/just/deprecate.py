@@ -15,23 +15,45 @@ def deprecated(arg=None, since=None):  # FIXME return type annotation?
 
     ex::
 
+        The warning goes to stderr, so the examples below capture it with
+        ``warnings.catch_warnings(record=True)`` rather than printing it.
+
+        >>> import warnings
+
+        without parentheses
+
         >>> @deprecated
-        >>> def deprecated_func_1():
+        ... def deprecated_func_1():
         ...     return None
-        py.warnings WARNING  deprecate.py:100: DeprecationWarning: deprecated: deprecated_func_1
-        deprecated_func_1()
+        >>> with warnings.catch_warnings(record=True) as caught:
+        ...     warnings.simplefilter("always")
+        ...     deprecated_func_1()
+        >>> caught[0].category.__name__
+        'DeprecationWarning'
+        >>> str(caught[0].message)
+        'deprecated: deprecated_func_1'
+
+        with parentheses
 
         >>> @deprecated()
-        >>> def deprecated_func_2():
+        ... def deprecated_func_2():
         ...     return None
-        py.warnings WARNING  deprecate.py:101: DeprecationWarning: deprecated: deprecated_func_2
-        deprecated_func_2()
+        >>> with warnings.catch_warnings(record=True) as caught:
+        ...     warnings.simplefilter("always")
+        ...     deprecated_func_2()
+        >>> str(caught[0].message)
+        'deprecated: deprecated_func_2'
+
+        with a version
 
         >>> @deprecated(since="0.3")
-        >>> def deprecated_func_3():
+        ... def deprecated_func_3():
         ...     return None
-        py.warnings WARNING  deprecate.py:102: DeprecationWarning: deprecated: deprecated_func_3 (since version: 0.3)
-        deprecated_func_3()
+        >>> with warnings.catch_warnings(record=True) as caught:
+        ...     warnings.simplefilter("always")
+        ...     deprecated_func_3()
+        >>> str(caught[0].message)
+        'deprecated: deprecated_func_3 (since version: 0.3)'
     """
 
     def decorator(func: Callable):

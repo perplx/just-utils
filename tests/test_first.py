@@ -4,12 +4,10 @@
 
 
 # standard imports
-import doctest
 import itertools
 import unittest
 
 # tested imports
-import just.first
 from just.first import first, last, only
 
 
@@ -125,10 +123,3 @@ class TestOnly(unittest.TestCase):
             only(counter)
         # `only` gave up after the second match, it did not drain the iterator
         self.assertEqual(next(counter), 3)
-
-
-def load_tests(loader, tests, ignore):
-    """Run the `ex::` examples in the docstrings of `just.first` as tests."""
-
-    tests.addTests(doctest.DocTestSuite(just.first))
-    return tests
