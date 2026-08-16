@@ -14,7 +14,7 @@ import sys
 import tempfile
 
 # tested imports
-from just.args import DateTimeArg, DirectoryArg, LogLevelArg
+from just.args import DateTimeArg, DirectoryArg, EnumArg, LogLevelArg
 
 
 class TestDateTimeArg(unittest.TestCase):
@@ -165,6 +165,29 @@ class TestDirectoryArg(unittest.TestCase):
             finally:
                 # reset mode to writable so test can clean-up temp-dir
                 os.chmod(temp_dir_path, temp_dir_mode)
+
+
+class TestEnumArg(unittest.TestCase):
+    """test for class just.args.EnumArg"""
+
+    class TestEnum:
+        """Test `Enum` to use in parsing."""
+        ONE = 1
+        TWO = 2
+
+    def setUp(self):
+        """define command-line parameter EnumArg"""
+        self.arg = EnumArg(self.TestEnum)
+
+    def test_enum(self):
+        """test correct enum-values."""
+        self.assertEqual(self.arg("ONE"), self.TestEnum.ONE)
+        self.assertEqual(self.arg("TWO"), self.TestEnum.TWO)
+
+    def test_invalid_value(self):
+        """test incorrect enum-value; raises argparse.ArgumentTypeError"""
+        with self.assertRaises(argparse.ArgumentTypeError):
+            _ = self.arg("BOGUS!")
 
 
 class TestLogLevelArg(unittest.TestCase):
