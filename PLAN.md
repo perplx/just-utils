@@ -13,38 +13,30 @@ Top Picks
 
 The biggest gap-to-effort ratio; these are the ones to do first.
 
-`just.retry`
-------------
-
-A `@retry(exceptions=..., tries=3, delay=0.5, backoff=2.0, jitter=True, logger=...)` decorator,
-plus a `retrying()` context-manager / iterator form.
-
-Nothing in the standard library does this, and everyone rewrites it badly.
-
-Demonstrates: decorator factories, `time.monotonic` vs `time.time`, exception filtering,
-and *why* jitter matters. Pairs naturally with the existing decorator patterns in
-[just.timing](src/just/timing.py) and [just.deprecate](src/just/deprecate.py).
-
-`just.human`
-------------
-
-`format_bytes(n)` -> `"10.5 MiB"`, `format_duration(s)` -> `"1h 02m 03s"`,
-and the inverses `parse_bytes("10MB")` / `parse_duration("1h30m")`.
-
-Small, pure, trivially testable, and it feeds two other modules: `just.timing` should print
-`1m 03s` instead of `63.000 seconds`, and `just.args` gets `ByteSizeArg` / `TimeDeltaArg` for free.
-
-Demonstrates: round-trip property testing (`parse(format(x)) == x`).
-
 `just.atomic`
 -------------
 
-`with atomic_write(path) as f:` — writes to a temporary file in the same directory and
+`with atomic_open(path, mode) as f:` — writes to a temporary file in the same directory and
 `os.replace()`s it into place on clean exit, discarding it on exception.
 
 A genuine standard-library gap, and a *correctness* lesson: same-filesystem temp file,
 `os.replace` atomicity, `fsync` before rename, cleanup in `finally`.
 Conceptually the sibling of [just.lock](src/just/lock.py).
+
+[atomic.py](src/just/atomic.py) currently holds a sketch that does not work, and every bug in
+it is one of the lessons:
+
+- `TemporaryFile` has no usable `.name` and deletes itself on close, so the
+  `os.replace(temp_file.name, ...)` at [atomic.py:18](src/just/atomic.py#L18) runs after the
+  file is already gone — it must be `NamedTemporaryFile(..., delete=False)`.
+- `yield from temp_file` at [atomic.py:16](src/just/atomic.py#L16) iterates the file's lines
+  instead of handing the handle to the caller; it should be `yield temp_file`.
+- No `fsync` before the rename, no `try` / `except` to unlink the temp file when the body
+  raises, and no rejection of non-writing modes (the temp file starts empty, so `"a"` and
+  `"r"` are lies).
+- `main()` calls `atomic_open.write(...)` on the function object, so the demo cannot run.
+- Module docstring is `"""FIXME"""`, and there is no `tests/test_atomic.py` — the only module
+  in the package without a test file.
 
 `just.log`
 ----------
@@ -65,24 +57,42 @@ The natural other half of `args.LogLevelArg`; half the existing modules already 
 
 Demonstrates: lazy generators, `islice`, and the "don't materialise the iterable" discipline.
 
-Extensions to Existing Modules
-==============================
+Finishing Touches
+=================
 
-`just.first`
+These modules exist and pass, but are not finished. Each entry lists only what is left.
+
+`just.retry`
 ------------
 
-The two `# FIXME raise IndexError if none are found?` comments point at the right redesign:
-a single `first(iterable, condition=None, *, default=_MISSING)` that raises `ValueError` when
-no default is supplied, mirroring `next()`.
+Working `retry()` decorator plus the `RetryIterator` / `RetryContext` form. Remaining, from
+the module's own FIXMEs:
 
-The sentinel-object idiom (`_MISSING = object()`) is exactly the kind of thing this repo exists
-to record, since `None` is a legitimate value.
+- `backoff=` and `jitter=` parameters — the jitter is half the point of the module,
+  and *why* it matters is the lesson worth writing down.
+- A `logger=` parameter, matching the rest of the package.
+- Accept a tuple of exception types: `Union[Type[Exception], Tuple[Type[Exception], ...]]`.
+- Decide whether [`RetryContext.__exit__`](src/just/retry.py#L56) should keep swallowing the
+  exception unconditionally, and document whichever way it goes.
 
-Then add:
+`just.human`
+------------
 
-- `last()`
-- `only()` — returns the single element, raises if zero or two-or-more elements.
-  The most-reached-for of the three, and it doesn't exist anywhere.
+`format_bytes` / `parse_bytes` / `format_duration` / `parse_duration` all work and have tests.
+Remaining:
+
+- The module docstring is still `"""FIXME"""`, and no function has an `ex::` block.
+- `main()` has a stray `raise SystemExit` at [human.py:113](src/just/human.py#L113) that makes
+  half the demo dead code.
+- `parse_bytes` is annotated `-> int` but returns a float.
+- Decide between ls-style units (`1.0K`, what is implemented) and IEC (`10.5 MiB`, what this
+  plan originally specified), and record the choice rather than leaving both names in the file.
+- The round-trip property test (`parse(format(x)) == x`) this module was chosen to demonstrate.
+- Wire it into its two consumers: `just.timing` should print `1m 03s` instead of
+  `63.000 seconds`, and `just.args` gets `DurationArg` / `ByteSizeArg` for free.
+
+Extensions to Existing Modules
+==============================
 
 `just.timing`
 -------------
@@ -90,7 +100,7 @@ Then add:
 Three things:
 
 1. Kill the `@timed` vs `@timed()` FIXME at [timing.py:16](src/just/timing.py#L16) using the
-   `callable(arg)` trick already written in [deprecate.py:64](src/just/deprecate.py#L64).
+   `callable(arg)` trick already written in [deprecate.py:86](src/just/deprecate.py#L86).
    Same problem, same solution, two modules apart — worth unifying.
 2. Replace both the decorator and the context-manager with one `Timer(contextlib.ContextDecorator)`
    class that works as `with Timer(...)` *and* `@Timer(...)`, and exposes `.elapsed` afterwards so
@@ -123,16 +133,20 @@ Then add `timeout=` (block and retry instead of failing immediately) and stale-l
 
 The richest place to extend, since each parser is about ten lines:
 
-- `EnumArg` — maps a string to an `enum` member, listing the valid names in the error.
 - `RangeArg` / `PositiveIntArg`
 - `RegexArg` — returns a compiled pattern.
 - `FileArg` — `argparse.FileType` leaks file handles on parse errors; worth documenting *why*
   it is being replaced.
 - `BoolArg`
-- `TimeDeltaArg` / `ByteSizeArg`, on top of `just.human`.
+- `DurationArg` / `ByteSizeArg`, on top of `just.human`.
+
+`EnumArg` exists and is tested, but still needs its `"""FIXME"""` docstring at
+[args.py:93](src/just/args.py#L93) written with an `ex::` block like its neighbours, and a
+decision on the case-insensitivity FIXME at [args.py:100](src/just/args.py#L100).
 
 Also: `logging.getLevelNamesMapping()` (3.11+) is the public answer to the `logging._nameToLevel`
-FIXME at [args.py:90](src/just/args.py#L90), with the private dict as a fallback.
+FIXME at [args.py:105](src/just/args.py#L105), used at
+[args.py:131](src/just/args.py#L131), with the private dict as a fallback.
 
 `just.heap2`
 ------------
@@ -167,19 +181,6 @@ module          | fills                                                         
 `just.version`  | compare `1.2.3` version strings without `packaging`                 | `NamedTuple` plus `@total_ordering`
 `just.subproc`  | run a command with timeout, capture, logging, rich error            | `subprocess` without `shell=True`
 
-Project-Level Notes
-===================
-
-Doctests
---------
-
-The docstrings contain `>>>` examples that nothing executes, and at least one is wrong:
-[first.py:24-26](src/just/first.py#L24-L26) shows `>>> first_next([0, 0, 0])` printing `None`,
-but a REPL prints nothing for `None`.
-
-Adding `--doctest-modules` to the pytest run would make every `ex::` block a real test — high value
-for a repo whose purpose is being copied from later.
-
 Project Structure
 =================
 
@@ -188,50 +189,30 @@ Defects
 
 These are bugs rather than nice-to-haves, and each is small.
 
-**`src/just/py.typed` does not exist.** [setup.py:39](setup.py#L39) declares
-`package_data={"just": ["py.typed"]}`, but there is no such file in [src/just/](src/just/).
-Without that PEP 561 marker, every downstream `mypy` silently ignores all the annotations —
-the type hints are decorative outside this repo. Fixed by adding one empty file.
+**The version floor is wrong by four minor versions, and the 3.7 CI job cannot be passing.**
+The declared floor is 3.6, but four separate features push the real one to **3.10**:
 
-**No `python_requires=`.** [setup.py](setup.py) carries classifiers for 3.6 through 3.13 but no
-`python_requires`, so `pip` will install on any interpreter and the failure surfaces at import time.
+    src/just/retry.py   3.10   typing.ParamSpec
+    src/just/atomic.py  3.10   PEP 604 unions in annotations (Path | str)
+    src/just/human.py   3.9    builtin generics (tuple[float, int])
+    src/just/heap2.py   3.9    builtin generics (list[tuple[K, T]])
+    src/just/heap2.py   3.8    typing.Protocol
+    src/just/args.py    3.13   re.PatternError — false positive, see below
 
-**The version floor is stale, and the 3.7 CI job cannot be passing.** A `vermin` run reports:
+Every declaration of the floor disagrees with that: [setup.py:41](setup.py#L41) says
+`python_requires=">=3.6"`, the classifiers at [setup.py:26-33](setup.py#L26-L33) advertise 3.6
+through 3.13 (the first four of which are false), [pyproject.toml:4](pyproject.toml#L4) sets
+`target-version = ["py36"]`, and
+[tests.yml:28](.github/workflows/tests.yml#L28) still runs a `"3.7"` matrix entry that cannot
+import half the package. Fixing it means editing all four in one go.
 
-    src/just/heap2.py   !2, 3.8      (typing.Protocol)
-    src/just/args.py    !2, 3.13     (re.PatternError — false positive)
-
-`heap2` needs **3.8+**, but the classifiers claim 3.6/3.7, [pyproject.toml:4](pyproject.toml#L4)
-sets `target-version = ["py36"]`, and [tests.yml:28](.github/workflows/tests.yml#L28) still runs a
-`"3.7"` matrix entry, which imports `heap2` and cannot. Separately, the `re.PatternError` hit at
-[args.py:17](src/just/args.py#L17) is guarded by `try` / `except AttributeError`; `vermin` cannot see
-the guard, so it needs a `# novermin` comment or the reported floor stays wrong at 3.13.
-
-Optional Extras
----------------
-
-[setup.py:43-49](setup.py#L43-L49) currently has `dev` (a grab-bag of four unrelated tools), `docs`,
-and a `types` extra holding only `types-setuptools` while `mypy` itself sits in `dev`. Since testing
-and documentation are already framed as separable features, the extras should match:
-
-extra    | contents
----------|--------------------------------------------------
-`test`   | `pytest`, `pytest-cov`
-`lint`   | `black<26`, `flake8`, `vermin`
-`types`  | `mypy`, `types-setuptools`
-`docs`   | unchanged
-`dev`    | `just-utils[test,lint,types,docs]` — recursive extras work fine in `pip`
-
-That yields one extra per CI job, so `pip install -e .[types]` and the `mypy` step install exactly
-the same thing.
+Separately, the `re.PatternError` hit at [args.py:19](src/just/args.py#L19) is guarded by
+`try` / `except AttributeError`; `vermin` cannot see the guard, so it needs a `# novermin` comment
+or the reported floor stays wrong at 3.13.
 
 Tool Configuration
 ------------------
 
-- **No pytest configuration at all** — neither `[tool:pytest]` in [setup.cfg](setup.cfg) nor
-  `[tool.pytest.ini_options]` in [pyproject.toml](pyproject.toml). Add `testpaths`, `-ra`,
-  `--strict-markers`, and `--doctest-modules` (that last one is what turns the `ex::` blocks into
-  real tests, per the Doctests note above).
 - **No mypy configuration**, despite `mypy` being a dependency with its own script and a
   `.mypy_cache/` in the tree. A `[mypy]` section with `strict = True` plus per-module relaxations is
   itself a good reference artifact.
@@ -249,7 +230,8 @@ Continuous Integration
 ----------------------
 
 - **`mypy` and `vermin` never run in CI**, though both are in `[dev]` and have scripts. Two steps
-  closes the loop — and `vermin` in CI is what would have caught the 3.8 floor above.
+  closes the loop — and `vermin` in CI is what would have caught the 3.10 floor above,
+  which drifted twice without anyone noticing.
 - **The flake8 step cannot fail.** [tests.yml:56-61](.github/workflows/tests.yml#L56-L61) is the
   unmodified GitHub template: the second invocation passes `--exit-zero`, and its
   `--max-line-length=127` contradicts the 120 in [setup.cfg:16](setup.cfg#L16). Replacing both lines
@@ -257,8 +239,9 @@ Continuous Integration
 - **`on: [push]` only** — no `pull_request` trigger.
 - **Add `windows-latest` and `macos-latest` to the matrix.** Justified here rather than
   cargo-culted: `just.lock` does exclusive file creation and unlinking, `just.open` handles paths,
-  and the planned `just.atomic` (`os.replace`) and `just.signals` (SIGTERM) are precisely where
-  POSIX assumptions break on Windows — the development platform.
+  and `just.atomic` (`os.replace`, `NamedTemporaryFile(delete=False)`) is precisely where POSIX
+  assumptions break on Windows — which is the development platform, and is *shipped but never
+  tested on any OS by CI*. The planned `just.signals` (SIGTERM) will be the same story.
 - **The coverage-badge steps run once per matrix entry.** Guard them with
   `if: matrix.python-version == '3.14' && matrix.os == 'ubuntu-latest'`.
 - **Drift between the two workflows**: tests.yml uses `checkout@v3` / `setup-python@v4`, docs.yml
@@ -299,16 +282,37 @@ Scripts
 Suggested Order
 ===============
 
-0. The three defects above: `py.typed`, `python_requires`, and the 3.8 version floor
-   (classifiers, black `target-version`, CI matrix, `# novermin` on [args.py:17](src/just/args.py#L17)).
-1. `just.human` — unblocks the `just.timing` and `just.args` extensions.
-2. `just.retry`
-3. `just.timing` fixes (the `@timed()` FIXME, `ContextDecorator`, `try/finally`).
-4. `just.atomic`
-5. `just.log`, then the `just.args` additions.
-6. `just.heap2` completion, then deprecate `just.heap`.
-7. Everything else, as needed.
+0. The version floor: `python_requires`, classifiers, black `target-version`, CI matrix,
+   and `# novermin` on [args.py:19](src/just/args.py#L19).
+1. `just.atomic` — the module is currently a non-working sketch, so it is the one place the repo
+   ships something wrong. Plus `tests/test_atomic.py`.
+2. The `just.human` polish, then `just.timing` (the `@timed()` FIXME, `ContextDecorator`,
+   `try/finally`) as its first consumer.
+3. `just.log`, then the remaining `just.args` parsers.
+4. `just.retry` finishing touches (backoff, jitter, `logger=`).
+5. `just.heap2` completion, then deprecate `just.heap`.
+6. Everything else, as needed.
 
-Structural work is independent of the module work and can interleave; the extras split and the
-pytest configuration are worth doing early, since `--doctest-modules` and a `test` extra change how
-every new module gets tested.
+Structural work is independent of the module work and can interleave.
+
+Already Done
+============
+
+Removed from the plan as completed; kept here so the history stays legible.
+
+- `just.human`, `just.retry` (core), `just.first` (`last` / `only` on a `_MISSING` sentinel),
+  and `args.EnumArg` — see **Finishing Touches** above for what is still outstanding on the
+  first two, and `just.args` for `EnumArg`.
+- `src/just/py.typed`, `python_requires=` (present, though the value is wrong — see **Defects**),
+  and the `test` / `lint` / `types` / `docs` / `dev` extras split in
+  [setup.py](setup.py), which now gives one extra per CI job.
+- `[tool.pytest.ini_options]` in [pyproject.toml](pyproject.toml): `testpaths`, `-ra`,
+  `--strict-markers`, `--doctest-modules`.
+- Doctests, via that `--doctest-modules`, with `src` in `testpaths` so the flag actually reaches
+  the package. Two things worth remembering: the `unittest` `load_tests` protocol is **not
+  supported by pytest**, so the hand-rolled doctest hooks it replaced had never run; and examples
+  asserting on wall-clock timings need an inline `# doctest: +ELLIPSIS` directive rather than a
+  transcribed number.
+- Still outstanding from that last one: the `ex::` blocks in `args.py`, `atomic.py` and `lock.py`
+  are plain indented code without `>>>` prompts, so nothing executes them. Converting the ones that
+  touch the filesystem would need `tmp_path`-style scaffolding.
