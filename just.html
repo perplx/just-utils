@@ -252,7 +252,17 @@ Checks if path is directory, has given mode (“r”, “w”, “rw”)</p>
 <dt class="sig sig-object py" id="just.args.EnumArg">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.args.</span></span><span class="sig-name descname"><span class="pre">EnumArg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enum_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/args.html#EnumArg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.args.EnumArg" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>FIXME</p>
+<p>Type parser for <code class="docutils literal notranslate"><span class="pre">Enum</span></code> values for <code class="docutils literal notranslate"><span class="pre">argparse.ArgumentParser</span></code>.</p>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Enumerated</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enun</span><span class="p">):</span>
+    <span class="n">ONE</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">TWO</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">arg_parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+<span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--enumerated&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">EnumArg</span><span class="p">(</span><span class="n">Enumerated</span><span class="p">))</span>
+<span class="n">arg_parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">([</span><span class="s2">&quot;--enumerated&quot;</span><span class="p">,</span> <span class="s2">&quot;ONE&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
