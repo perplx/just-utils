@@ -90,7 +90,18 @@ class DirectoryArg:
 
 
 class EnumArg:
-    """FIXME"""
+    """Type parser for ``Enum`` values for ``argparse.ArgumentParser``.
+
+    ex::
+
+        class Enumerated(enum.Enun):
+            ONE = 1
+            TWO = 2
+
+        arg_parser = argparse.ArgumentParser()
+        arg_parser.add_argument("--enumerated", type=EnumArg(Enumerated))
+        arg_parser.parse_args(["--enumerated", "ONE"])
+    """
 
     def __init__(self, enum_type: Type[Enum]):
         self._enum_type = enum_type
