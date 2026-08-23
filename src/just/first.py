@@ -102,5 +102,6 @@ def main() -> None:
         print(f"{first.__name__} (not None): {first(items, lambda x: x is not None, default=None)}")
         print()
 
+
 if __name__ == "__main__":
     main()

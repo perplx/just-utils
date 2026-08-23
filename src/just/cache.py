@@ -3,7 +3,6 @@
 Arguments must be hashable, the same constraint `functools.lru_cache` imposes.
 """
 
-
 import functools
 import logging
 from typing import Any, Callable, Dict, ParamSpec, TypeVar
@@ -39,10 +38,11 @@ def main() -> None:
     @memoize
     def test_func() -> None:
         import time
+
         time.sleep(1)
 
     for i in range(5):
-        logger.warning("test %d", i+1)
+        logger.warning("test %d", i + 1)
         test_func()
 
 

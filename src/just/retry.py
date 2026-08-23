@@ -24,7 +24,7 @@ def retry(error: Type[Exception], tries: int, delay: float = 0.0):
         # preserves metadata (name, stack, etc.) of func when decorated
         @functools.wraps(func)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
-            for i in range(1, tries+1):
+            for i in range(1, tries + 1):
                 try:
                     return func(*args, **kwargs)
                 except error as e:
@@ -35,7 +35,9 @@ def retry(error: Type[Exception], tries: int, delay: float = 0.0):
                     if delay > 0:
                         time.sleep(delay)
             raise ValueError(f"tries must be at least 1, got {tries}")
+
         return wrapper
+
     return decorate
 
 
@@ -63,11 +65,11 @@ class RetryIterator:
 
     def __iter__(self):
         for i in range(self._max_attempts):
-            yield RetryContext(self.succeed, i+1)
+            yield RetryContext(self.succeed, i + 1)
             if self._success:
                 break
             else:
-                logger.warning("caught something - retrying %d / %d ...", i+1, self._max_attempts)
+                logger.warning("caught something - retrying %d / %d ...", i + 1, self._max_attempts)
 
     def succeed(self):
         self._success = True

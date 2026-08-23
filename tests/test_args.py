@@ -172,6 +172,7 @@ class TestEnumArg(unittest.TestCase):
 
     class TestEnum:
         """Test `Enum` to use in parsing."""
+
         ONE = 1
         TWO = 2
 
