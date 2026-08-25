@@ -50,9 +50,11 @@ def ttl_cache(ttl: float):
                 if time.time() < cached_ttl:
                     logger.debug("using cached")
                     return cached_result
+                else:
+                    logger.debug("cache expired")
 
             # call the function and store the result and ttl
-            logger.debug("cache invalid")
+            logger.debug("cache missing")
             called_result = func(*args, **kwargs)
             called_ttl = time.time() + ttl
             cache[key] = (called_result, called_ttl)
@@ -63,7 +65,6 @@ def ttl_cache(ttl: float):
 
     # return the decorator
     return decorate
-
 
 
 def main() -> None:
