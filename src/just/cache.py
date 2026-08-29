@@ -17,6 +17,8 @@ R = TypeVar("R")
 
 
 def memoize(func: Callable[P, R]) -> Callable[P, R]:
+    """Keep result of decorated function call in cache."""
+
     cache: Dict[Any, R] = {}
 
     @functools.wraps(func)
@@ -32,13 +34,26 @@ def memoize(func: Callable[P, R]) -> Callable[P, R]:
 
 
 def ttl_cache(ttl: float):
+    """Keep result of decorated function call in cache for the given number of seconds.
+
+    ex::
+
+        >>> from functools import cache
+        >>> @ttl_cache(3)
+        ... def test_func():
+        ...     return "1"
+        ...
+        >>> test_func()
+        '1'
+    """
+
     def decorate(func: Callable[P, R]) -> Callable[P, R]:
         # cache the results of the decorated function
         # key is the arguments to the function, encoded as a tuple
         # value is the result of the function and the ttl.
         cache: Dict[Any, Tuple[R, float]] = {}
 
-        # preserves metadata (name, stack, etc.) of func when decorated
+        # preserve metadata (name, stack, etc.) of func when decorated
         @functools.wraps(func)
         def wrapped(*args: P.args, **kwargs: P.kwargs) -> R:
             # encode parameters to use as the key of the cache
