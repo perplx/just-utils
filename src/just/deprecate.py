@@ -6,10 +6,14 @@
 # standard imports
 import functools
 import warnings
-from typing import Callable
+from typing import Callable, ParamSpec, TypeVar
 
 
-def deprecated(arg=None, since=None):  # FIXME return type annotation?
+P = ParamSpec("P")
+R = TypeVar("R")
+
+
+def deprecated(arg=None, since: str | None=None):  # FIXME return type annotation?
     """Decorator to mark a function as deprecated.
     Emit ``DeprecationWarning`` when a decorated function is called.
 
@@ -56,10 +60,10 @@ def deprecated(arg=None, since=None):  # FIXME return type annotation?
         'deprecated: deprecated_func_3 (since version: 0.3)'
     """
 
-    def decorator(func: Callable):
+    def decorator(func: Callable[P, R]):
         # preserve the metadata (name, docstring, etc.) of the wrapped function
         @functools.wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             # save and restore warnings filter
             with warnings.catch_warnings():
                 # enable warnings filter for DeprecationWarning
