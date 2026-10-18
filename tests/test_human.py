@@ -9,9 +9,18 @@ import just.human
 
 class TestByteSize(unittest.TestCase):
     def test_format_bytes(self):
+        self.assertEqual(just.human.format_bytes(0), "0B")
+        self.assertEqual(just.human.format_bytes(1), "1B")
+        self.assertEqual(just.human.format_bytes(10), "10B")
+        self.assertEqual(just.human.format_bytes(100), "100B")
         self.assertEqual(just.human.format_bytes(1000), "1000B")
         self.assertEqual(just.human.format_bytes(1023), "1023B")
         self.assertEqual(just.human.format_bytes(1024), "1.0K")
+        self.assertEqual(just.human.format_bytes(1024 * 10), "10.0K")
+        self.assertEqual(just.human.format_bytes(1024 * 100), "100K")
+        self.assertEqual(just.human.format_bytes(1024 * 1000), "1000K")
+        self.assertEqual(just.human.format_bytes((1024 * 1024) - 1), "1024K")  # FIXME
+        self.assertEqual(just.human.format_bytes(1024 * 1024), "1.0M")
 
     def test_parse_bytes(self):
         self.assertEqual(just.human.parse_bytes("1000B"), 1000)

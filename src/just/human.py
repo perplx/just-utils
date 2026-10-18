@@ -33,11 +33,29 @@ def _find_blocks(num_bytes: int, block_size: int) -> tuple[float, int]:
 
 
 def format_bytes(num_bytes: int) -> str:
-    """Format a number of bytes `num_bytes` as a human-readable `str`."""
+    """Format a number of bytes `num_bytes` as a human-readable `str`.
+
+    ex::
+
+        >>> format_bytes(0)
+        '0B'
+        >>> format_bytes(1)
+        '1B'
+        >>> format_bytes(10)
+        '10B'
+        >>> format_bytes(100)
+        '100B'
+        >>> format_bytes(1000)
+        '1000B'
+        >>> format_bytes(1024)
+        '1.0K'
+        >>> format_bytes(1024 * 1024)
+        '1.0M'
+    """
     if num_bytes < 0:
         raise ValueError("num_bytes {num_bytes} should be positive")
     num_bytes, num_blocks = _find_blocks(num_bytes, 1024)
-    if num_bytes < 10.0:
+    if num_bytes < 100.0 and num_blocks > 0:
         bytes_str = f"{num_bytes:.1f}"
     else:
         bytes_str = f"{num_bytes:.0f}"
@@ -110,10 +128,27 @@ def main() -> None:
 
     logging.basicConfig(format="%(asctime)s %(levelname)-8s %(message)s", level=logging.NOTSET)
 
-    print(format_bytes(1023))
-    print(format_bytes(1024))
-    print(format_bytes(1023 * 1024))
-    print(format_bytes(1024 * 1024))
+    TESTS = [
+        0,
+        1,
+        10,
+        100,
+        1000,
+        1023,
+        1024,
+        1024 * 20,
+        1024 * 300,
+        (1024 ** 2) - 100,  # FIXME returns '1024K'
+        (1024 ** 2) - 1,  # FIXME returns '1024K'
+        (1024 ** 2) + 1,  # FIXME returns '1024K'
+        (1024 ** 2) + 1,  # FIXME returns '1024K'
+        1024 ** 2,
+        1024 ** 3,
+        1024 ** 4,
+        1024 ** 5,
+    ]
+    for num_bytes in TESTS:
+        print(f"{format_bytes(num_bytes):>5} {num_bytes:>16}")
 
     raise SystemExit
 
