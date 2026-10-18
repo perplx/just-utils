@@ -335,22 +335,12 @@ Will raise an <code class="docutils literal notranslate"><span class="pre">argpa
 </section>
 <section id="just-cache-module">
 <h2>just.cache module<a class="headerlink" href="#just-cache-module" title="Link to this heading">¶</a></h2>
-<p id="module-just.cache">Memoization decorator that caches results keyed on the call arguments.</p>
+<p id="module-just.cache">Memoization decorators that cache results keyed on the call arguments.</p>
 <p>Arguments must be hashable, the same constraint <code class="xref py py-obj docutils literal notranslate"><span class="pre">functools.lru_cache</span></code> imposes.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="just.cache.memoize">
 <span class="sig-prename descclassname"><span class="pre">just.cache.</span></span><span class="sig-name descname"><span class="pre">memoize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/cache.html#memoize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.cache.memoize" title="Link to this definition">¶</a></dt>
-<dd><p>Keep result of decorated function call in cache.
-:type func: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[<code class="docutils literal notranslate"><span class="pre">P</span></code>, <code class="docutils literal notranslate"><span class="pre">R</span></code>]</span>
-:param func: the function to cache.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[<code class="docutils literal notranslate"><span class="pre">P</span></code>, <code class="docutils literal notranslate"><span class="pre">R</span></code>]</span></p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>the function <code class="xref py py-obj docutils literal notranslate"><span class="pre">func</span></code> wrapped in a cache.</p>
-</dd>
-</dl>
+<dd><p>Keep result of decorated function call in cache.</p>
 <p>ex:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">memoize</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@memoize</span>
@@ -361,14 +351,17 @@ Will raise an <code class="docutils literal notranslate"><span class="pre">argpa
 <span class="go">&#39;1&#39;</span>
 </pre></div>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[<code class="docutils literal notranslate"><span class="pre">P</span></code>, <code class="docutils literal notranslate"><span class="pre">R</span></code>]</span></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="just.cache.ttl_cache">
 <span class="sig-prename descclassname"><span class="pre">just.cache.</span></span><span class="sig-name descname"><span class="pre">ttl_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ttl</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/cache.html#ttl_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.cache.ttl_cache" title="Link to this definition">¶</a></dt>
-<dd><p>Keep result of decorated function call in cache for the given number of seconds.
-:param func: the function to cache.
-:return: the function <code class="xref py py-obj docutils literal notranslate"><span class="pre">func</span></code> wrapped in a cache.</p>
+<dd><p>Keep result of decorated function call in cache for the given number of seconds.</p>
 <p>ex:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">ttl_cache</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@ttl_cache</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -506,8 +499,11 @@ ex:</p>
 </section>
 <section id="module-just.heap">
 <span id="just-heap-module"></span><h2>just.heap module<a class="headerlink" href="#module-just.heap" title="Link to this heading">¶</a></h2>
-<p>Priority Heap class using the standard <code class="docutils literal notranslate"><span class="pre">heapq</span></code> module
-see: <a class="reference external" href="https://youtu.be/o9pEzgHorH0?t=851">https://youtu.be/o9pEzgHorH0?t=851</a></p>
+<p>Priority Heap class using the standard <code class="docutils literal notranslate"><span class="pre">heapq</span></code> module.</p>
+<ul class="simple">
+<li><p>see: <a class="reference external" href="https://docs.python.org/3/library/heapq.html">https://docs.python.org/3/library/heapq.html</a></p></li>
+<li><p>see: <a class="reference external" href="https://youtu.be/o9pEzgHorH0?t=851">https://youtu.be/o9pEzgHorH0?t=851</a></p></li>
+</ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="just.heap.Heap">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.heap.</span></span><span class="sig-name descname"><span class="pre">Heap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap.html#Heap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap.Heap" title="Link to this definition">¶</a></dt>
