@@ -125,6 +125,7 @@
             
   <h1>Source code for just.retry</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Retry context manager and decorator.</span>
+
 <span class="sd">- see: https://www.bitecode.dev/p/python-cocktail-mix-a-context-manager</span>
 <span class="sd">- see: https://lobste.rs/s/xhe7sr/python_cocktail_mix_context_manager&#39;</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -229,7 +230,9 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attempts</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a `RetryIterator` that will generate `attempts` tries.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a `RetryIterator` that will generate `attempts` tries.</span>
+<span class="sd">        Each try will be a `RetryContext`, which will call the `RetryIterator.succeed` on success to end iteration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_max_attempts</span> <span class="o">=</span> <span class="n">attempts</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_success</span> <span class="o">=</span> <span class="kc">False</span>
 
