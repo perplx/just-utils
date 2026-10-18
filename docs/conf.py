@@ -24,6 +24,10 @@ extensions = [
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
+# -- Options for markup ------------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-markup
+default_role = "py:obj"  # link `backquotes` to python objects
+
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
