@@ -24,7 +24,7 @@ def deprecated(arg=None, since: str | None=None):  # FIXME return type annotatio
 
         >>> import warnings
 
-        without parentheses
+        without parentheses:
 
         >>> @deprecated
         ... def deprecated_func_1():
@@ -37,7 +37,7 @@ def deprecated(arg=None, since: str | None=None):  # FIXME return type annotatio
         >>> str(caught[0].message)
         'deprecated: deprecated_func_1'
 
-        with parentheses
+        with parentheses:
 
         >>> @deprecated()
         ... def deprecated_func_2():
@@ -48,7 +48,7 @@ def deprecated(arg=None, since: str | None=None):  # FIXME return type annotatio
         >>> str(caught[0].message)
         'deprecated: deprecated_func_2'
 
-        with a version
+        with a version:
 
         >>> @deprecated(since="0.3")
         ... def deprecated_func_3():
