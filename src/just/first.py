@@ -17,8 +17,12 @@ def first(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_
     If no condition is provided, ``bool()`` is used, it check the truth-value of ``item``.
     If no item is found to satisfy the condition, raise ``ValueError``.
 
-    no condition given
-    ex::
+    :param iterable: an ``Iterable`` of items of type ``T``
+    :param condition: returns whether the item is true.
+    :return: the first item in ``iterable`` that is true.
+    :raise ValueError: when no item is found to satisfy the condition
+
+    no condition given::
 
         >>> print(first([0, 0, 0], default=None))
         None
@@ -27,19 +31,14 @@ def first(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_
         >>> first([None, 0, {}, [], 1])
         1
 
-    condition given
-    ex::
+    condition given::
+
         >>> print(first([1, 3, 8, 9], lambda x: x > 10000, default=None))
         None
         >>> first([1, 3, 8, 9], lambda x: int(x) % 3 == 2)
         8
         >>> first([None, 0, {}, [], 1], lambda x: x is not None)
         0
-
-    :param iterable: an ``Iterable`` of items of type ``T``
-    :param condition: returns whether the item is true.
-    :return: the first item in ``iterable`` that is true.
-    :raise ValueError: when no item is found to satisfy the condition
     """
     item = next((i for i in iterable if condition(i)), default)
     if item is _MISSING:
