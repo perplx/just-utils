@@ -145,8 +145,12 @@
 <span class="sd">    If no condition is provided, ``bool()`` is used, it check the truth-value of ``item``.</span>
 <span class="sd">    If no item is found to satisfy the condition, raise ``ValueError``.</span>
 
-<span class="sd">    no condition given</span>
-<span class="sd">    ex::</span>
+<span class="sd">    :param iterable: an ``Iterable`` of items of type ``T``</span>
+<span class="sd">    :param condition: returns whether the item is true.</span>
+<span class="sd">    :return: the first item in ``iterable`` that is true.</span>
+<span class="sd">    :raise ValueError: when no item is found to satisfy the condition</span>
+
+<span class="sd">    no condition given::</span>
 
 <span class="sd">        &gt;&gt;&gt; print(first([0, 0, 0], default=None))</span>
 <span class="sd">        None</span>
@@ -155,19 +159,14 @@
 <span class="sd">        &gt;&gt;&gt; first([None, 0, {}, [], 1])</span>
 <span class="sd">        1</span>
 
-<span class="sd">    condition given</span>
-<span class="sd">    ex::</span>
+<span class="sd">    condition given::</span>
+
 <span class="sd">        &gt;&gt;&gt; print(first([1, 3, 8, 9], lambda x: x &gt; 10000, default=None))</span>
 <span class="sd">        None</span>
 <span class="sd">        &gt;&gt;&gt; first([1, 3, 8, 9], lambda x: int(x) % 3 == 2)</span>
 <span class="sd">        8</span>
 <span class="sd">        &gt;&gt;&gt; first([None, 0, {}, [], 1], lambda x: x is not None)</span>
 <span class="sd">        0</span>
-
-<span class="sd">    :param iterable: an ``Iterable`` of items of type ``T``</span>
-<span class="sd">    :param condition: returns whether the item is true.</span>
-<span class="sd">    :return: the first item in ``iterable`` that is true.</span>
-<span class="sd">    :raise ValueError: when no item is found to satisfy the condition</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">item</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">iterable</span> <span class="k">if</span> <span class="n">condition</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span> <span class="n">default</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="n">_MISSING</span><span class="p">:</span>
