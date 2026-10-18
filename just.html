@@ -351,8 +351,7 @@ Will raise an <code class="docutils literal notranslate"><span class="pre">argpa
 <span class="sig-prename descclassname"><span class="pre">just.cache.</span></span><span class="sig-name descname"><span class="pre">memoize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/cache.html#memoize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.cache.memoize" title="Link to this definition">¶</a></dt>
 <dd><p>Keep result of decorated function call in cache.</p>
 <p>ex:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">memoize</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@memoize</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@memoize</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">test_func</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="s2">&quot;1&quot;</span>
 <span class="gp">...</span>
@@ -372,8 +371,7 @@ Will raise an <code class="docutils literal notranslate"><span class="pre">argpa
 <span class="sig-prename descclassname"><span class="pre">just.cache.</span></span><span class="sig-name descname"><span class="pre">ttl_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ttl</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/cache.html#ttl_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.cache.ttl_cache" title="Link to this definition">¶</a></dt>
 <dd><p>Keep result of decorated function call in cache for the given number of seconds.</p>
 <p>ex:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">ttl_cache</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@ttl_cache</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@ttl_cache</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">test_func</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="s2">&quot;1&quot;</span>
 <span class="gp">...</span>
