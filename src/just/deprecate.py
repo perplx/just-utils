@@ -2,18 +2,16 @@
 
 """Deprecation decorator"""
 
-
 # standard imports
 import functools
 import warnings
 from typing import Callable, ParamSpec, TypeVar
 
-
 P = ParamSpec("P")
 R = TypeVar("R")
 
 
-def deprecated(arg=None, since: str | None=None):  # FIXME return type annotation?
+def deprecated(arg=None, since: str | None = None):  # FIXME return type annotation?
     """Decorator to mark a function as deprecated.
     Emit ``DeprecationWarning`` when a decorated function is called.
 

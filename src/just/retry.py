@@ -8,7 +8,6 @@ import logging
 import time
 from typing import Callable, ParamSpec, Type, TypeVar
 
-
 logger = logging.getLogger(__name__)
 
 

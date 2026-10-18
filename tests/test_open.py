@@ -2,7 +2,6 @@
 
 """Unit-tests for just.timing"""
 
-
 # standard imports
 import unittest
 from pathlib import Path

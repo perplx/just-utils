@@ -8,7 +8,6 @@ import logging
 import time
 from typing import Any, Callable, Dict, ParamSpec, Tuple, TypeVar
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -61,7 +60,7 @@ def ttl_cache(ttl: float):
 
             # find the result in the cache and check the ttl
             if key in cache:
-                cached_result, cached_ttl  = cache[key]
+                cached_result, cached_ttl = cache[key]
                 if time.time() < cached_ttl:
                     logger.debug("using cached")
                     return cached_result

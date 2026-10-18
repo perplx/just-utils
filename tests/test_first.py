@@ -2,7 +2,6 @@
 
 """Unit-tests for just.first"""
 
-
 # standard imports
 import itertools
 import unittest

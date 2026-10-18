@@ -2,10 +2,8 @@
 
 """Like ``any()`` but returns the first element."""
 
-
 # standard imports
 from typing import Any, Callable, Iterable, List, Optional, TypeVar
-
 
 # type definitions
 T = TypeVar("T")

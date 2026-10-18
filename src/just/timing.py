@@ -2,7 +2,6 @@
 
 """Timing functions"""
 
-
 # standard imports
 import contextlib
 import functools

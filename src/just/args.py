@@ -2,7 +2,6 @@
 
 """Argument-parsers for argparse"""
 
-
 # standard imports
 import argparse
 import datetime
@@ -11,7 +10,6 @@ import os
 import re
 from enum import Enum
 from typing import Type
-
 
 # FIXME Python 3.12 changed the type of the excdption raised by strptime
 # FIXME this is impossible to get 100% coverage, as only one class will be assigned

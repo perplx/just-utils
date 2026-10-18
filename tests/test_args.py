@@ -2,7 +2,6 @@
 
 """Unit-tests for just.args"""
 
-
 # standard imports
 import unittest
 import argparse

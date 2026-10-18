@@ -8,7 +8,6 @@ import unittest
 # local imports
 import just.lock
 
-
 # global constants
 LOCK_FILE_PATH = "bogusbogusbogusbogus"
 

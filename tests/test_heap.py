@@ -2,7 +2,6 @@
 
 """Unit-tests for just.heap"""
 
-
 # standard imports
 import unittest
 

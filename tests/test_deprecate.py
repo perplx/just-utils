@@ -2,7 +2,6 @@
 
 """Unit-tests for just.deprecate"""
 
-
 # standard imports
 import unittest
 import logging

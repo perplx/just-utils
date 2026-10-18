@@ -2,7 +2,6 @@
 
 """Open files transparently whether or not they are compressed."""
 
-
 # standard imports
 import bz2
 import gzip

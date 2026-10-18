@@ -4,7 +4,6 @@
 see: https://youtu.be/o9pEzgHorH0?t=851
 """
 
-
 # standard imports
 import heapq
 

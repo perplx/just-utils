@@ -2,7 +2,6 @@
 
 """Unit-tests for just.retry"""
 
-
 # standard imports
 import logging
 import unittest
@@ -11,7 +10,6 @@ from unittest import mock
 
 # tested imports
 from just.retry import retry
-
 
 # name of the logger used by `just.retry`, where the retry-messages are logged
 LOGGER_NAME = "just.retry"

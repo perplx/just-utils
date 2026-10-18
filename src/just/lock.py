@@ -2,12 +2,10 @@
 
 """Lock-file"""
 
-
 # standard imports
 import contextlib
 import logging
 import os
-
 
 # global logger
 logger = logging.getLogger(__name__)
