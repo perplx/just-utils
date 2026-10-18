@@ -32,7 +32,10 @@ class Heap(Generic[T]):
         heapq.heapify(self._heap)
 
     def __len__(self) -> int:
-        """Number of items in the `Heap`."""
+        """Number of items in the `Heap`.
+
+        :return: number of items in the `Heap`.
+        """
         return len(self._heap)
 
     def __str__(self) -> str:
@@ -40,23 +43,40 @@ class Heap(Generic[T]):
         return f"Heap({self._heap})"
 
     def peek(self) -> T:
-        """Return the smallest item without removing it."""
+        """Return the smallest item without removing it.
+
+        :return: the smallest item.
+        """
         return self._heap[0]
 
     def pop(self) -> T:
-        """Remove and return the smallest item."""
+        """Remove and return the smallest item.
+
+        :return: the smallest item.
+        """
         return heapq.heappop(self._heap)
 
     def push(self, item: T) -> None:
-        """Add `item` to the heap."""
+        """Add `item` to the heap.
+
+        :param item: the item to add.
+        """
         heapq.heappush(self._heap, item)
 
     def pushpop(self, item: T) -> T:
-        """Push `item`, then pop and return the smallest item."""
+        """Push `item`, then pop and return the smallest item.
+        Quicker than `push` followed by `pop`.
+
+        :param item: the item to add.
+        """
         return heapq.heappushpop(self._heap, item)
 
     def replace(self, item: T) -> T:
-        """Pop and return the smallest item, then push `item`."""
+        """Pop and return the smallest item, then push `item`.
+        Quicker than `pop` followed by `push`.
+
+        :param item: the item to add.
+        """
         return heapq.heapreplace(self._heap, item)
 
 
@@ -79,7 +99,9 @@ class KeyHeap(Generic[K, T]):
         heapq.heapify(self._heap)
 
     def __len__(self) -> int:
-        """Number of items in the `KeyHeap`."""
+        """Number of items in the `KeyHeap`.
+        :return: number of items in the `KeyHeap`.
+        """
         return len(self._heap)
 
     def __str__(self) -> str:
@@ -87,23 +109,40 @@ class KeyHeap(Generic[K, T]):
         return f"KeyHeap({[item for _, item in self._heap]})"
 
     def peek(self) -> T:
-        """Return the item with the smallest key without removing it."""
+        """Return the item with the smallest key without removing it.
+
+        :return: the item with the smallest key.
+        """
         return self._heap[0][1]
 
     def pop(self) -> T:
-        """Remove and return the item with the smallest key."""
+        """Remove and return the item with the smallest key.
+
+        :return: the item with the smallest key.
+        """
         return heapq.heappop(self._heap)[1]
 
     def push(self, item: T) -> None:
-        """Add `item` to the heap."""
+        """Add `item` to the heap.
+
+        :param item: the item to add.
+        """
         heapq.heappush(self._heap, (self._key(item), item))
 
     def pushpop(self, item: T) -> T:
-        """Push `item`, then pop and return the item with the smallest key."""
+        """Push `item`, then pop and return the item with the smallest key.
+        Quicker than `push` followed by `pop`.
+
+        :param item: the item to add.
+        """
         return heapq.heappushpop(self._heap, (self._key(item), item))[1]
 
     def replace(self, item: T) -> T:
-        """Pop and return the item with the smallest key, then push `item`."""
+        """Pop and return the item with the smallest key, then push `item`.
+        Quicker than `pop` followed by `push`.
+
+        :param item: the item to add.
+        """
         return heapq.heapreplace(self._heap, (self._key(item), item))[1]
 
 
