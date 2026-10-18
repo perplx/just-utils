@@ -161,11 +161,29 @@
 <div class="viewcode-block" id="format_bytes">
 <a class="viewcode-back" href="../../just.html#just.human.format_bytes">[docs]</a>
 <span class="k">def</span> <span class="nf">format_bytes</span><span class="p">(</span><span class="n">num_bytes</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Format a number of bytes `num_bytes` as a human-readable `str`.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Format a number of bytes `num_bytes` as a human-readable `str`.</span>
+
+<span class="sd">    ex::</span>
+
+<span class="sd">        &gt;&gt;&gt; format_bytes(0)</span>
+<span class="sd">        &#39;0B&#39;</span>
+<span class="sd">        &gt;&gt;&gt; format_bytes(1)</span>
+<span class="sd">        &#39;1B&#39;</span>
+<span class="sd">        &gt;&gt;&gt; format_bytes(10)</span>
+<span class="sd">        &#39;10B&#39;</span>
+<span class="sd">        &gt;&gt;&gt; format_bytes(100)</span>
+<span class="sd">        &#39;100B&#39;</span>
+<span class="sd">        &gt;&gt;&gt; format_bytes(1000)</span>
+<span class="sd">        &#39;1000B&#39;</span>
+<span class="sd">        &gt;&gt;&gt; format_bytes(1024)</span>
+<span class="sd">        &#39;1.0K&#39;</span>
+<span class="sd">        &gt;&gt;&gt; format_bytes(1024 * 1024)</span>
+<span class="sd">        &#39;1.0M&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">num_bytes</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;num_bytes </span><span class="si">{num_bytes}</span><span class="s2"> should be positive&quot;</span><span class="p">)</span>
     <span class="n">num_bytes</span><span class="p">,</span> <span class="n">num_blocks</span> <span class="o">=</span> <span class="n">_find_blocks</span><span class="p">(</span><span class="n">num_bytes</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">num_bytes</span> <span class="o">&lt;</span> <span class="mf">10.0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">num_bytes</span> <span class="o">&lt;</span> <span class="mf">100.0</span> <span class="ow">and</span> <span class="n">num_blocks</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">bytes_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">num_bytes</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">bytes_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">num_bytes</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -248,10 +266,27 @@
 
     <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> </span><span class="si">%(levelname)-8s</span><span class="s2"> </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">NOTSET</span><span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="n">format_bytes</span><span class="p">(</span><span class="mi">1023</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">format_bytes</span><span class="p">(</span><span class="mi">1024</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">format_bytes</span><span class="p">(</span><span class="mi">1023</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">format_bytes</span><span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">))</span>
+    <span class="n">TESTS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="mi">0</span><span class="p">,</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="mi">10</span><span class="p">,</span>
+        <span class="mi">100</span><span class="p">,</span>
+        <span class="mi">1000</span><span class="p">,</span>
+        <span class="mi">1023</span><span class="p">,</span>
+        <span class="mi">1024</span><span class="p">,</span>
+        <span class="mi">1024</span> <span class="o">*</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="mi">1024</span> <span class="o">*</span> <span class="mi">300</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">1024</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">100</span><span class="p">,</span>  <span class="c1"># FIXME returns &#39;1024K&#39;</span>
+        <span class="p">(</span><span class="mi">1024</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># FIXME returns &#39;1024K&#39;</span>
+        <span class="p">(</span><span class="mi">1024</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># FIXME returns &#39;1024K&#39;</span>
+        <span class="p">(</span><span class="mi">1024</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># FIXME returns &#39;1024K&#39;</span>
+        <span class="mi">1024</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="mi">1024</span> <span class="o">**</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="mi">1024</span> <span class="o">**</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="mi">1024</span> <span class="o">**</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">for</span> <span class="n">num_bytes</span> <span class="ow">in</span> <span class="n">TESTS</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">format_bytes</span><span class="p">(</span><span class="n">num_bytes</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;5</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">num_bytes</span><span class="si">:</span><span class="s2">&gt;16</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">raise</span> <span class="ne">SystemExit</span>
 
