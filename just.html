@@ -383,46 +383,45 @@ Will raise an <code class="docutils literal notranslate"><span class="pre">argpa
 <span class="sig-prename descclassname"><span class="pre">just.deprecate.</span></span><span class="sig-name descname"><span class="pre">deprecated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">since</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/deprecate.html#deprecated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.deprecate.deprecated" title="Link to this definition">¶</a></dt>
 <dd><p>Decorator to mark a function as deprecated.
 Emit <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code> when a decorated function is called.</p>
+<p>The warning goes to <code class="docutils literal notranslate"><span class="pre">stderr</span></code>, so the examples below capture it with
+<code class="docutils literal notranslate"><span class="pre">warnings.catch_warnings(record=True)</span></code> rather than printing it.</p>
 <p>ex:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>The warning goes to stderr, so the examples below capture it with
-``warnings.catch_warnings(record=True)`` rather than printing it.
-
-&gt;&gt;&gt; import warnings
-
-without parentheses:
-
-&gt;&gt;&gt; @deprecated
-... def deprecated_func_1():
-...     return None
-&gt;&gt;&gt; with warnings.catch_warnings(record=True) as caught:
-...     warnings.simplefilter(&quot;always&quot;)
-...     deprecated_func_1()
-&gt;&gt;&gt; caught[0].category.__name__
-&#39;DeprecationWarning&#39;
-&gt;&gt;&gt; str(caught[0].message)
-&#39;deprecated: deprecated_func_1&#39;
-
-with parentheses:
-
-&gt;&gt;&gt; @deprecated()
-... def deprecated_func_2():
-...     return None
-&gt;&gt;&gt; with warnings.catch_warnings(record=True) as caught:
-...     warnings.simplefilter(&quot;always&quot;)
-...     deprecated_func_2()
-&gt;&gt;&gt; str(caught[0].message)
-&#39;deprecated: deprecated_func_2&#39;
-
-with a version:
-
-&gt;&gt;&gt; @deprecated(since=&quot;0.3&quot;)
-... def deprecated_func_3():
-...     return None
-&gt;&gt;&gt; with warnings.catch_warnings(record=True) as caught:
-...     warnings.simplefilter(&quot;always&quot;)
-...     deprecated_func_3()
-&gt;&gt;&gt; str(caught[0].message)
-&#39;deprecated: deprecated_func_3 (since version: 0.3)&#39;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">warnings</span>
+</pre></div>
+</div>
+<p>without parentheses:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@deprecated</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">deprecated_func_1</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="kc">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">caught</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;always&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">deprecated_func_1</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">caught</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">category</span><span class="o">.</span><span class="vm">__name__</span>
+<span class="go">&#39;DeprecationWarning&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">caught</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+<span class="go">&#39;deprecated: deprecated_func_1&#39;</span>
+</pre></div>
+</div>
+<p>with parentheses:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@deprecated</span><span class="p">()</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">deprecated_func_2</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="kc">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">caught</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;always&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">deprecated_func_2</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">caught</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+<span class="go">&#39;deprecated: deprecated_func_2&#39;</span>
+</pre></div>
+</div>
+<p>with a version:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@deprecated</span><span class="p">(</span><span class="n">since</span><span class="o">=</span><span class="s2">&quot;0.3&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">deprecated_func_3</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="kc">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">caught</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;always&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">deprecated_func_3</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">caught</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+<span class="go">&#39;deprecated: deprecated_func_3 (since version: 0.3)&#39;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -555,8 +554,11 @@ leaving the larger value on the heap.</p>
 <section id="module-just.heap2">
 <span id="just-heap2-module"></span><h2>just.heap2 module<a class="headerlink" href="#module-just.heap2" title="Link to this heading">¶</a></h2>
 <p>Implementaton of a min-heap piority-queue class, based on the standard library <code class="xref py py-obj docutils literal notranslate"><span class="pre">heapq</span></code> module.
-see: <a class="reference external" href="https://docs.python.org/3/library/heapq.html">https://docs.python.org/3/library/heapq.html</a>
 Now with type annotations.</p>
+<ul class="simple">
+<li><p>see: <a class="reference external" href="https://docs.python.org/3/library/heapq.html">https://docs.python.org/3/library/heapq.html</a></p></li>
+<li><p>see: <a class="reference external" href="https://youtu.be/o9pEzgHorH0?t=851">https://youtu.be/o9pEzgHorH0?t=851</a></p></li>
+</ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="just.heap2.Heap">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.heap2.</span></span><span class="sig-name descname"><span class="pre">Heap</span></span><span class="sig-paren">[</span><em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><span class="pre">SupportsLessThan</span></a></span></em><span class="sig-paren">]</span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap" title="Link to this definition">¶</a></dt>

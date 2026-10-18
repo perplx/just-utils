@@ -143,14 +143,14 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Decorator to mark a function as deprecated.</span>
 <span class="sd">    Emit ``DeprecationWarning`` when a decorated function is called.</span>
 
-<span class="sd">    ex::</span>
+<span class="sd">    The warning goes to ``stderr``, so the examples below capture it with</span>
+<span class="sd">    ``warnings.catch_warnings(record=True)`` rather than printing it.</span>
 
-<span class="sd">        The warning goes to stderr, so the examples below capture it with</span>
-<span class="sd">        ``warnings.catch_warnings(record=True)`` rather than printing it.</span>
+<span class="sd">    ex::</span>
 
 <span class="sd">        &gt;&gt;&gt; import warnings</span>
 
-<span class="sd">        without parentheses:</span>
+<span class="sd">    without parentheses::</span>
 
 <span class="sd">        &gt;&gt;&gt; @deprecated</span>
 <span class="sd">        ... def deprecated_func_1():</span>
@@ -163,7 +163,7 @@
 <span class="sd">        &gt;&gt;&gt; str(caught[0].message)</span>
 <span class="sd">        &#39;deprecated: deprecated_func_1&#39;</span>
 
-<span class="sd">        with parentheses:</span>
+<span class="sd">    with parentheses::</span>
 
 <span class="sd">        &gt;&gt;&gt; @deprecated()</span>
 <span class="sd">        ... def deprecated_func_2():</span>
@@ -174,7 +174,7 @@
 <span class="sd">        &gt;&gt;&gt; str(caught[0].message)</span>
 <span class="sd">        &#39;deprecated: deprecated_func_2&#39;</span>
 
-<span class="sd">        with a version:</span>
+<span class="sd">    with a version::</span>
 
 <span class="sd">        &gt;&gt;&gt; @deprecated(since=&quot;0.3&quot;)</span>
 <span class="sd">        ... def deprecated_func_3():</span>
