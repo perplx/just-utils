@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
-"""Priority Heap class using the standard ``heapq`` module
-see: https://youtu.be/o9pEzgHorH0?t=851
+"""Priority Heap class using the standard ``heapq`` module.
+
+- see: https://docs.python.org/3/library/heapq.html
+- see: https://youtu.be/o9pEzgHorH0?t=851
 """
 
 # standard imports

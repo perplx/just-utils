@@ -15,14 +15,14 @@ def deprecated(arg=None, since: str | None = None):  # FIXME return type annotat
     """Decorator to mark a function as deprecated.
     Emit ``DeprecationWarning`` when a decorated function is called.
 
-    ex::
+    The warning goes to ``stderr``, so the examples below capture it with
+    ``warnings.catch_warnings(record=True)`` rather than printing it.
 
-        The warning goes to stderr, so the examples below capture it with
-        ``warnings.catch_warnings(record=True)`` rather than printing it.
+    ex::
 
         >>> import warnings
 
-        without parentheses:
+    without parentheses::
 
         >>> @deprecated
         ... def deprecated_func_1():
@@ -35,7 +35,7 @@ def deprecated(arg=None, since: str | None = None):  # FIXME return type annotat
         >>> str(caught[0].message)
         'deprecated: deprecated_func_1'
 
-        with parentheses:
+    with parentheses::
 
         >>> @deprecated()
         ... def deprecated_func_2():
@@ -46,7 +46,7 @@ def deprecated(arg=None, since: str | None = None):  # FIXME return type annotat
         >>> str(caught[0].message)
         'deprecated: deprecated_func_2'
 
-        with a version:
+    with a version::
 
         >>> @deprecated(since="0.3")
         ... def deprecated_func_3():

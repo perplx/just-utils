@@ -1,4 +1,4 @@
-"""Memoization decorator that caches results keyed on the call arguments.
+"""Memoization decorators that cache results keyed on the call arguments.
 
 Arguments must be hashable, the same constraint `functools.lru_cache` imposes.
 """
@@ -17,8 +17,7 @@ R = TypeVar("R")
 
 def memoize(func: Callable[P, R]) -> Callable[P, R]:
     """Keep result of decorated function call in cache.
-    :param func: the function to cache.
-    :return: the function `func` wrapped in a cache.
+
     ex::
 
         >>> from functools import memoize
@@ -46,8 +45,6 @@ def memoize(func: Callable[P, R]) -> Callable[P, R]:
 
 def ttl_cache(ttl: float):
     """Keep result of decorated function call in cache for the given number of seconds.
-    :param func: the function to cache.
-    :return: the function `func` wrapped in a cache.
 
     ex::
 

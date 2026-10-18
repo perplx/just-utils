@@ -1,6 +1,8 @@
 """Implementaton of a min-heap piority-queue class, based on the standard library `heapq` module.
-see: https://docs.python.org/3/library/heapq.html
 Now with type annotations.
+
+- see: https://docs.python.org/3/library/heapq.html
+- see: https://youtu.be/o9pEzgHorH0?t=851
 """
 
 import heapq
