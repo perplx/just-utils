@@ -26,9 +26,11 @@ class DateTimeArg:
 
     ex::
 
-        arg_parser = argparse.ArgumentParser()
-        arg_parser.add_argument("--date-time", type=DateTimeArg("%Y-%m-%d %H:%M:%S.%f"))
-        arg_parser.parse_args(["--date-time", "2020-02-29 12:34:56.789"])
+        >>> arg_parser = argparse.ArgumentParser()
+        >>> arg_parser.add_argument("--date-time", type=DateTimeArg("%Y-%m-%d %H:%M:%S.%f"))  # doctest:+ELLIPSIS
+        _StoreAction(...)
+        >>> arg_parser.parse_args(["--date-time", "2020-02-29 12:34:56.789"])
+        Namespace(date_time=datetime.datetime(2020, 2, 29, 12, 34, 56, 789000))
     """
 
     def __init__(self, format_str: str):
@@ -50,9 +52,11 @@ class DirectoryArg:
 
     ex::
 
-        arg_parser = argparse.ArgumentParser()
-        arg_parser.add_argument("--directory", type=DirectoryArg("rw"))
-        arg_parser.parse_args(["--directory", "."])
+        >>> arg_parser = argparse.ArgumentParser()
+        >>> arg_parser.add_argument("--directory", type=DirectoryArg("rw"))  # doctest:+ELLIPSIS
+        _StoreAction(...)
+        >>> arg_parser.parse_args(["--directory", "."])
+        Namespace(directory='.')
     """
 
     def __init__(self, mode: str):
@@ -92,13 +96,16 @@ class EnumArg:
 
     ex::
 
-        class Enumerated(enum.Enun):
-            ONE = 1
-            TWO = 2
+        >>> import argparse, enum
+        >>> class Enumerated(enum.Enum):
+        ...     ONE = 1
+        ...     TWO = 2
 
-        arg_parser = argparse.ArgumentParser()
-        arg_parser.add_argument("--enumerated", type=EnumArg(Enumerated))
-        arg_parser.parse_args(["--enumerated", "ONE"])
+        >>> arg_parser = argparse.ArgumentParser()
+        >>> arg_parser.add_argument("--enumerated", type=EnumArg(Enumerated))  # doctest:+ELLIPSIS
+        _StoreAction(...)
+        >>> arg_parser.parse_args(["--enumerated", "ONE"])
+        Namespace(enumerated=<Enumerated.ONE: 1>)
     """
 
     def __init__(self, enum_type: Type[Enum]):
@@ -124,9 +131,11 @@ def LogLevelArg(level_name: str) -> int:
 
     ex::
 
-        arg_parser = argparse.ArgumentParser()
-        arg_parser.add_argument("--log-level", type=LogLevelArg)
-        arg_parser.parse_args(["--log-level", "DEBUG"])
+        >>> arg_parser = argparse.ArgumentParser()
+        >>> arg_parser.add_argument("--log-level", type=LogLevelArg)  # doctest:+ELLIPSIS
+        _StoreAction(...)
+        >>> arg_parser.parse_args(["--log-level", "DEBUG"])
+        Namespace(log_level=10)
 
     :param level_name: any supported log-level name from the ``logging`` module.
     :raise argparse.ArgumentTypeError: for an unsupported value to ``argparse``

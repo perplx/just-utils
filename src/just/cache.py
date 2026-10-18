@@ -20,7 +20,6 @@ def memoize(func: Callable[P, R]) -> Callable[P, R]:
 
     ex::
 
-        >>> from functools import memoize
         >>> @memoize
         ... def test_func():
         ...     return "1"
@@ -48,7 +47,6 @@ def ttl_cache(ttl: float):
 
     ex::
 
-        >>> from functools import ttl_cache
         >>> @ttl_cache(3)
         ... def test_func():
         ...     return "1"
