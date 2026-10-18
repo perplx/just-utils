@@ -152,11 +152,11 @@
 <span class="sd">    Retries the function for `tries` when encountering `Exception` of type `error`.</span>
 <span class="sd">    Other exceptions fall through.</span>
 
-<span class="sd">    :param: error the `Type` of `Exception` that wil cause a retry.</span>
-<span class="sd">    :param: tries the number of tries.</span>
-<span class="sd">    :param: delay the number of seconds to wait between tries (default `0.0`).</span>
+<span class="sd">    :param error: the `Type` of `Exception` that wil cause a retry.</span>
+<span class="sd">    :param tries: the number of tries.</span>
+<span class="sd">    :param delay: the number of seconds to wait between tries (default `0.0`).</span>
 
-<span class="sd">    ex:</span>
+<span class="sd">    ex::</span>
 
 <span class="sd">        &gt;&gt;&gt; @retry(RuntimeError, tries=4, delay=0.1)</span>
 <span class="sd">        ... def test_func() -&gt; str:</span>
@@ -214,9 +214,11 @@
 <a class="viewcode-back" href="../../just.html#just.retry.RetryIterator">[docs]</a>
 <span class="k">class</span> <span class="nc">RetryIterator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Retry iterator.</span>
-<span class="sd">    Generate a `RetryContext` for a given number of attempts.</span>
+<span class="sd">    Generate a `RetryContext` for a given number of `attempts`.</span>
+<span class="sd">    Each try will be a `RetryContext`, which will call the `RetryIterator.succeed` on success to end iteration.</span>
 
 <span class="sd">    ex::</span>
+
 <span class="sd">        &gt;&gt;&gt; for attempt in RetryIterator(attempts=3):</span>
 <span class="sd">        ...     with attempt:  # RetryContext</span>
 <span class="sd">        ...         flaky_func()</span>
@@ -230,9 +232,6 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attempts</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a `RetryIterator` that will generate `attempts` tries.</span>
-<span class="sd">        Each try will be a `RetryContext`, which will call the `RetryIterator.succeed` on success to end iteration.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_max_attempts</span> <span class="o">=</span> <span class="n">attempts</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_success</span> <span class="o">=</span> <span class="kc">False</span>
 
