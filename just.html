@@ -10,7 +10,8 @@
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="_static/pygments_dark.css?v=b20cc3f5" />
     <link rel="stylesheet" type="text/css" href="_static/classic.css?v=67a6116b" />
-    <link rel="stylesheet" type="text/css" href="_static/pydoctheme.css?v=4365c8fe" />
+    <link rel="stylesheet" type="text/css" href="_static/pydoctheme.css?v=48df1187" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx_autodoc_typehints.css?v=057ac668" />
     
     <script src="_static/documentation_options.js?v=d45e8c67"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
@@ -71,6 +72,15 @@
 <li><a class="reference internal" href="#just.args.LogLevelArg"><code class="docutils literal notranslate"><span class="pre">LogLevelArg()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#just-atomic-module">just.atomic module</a><ul>
+<li><a class="reference internal" href="#just.atomic.atomic_open"><code class="docutils literal notranslate"><span class="pre">atomic_open()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#just-cache-module">just.cache module</a><ul>
+<li><a class="reference internal" href="#just.cache.memoize"><code class="docutils literal notranslate"><span class="pre">memoize()</span></code></a></li>
+<li><a class="reference internal" href="#just.cache.ttl_cache"><code class="docutils literal notranslate"><span class="pre">ttl_cache()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-just.deprecate">just.deprecate module</a><ul>
 <li><a class="reference internal" href="#just.deprecate.deprecated"><code class="docutils literal notranslate"><span class="pre">deprecated()</span></code></a></li>
 </ul>
@@ -112,6 +122,14 @@
 <li><a class="reference internal" href="#just.heap2.SupportsLessThan"><code class="docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#module-just.human">just.human module</a><ul>
+<li><a class="reference internal" href="#just.human.find_blocks"><code class="docutils literal notranslate"><span class="pre">find_blocks()</span></code></a></li>
+<li><a class="reference internal" href="#just.human.format_bytes"><code class="docutils literal notranslate"><span class="pre">format_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#just.human.format_duration"><code class="docutils literal notranslate"><span class="pre">format_duration()</span></code></a></li>
+<li><a class="reference internal" href="#just.human.parse_bytes"><code class="docutils literal notranslate"><span class="pre">parse_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#just.human.parse_duration"><code class="docutils literal notranslate"><span class="pre">parse_duration()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-just.lock">just.lock module</a><ul>
 <li><a class="reference internal" href="#just.lock.LockFileExistsError"><code class="docutils literal notranslate"><span class="pre">LockFileExistsError</span></code></a></li>
 <li><a class="reference internal" href="#just.lock.lock_file"><code class="docutils literal notranslate"><span class="pre">lock_file()</span></code></a></li>
@@ -119,6 +137,15 @@
 </li>
 <li><a class="reference internal" href="#module-just.open">just.open module</a><ul>
 <li><a class="reference internal" href="#just.open.ezopen"><code class="docutils literal notranslate"><span class="pre">ezopen()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#just-retry-module">just.retry module</a><ul>
+<li><a class="reference internal" href="#just.retry.RetryContext"><code class="docutils literal notranslate"><span class="pre">RetryContext</span></code></a></li>
+<li><a class="reference internal" href="#just.retry.RetryIterator"><code class="docutils literal notranslate"><span class="pre">RetryIterator</span></code></a><ul>
+<li><a class="reference internal" href="#just.retry.RetryIterator.succeed"><code class="docutils literal notranslate"><span class="pre">RetryIterator.succeed()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#just.retry.retry"><code class="docutils literal notranslate"><span class="pre">retry()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-just.timing">just.timing module</a><ul>
@@ -170,7 +197,7 @@
         <li class="right" >
           <a href="modules.html" title="just"
              accesskey="P">previous</a> |</li>
-          <li><img src="_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li class="root-icon"><img src="_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
           <li><a href="https://www.python.org/">Python</a> &#187;</li>
           <li class="switchers">
             <div class="language_switcher_placeholder"></div>
@@ -298,6 +325,47 @@ Will raise an <code class="docutils literal notranslate"><span class="pre">argpa
 </dd></dl>
 
 </section>
+<section id="just-atomic-module">
+<h2>just.atomic module<a class="headerlink" href="#just-atomic-module" title="Link to this heading">¶</a></h2>
+<p id="module-just.atomic">FIXME</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="just.atomic.atomic_open">
+<span class="sig-prename descclassname"><span class="pre">just.atomic.</span></span><span class="sig-name descname"><span class="pre">atomic_open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/atomic.html#atomic_open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.atomic.atomic_open" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="just-cache-module">
+<h2>just.cache module<a class="headerlink" href="#just-cache-module" title="Link to this heading">¶</a></h2>
+<p id="module-just.cache">Memoization decorator that caches results keyed on the call arguments.</p>
+<p>Arguments must be hashable, the same constraint <cite>functools.lru_cache</cite> imposes.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="just.cache.memoize">
+<span class="sig-prename descclassname"><span class="pre">just.cache.</span></span><span class="sig-name descname"><span class="pre">memoize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/cache.html#memoize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.cache.memoize" title="Link to this definition">¶</a></dt>
+<dd><p>Keep result of decorated function call in cache.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[<code class="docutils literal notranslate"><span class="pre">P</span></code>, <code class="docutils literal notranslate"><span class="pre">R</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="just.cache.ttl_cache">
+<span class="sig-prename descclassname"><span class="pre">just.cache.</span></span><span class="sig-name descname"><span class="pre">ttl_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ttl</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/cache.html#ttl_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.cache.ttl_cache" title="Link to this definition">¶</a></dt>
+<dd><p>Keep result of decorated function call in cache for the given number of seconds.</p>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">cache</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@ttl_cache</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">test_func</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="s2">&quot;1&quot;</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_func</span><span class="p">()</span>
+<span class="go">&#39;1&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
 <section id="module-just.deprecate">
 <span id="just-deprecate-module"></span><h2>just.deprecate module<a class="headerlink" href="#module-just.deprecate" title="Link to this heading">¶</a></h2>
 <p>Deprecation decorator</p>
@@ -312,7 +380,7 @@ Emit <code class="docutils literal notranslate"><span class="pre">DeprecationWar
 
 &gt;&gt;&gt; import warnings
 
-without parentheses
+without parentheses:
 
 &gt;&gt;&gt; @deprecated
 ... def deprecated_func_1():
@@ -325,7 +393,7 @@ without parentheses
 &gt;&gt;&gt; str(caught[0].message)
 &#39;deprecated: deprecated_func_1&#39;
 
-with parentheses
+with parentheses:
 
 &gt;&gt;&gt; @deprecated()
 ... def deprecated_func_2():
@@ -336,7 +404,7 @@ with parentheses
 &gt;&gt;&gt; str(caught[0].message)
 &#39;deprecated: deprecated_func_2&#39;
 
-with a version
+with a version:
 
 &gt;&gt;&gt; @deprecated(since=&quot;0.3&quot;)
 ... def deprecated_func_3():
@@ -383,12 +451,12 @@ ex:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>iterable</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span>) – an <code class="docutils literal notranslate"><span class="pre">Iterable</span></code> of items of type <code class="docutils literal notranslate"><span class="pre">T</span></code></p></li>
-<li><p><strong>condition</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)], <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span>) – returns whether the item is true.</p></li>
+<li><p><strong>iterable</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[<code class="docutils literal notranslate"><span class="pre">T</span></code>]</span>) – an <code class="docutils literal notranslate"><span class="pre">Iterable</span></code> of items of type <code class="docutils literal notranslate"><span class="pre">T</span></code></p></li>
+<li><p><strong>condition</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="docutils literal notranslate"><span class="pre">T</span></code>], <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span>) – returns whether the item is true.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="docutils literal notranslate"><span class="pre">T</span></code>]</span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the first item in <code class="docutils literal notranslate"><span class="pre">iterable</span></code> that is true.</p>
@@ -404,7 +472,7 @@ ex:</p>
 <span class="sig-prename descclassname"><span class="pre">just.first.</span></span><span class="sig-name descname"><span class="pre">last</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;class</span> <span class="pre">'bool'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;object</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/first.html#last"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.first.last" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="docutils literal notranslate"><span class="pre">T</span></code>]</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -414,7 +482,7 @@ ex:</p>
 <span class="sig-prename descclassname"><span class="pre">just.first.</span></span><span class="sig-name descname"><span class="pre">only</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;class</span> <span class="pre">'bool'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;object</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/first.html#only"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.first.only" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="docutils literal notranslate"><span class="pre">T</span></code>]</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -479,8 +547,8 @@ see: <a class="reference external" href="https://docs.python.org/3/library/heapq
 Now with type annotations.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="just.heap2.Heap">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.heap2.</span></span><span class="sig-name descname"><span class="pre">Heap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.heap2.</span></span><span class="sig-name descname"><span class="pre">Heap</span></span><span class="sig-paren">[</span><em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><span class="pre">SupportsLessThan</span></a></span></em><span class="sig-paren">]</span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="docutils literal notranslate"><span class="pre">T</span></code>]</p>
 <p>FIXME</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="just.heap2.Heap.peek">
@@ -488,7 +556,7 @@ Now with type annotations.</p>
 <dd><p>Return the smallest item without removing it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>, bound= <a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a>)</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -499,7 +567,7 @@ Now with type annotations.</p>
 <dd><p>Remove and return the smallest item.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>, bound= <a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a>)</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -510,7 +578,7 @@ Now with type annotations.</p>
 <dd><p>Add <cite>item</cite> to the heap.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -521,7 +589,7 @@ Now with type annotations.</p>
 <dd><p>Push <cite>item</cite>, then pop and return the smallest item.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>, bound= <a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a>)</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -532,7 +600,7 @@ Now with type annotations.</p>
 <dd><p>Pop and return the smallest item, then push <cite>item</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>, bound= <a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a>)</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -541,8 +609,8 @@ Now with type annotations.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="just.heap2.KeyHeap">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.heap2.</span></span><span class="sig-name descname"><span class="pre">KeyHeap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">K</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.heap2.</span></span><span class="sig-name descname"><span class="pre">KeyHeap</span></span><span class="sig-paren">[</span><em class="sig-param"><span class="n"><span class="pre">K</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><span class="pre">SupportsLessThan</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><span class="pre">SupportsLessThan</span></a></span></em><span class="sig-paren">]</span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="docutils literal notranslate"><span class="pre">K</span></code>, <code class="docutils literal notranslate"><span class="pre">T</span></code>]</p>
 <p>A min-heap ordered by a key-function, the way <cite>key=</cite> orders <cite>sorted()</cite>.</p>
 <p>Internally stores <cite>(key(item), item)</cite> tuples so ordering follows the key,
 while the public API accepts and returns the original items of type <cite>T</cite>.</p>
@@ -555,7 +623,7 @@ keys must be unique). This matches the classic <cite>(priority, item)</cite> idi
 <dd><p>Return the item with the smallest key without removing it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>, bound= <a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a>)</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -566,7 +634,7 @@ keys must be unique). This matches the classic <cite>(priority, item)</cite> idi
 <dd><p>Remove and return the item with the smallest key.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>, bound= <a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a>)</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -577,7 +645,7 @@ keys must be unique). This matches the classic <cite>(priority, item)</cite> idi
 <dd><p>Add <cite>item</cite> to the heap.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -588,7 +656,7 @@ keys must be unique). This matches the classic <cite>(priority, item)</cite> idi
 <dd><p>Push <cite>item</cite>, then pop and return the item with the smallest key.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>, bound= <a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a>)</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -599,7 +667,7 @@ keys must be unique). This matches the classic <cite>(priority, item)</cite> idi
 <dd><p>Pop and return the item with the smallest key, then push <cite>item</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>, bound= <a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a>)</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -611,6 +679,60 @@ keys must be unique). This matches the classic <cite>(priority, item)</cite> idi
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.heap2.</span></span><span class="sig-name descname"><span class="pre">SupportsLessThan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#SupportsLessThan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.SupportsLessThan" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></p>
 <p>A type that can be ordered with <cite>&lt;</cite>, as required by <cite>heapq</cite>.</p>
+</dd></dl>
+
+</section>
+<section id="module-just.human">
+<span id="just-human-module"></span><h2>just.human module<a class="headerlink" href="#module-just.human" title="Link to this heading">¶</a></h2>
+<p>FIXME</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="just.human.find_blocks">
+<span class="sig-prename descclassname"><span class="pre">just.human.</span></span><span class="sig-name descname"><span class="pre">find_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/human.html#find_blocks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.human.find_blocks" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="just.human.format_bytes">
+<span class="sig-prename descclassname"><span class="pre">just.human.</span></span><span class="sig-name descname"><span class="pre">format_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_bytes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/human.html#format_bytes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.human.format_bytes" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="just.human.format_duration">
+<span class="sig-prename descclassname"><span class="pre">just.human.</span></span><span class="sig-name descname"><span class="pre">format_duration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_seconds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/human.html#format_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.human.format_duration" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="just.human.parse_bytes">
+<span class="sig-prename descclassname"><span class="pre">just.human.</span></span><span class="sig-name descname"><span class="pre">parse_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_bytes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/human.html#parse_bytes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.human.parse_bytes" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="just.human.parse_duration">
+<span class="sig-prename descclassname"><span class="pre">just.human.</span></span><span class="sig-name descname"><span class="pre">parse_duration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/human.html#parse_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.human.parse_duration" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -673,6 +795,34 @@ Open file normally if no extension matches.</p>
 </dd>
 </dl>
 </dd></dl>
+
+</section>
+<section id="just-retry-module">
+<h2>just.retry module<a class="headerlink" href="#just-retry-module" title="Link to this heading">¶</a></h2>
+<p id="module-just.retry">FIXME
+see: <a class="reference external" href="https://www.bitecode.dev/p/python-cocktail-mix-a-context-manager">https://www.bitecode.dev/p/python-cocktail-mix-a-context-manager</a>
+see: <a class="reference external" href="https://lobste.rs/s/xhe7sr/python_cocktail_mix_context_manager">https://lobste.rs/s/xhe7sr/python_cocktail_mix_context_manager</a>’</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="just.retry.RetryContext">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.retry.</span></span><span class="sig-name descname"><span class="pre">RetryContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attempt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/retry.html#RetryContext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.retry.RetryContext" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="just.retry.RetryIterator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.retry.</span></span><span class="sig-name descname"><span class="pre">RetryIterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attempts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/retry.html#RetryIterator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.retry.RetryIterator" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="just.retry.RetryIterator.succeed">
+<span class="sig-name descname"><span class="pre">succeed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/retry.html#RetryIterator.succeed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.retry.RetryIterator.succeed" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="just.retry.retry">
+<span class="sig-prename descclassname"><span class="pre">just.retry.</span></span><span class="sig-name descname"><span class="pre">retry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/retry.html#retry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.retry.retry" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </section>
 <section id="module-just.timing">
@@ -752,6 +902,15 @@ Output to stdout and to a given logger.</p>
 <li><a class="reference internal" href="#just.args.LogLevelArg"><code class="docutils literal notranslate"><span class="pre">LogLevelArg()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#just-atomic-module">just.atomic module</a><ul>
+<li><a class="reference internal" href="#just.atomic.atomic_open"><code class="docutils literal notranslate"><span class="pre">atomic_open()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#just-cache-module">just.cache module</a><ul>
+<li><a class="reference internal" href="#just.cache.memoize"><code class="docutils literal notranslate"><span class="pre">memoize()</span></code></a></li>
+<li><a class="reference internal" href="#just.cache.ttl_cache"><code class="docutils literal notranslate"><span class="pre">ttl_cache()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-just.deprecate">just.deprecate module</a><ul>
 <li><a class="reference internal" href="#just.deprecate.deprecated"><code class="docutils literal notranslate"><span class="pre">deprecated()</span></code></a></li>
 </ul>
@@ -793,6 +952,14 @@ Output to stdout and to a given logger.</p>
 <li><a class="reference internal" href="#just.heap2.SupportsLessThan"><code class="docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#module-just.human">just.human module</a><ul>
+<li><a class="reference internal" href="#just.human.find_blocks"><code class="docutils literal notranslate"><span class="pre">find_blocks()</span></code></a></li>
+<li><a class="reference internal" href="#just.human.format_bytes"><code class="docutils literal notranslate"><span class="pre">format_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#just.human.format_duration"><code class="docutils literal notranslate"><span class="pre">format_duration()</span></code></a></li>
+<li><a class="reference internal" href="#just.human.parse_bytes"><code class="docutils literal notranslate"><span class="pre">parse_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#just.human.parse_duration"><code class="docutils literal notranslate"><span class="pre">parse_duration()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-just.lock">just.lock module</a><ul>
 <li><a class="reference internal" href="#just.lock.LockFileExistsError"><code class="docutils literal notranslate"><span class="pre">LockFileExistsError</span></code></a></li>
 <li><a class="reference internal" href="#just.lock.lock_file"><code class="docutils literal notranslate"><span class="pre">lock_file()</span></code></a></li>
@@ -800,6 +967,15 @@ Output to stdout and to a given logger.</p>
 </li>
 <li><a class="reference internal" href="#module-just.open">just.open module</a><ul>
 <li><a class="reference internal" href="#just.open.ezopen"><code class="docutils literal notranslate"><span class="pre">ezopen()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#just-retry-module">just.retry module</a><ul>
+<li><a class="reference internal" href="#just.retry.RetryContext"><code class="docutils literal notranslate"><span class="pre">RetryContext</span></code></a></li>
+<li><a class="reference internal" href="#just.retry.RetryIterator"><code class="docutils literal notranslate"><span class="pre">RetryIterator</span></code></a><ul>
+<li><a class="reference internal" href="#just.retry.RetryIterator.succeed"><code class="docutils literal notranslate"><span class="pre">RetryIterator.succeed()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#just.retry.retry"><code class="docutils literal notranslate"><span class="pre">retry()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-just.timing">just.timing module</a><ul>
@@ -851,7 +1027,7 @@ Output to stdout and to a given logger.</p>
         <li class="right" >
           <a href="modules.html" title="just"
              >previous</a> |</li>
-          <li><img src="_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li class="root-icon"><img src="_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
           <li><a href="https://www.python.org/">Python</a> &#187;</li>
           <li class="switchers">
             <div class="language_switcher_placeholder"></div>

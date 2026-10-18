@@ -13,6 +13,25 @@ just.args module
    :show-inheritance:
    :exclude-members: main
 
+just.atomic module
+----------------
+
+.. automodule:: just.atomic
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :exclude-members: main
+
+
+just.cache module
+----------------
+
+.. automodule:: just.cache
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :exclude-members: main
+
 just.deprecate module
 ---------------------
 
@@ -49,6 +68,15 @@ just.heap2 module
    :show-inheritance:
    :exclude-members: main
 
+just.human module
+-----------------
+
+.. automodule:: just.human
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :exclude-members: main
+
 just.lock module
 ----------------
 
@@ -62,6 +90,15 @@ just.open module
 ----------------
 
 .. automodule:: just.open
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :exclude-members: main
+
+just.retry module
+----------------
+
+.. automodule:: just.retry
    :members:
    :undoc-members:
    :show-inheritance:
