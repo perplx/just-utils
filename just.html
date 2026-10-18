@@ -337,7 +337,7 @@ Will raise an <code class="docutils literal notranslate"><span class="pre">argpa
 <section id="just-cache-module">
 <h2>just.cache module<a class="headerlink" href="#just-cache-module" title="Link to this heading">¶</a></h2>
 <p id="module-just.cache">Memoization decorator that caches results keyed on the call arguments.</p>
-<p>Arguments must be hashable, the same constraint <cite>functools.lru_cache</cite> imposes.</p>
+<p>Arguments must be hashable, the same constraint <code class="xref py py-obj docutils literal notranslate"><span class="pre">functools.lru_cache</span></code> imposes.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="just.cache.memoize">
 <span class="sig-prename descclassname"><span class="pre">just.cache.</span></span><span class="sig-name descname"><span class="pre">memoize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/cache.html#memoize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.cache.memoize" title="Link to this definition">¶</a></dt>
@@ -542,7 +542,7 @@ leaving the larger value on the heap.</p>
 </section>
 <section id="module-just.heap2">
 <span id="just-heap2-module"></span><h2>just.heap2 module<a class="headerlink" href="#module-just.heap2" title="Link to this heading">¶</a></h2>
-<p>Implementaton of a min-heap piority-queue class, based on the standard library <cite>heapq</cite> module.
+<p>Implementaton of a min-heap piority-queue class, based on the standard library <code class="xref py py-obj docutils literal notranslate"><span class="pre">heapq</span></code> module.
 see: <a class="reference external" href="https://docs.python.org/3/library/heapq.html">https://docs.python.org/3/library/heapq.html</a>
 Now with type annotations.</p>
 <dl class="py class">
@@ -575,7 +575,7 @@ Now with type annotations.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="just.heap2.Heap.push">
 <span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap.push"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap.push" title="Link to this definition">¶</a></dt>
-<dd><p>Add <cite>item</cite> to the heap.</p>
+<dd><p>Add <code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code> to the heap.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
@@ -586,7 +586,7 @@ Now with type annotations.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="just.heap2.Heap.pushpop">
 <span class="sig-name descname"><span class="pre">pushpop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap.pushpop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap.pushpop" title="Link to this definition">¶</a></dt>
-<dd><p>Push <cite>item</cite>, then pop and return the smallest item.</p>
+<dd><p>Push <code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code>, then pop and return the smallest item.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
@@ -597,7 +597,7 @@ Now with type annotations.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="just.heap2.Heap.replace">
 <span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap.replace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap.replace" title="Link to this definition">¶</a></dt>
-<dd><p>Pop and return the smallest item, then push <cite>item</cite>.</p>
+<dd><p>Pop and return the smallest item, then push <code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
@@ -611,12 +611,12 @@ Now with type annotations.</p>
 <dt class="sig sig-object py" id="just.heap2.KeyHeap">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.heap2.</span></span><span class="sig-name descname"><span class="pre">KeyHeap</span></span><span class="sig-paren">[</span><em class="sig-param"><span class="n"><span class="pre">K</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><span class="pre">SupportsLessThan</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><span class="pre">SupportsLessThan</span></a></span></em><span class="sig-paren">]</span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="docutils literal notranslate"><span class="pre">K</span></code>, <code class="docutils literal notranslate"><span class="pre">T</span></code>]</p>
-<p>A min-heap ordered by a key-function, the way <cite>key=</cite> orders <cite>sorted()</cite>.</p>
-<p>Internally stores <cite>(key(item), item)</cite> tuples so ordering follows the key,
-while the public API accepts and returns the original items of type <cite>T</cite>.</p>
-<p>Note: if two items produce keys that compare equal, <cite>heapq</cite> falls back to
-comparing the items themselves, so <cite>T</cite> must be orderable in that case (or
-keys must be unique). This matches the classic <cite>(priority, item)</cite> idiom.</p>
+<p>A min-heap ordered by a key-function, the way <code class="xref py py-obj docutils literal notranslate"><span class="pre">key=</span></code> orders <code class="xref py py-obj docutils literal notranslate"><span class="pre">sorted()</span></code>.</p>
+<p>Internally stores <code class="xref py py-obj docutils literal notranslate"><span class="pre">(key(item),</span> <span class="pre">item)</span></code> tuples so ordering follows the key,
+while the public API accepts and returns the original items of type <code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>.</p>
+<p>Note: if two items produce keys that compare equal, <code class="xref py py-obj docutils literal notranslate"><span class="pre">heapq</span></code> falls back to
+comparing the items themselves, so <code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code> must be orderable in that case (or
+keys must be unique). This matches the classic <code class="xref py py-obj docutils literal notranslate"><span class="pre">(priority,</span> <span class="pre">item)</span></code> idiom.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="just.heap2.KeyHeap.peek">
 <span class="sig-name descname"><span class="pre">peek</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap.peek"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap.peek" title="Link to this definition">¶</a></dt>
@@ -642,7 +642,7 @@ keys must be unique). This matches the classic <cite>(priority, item)</cite> idi
 <dl class="py method">
 <dt class="sig sig-object py" id="just.heap2.KeyHeap.push">
 <span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap.push"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap.push" title="Link to this definition">¶</a></dt>
-<dd><p>Add <cite>item</cite> to the heap.</p>
+<dd><p>Add <code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code> to the heap.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
@@ -653,7 +653,7 @@ keys must be unique). This matches the classic <cite>(priority, item)</cite> idi
 <dl class="py method">
 <dt class="sig sig-object py" id="just.heap2.KeyHeap.pushpop">
 <span class="sig-name descname"><span class="pre">pushpop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap.pushpop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap.pushpop" title="Link to this definition">¶</a></dt>
-<dd><p>Push <cite>item</cite>, then pop and return the item with the smallest key.</p>
+<dd><p>Push <code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code>, then pop and return the item with the smallest key.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
@@ -664,7 +664,7 @@ keys must be unique). This matches the classic <cite>(priority, item)</cite> idi
 <dl class="py method">
 <dt class="sig sig-object py" id="just.heap2.KeyHeap.replace">
 <span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap.replace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap.replace" title="Link to this definition">¶</a></dt>
-<dd><p>Pop and return the item with the smallest key, then push <cite>item</cite>.</p>
+<dd><p>Pop and return the item with the smallest key, then push <code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
@@ -678,7 +678,7 @@ keys must be unique). This matches the classic <cite>(priority, item)</cite> idi
 <dt class="sig sig-object py" id="just.heap2.SupportsLessThan">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.heap2.</span></span><span class="sig-name descname"><span class="pre">SupportsLessThan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#SupportsLessThan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.SupportsLessThan" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></p>
-<p>A type that can be ordered with <cite>&lt;</cite>, as required by <cite>heapq</cite>.</p>
+<p>A type that can be ordered with <code class="xref py py-obj docutils literal notranslate"><span class="pre">&lt;</span></code>, as required by <code class="xref py py-obj docutils literal notranslate"><span class="pre">heapq</span></code>.</p>
 </dd></dl>
 
 </section>
