@@ -12,7 +12,7 @@ T = TypeVar("T")
 _MISSING = object()
 
 
-def first(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_MISSING) -> Optional[T]:
+def first(iterable: Iterable[T], condition: Callable[[T], Any] = bool, *, default=_MISSING) -> Optional[T]:
     """Return the first item in ``iterable`` for which ``condition(item)`` is true.
     If no condition is provided, ``bool()`` is used, it check the truth-value of ``item``.
     If no item is found to satisfy the condition, raise ``ValueError``.
@@ -34,10 +34,10 @@ def first(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_
 
     condition given::
 
-        >>> print(first([1, 3, 8, 9], lambda x: x > 10000, default=None))
+        >>> print(first([1, 3, 8, 9], lambda x: x > 10, default=None))
         None
         >>> first([1, 2, 3, 8, 9], lambda x: int(x) % 3 == 2)
-        8
+        2
         >>> first([None, 0, 1, [], {}], lambda x: x is not None)
         0
     """
@@ -47,7 +47,7 @@ def first(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_
     return item
 
 
-def last(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_MISSING) -> Optional[T]:
+def last(iterable: Iterable[T], condition: Callable[[T], Any] = bool, *, default=_MISSING) -> Optional[T]:
     item = default
     for i in iterable:
         if condition(i):
@@ -57,7 +57,7 @@ def last(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_M
     return item
 
 
-def only(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_MISSING) -> Optional[T]:
+def only(iterable: Iterable[T], condition: Callable[[T], Any] = bool, *, default=_MISSING) -> Optional[T]:
     # A single iterator, so the second `next()` resumes where the first one stopped.
     matches = filter(condition, iterable)
     item = next(matches, _MISSING)
