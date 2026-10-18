@@ -140,7 +140,7 @@
 
 <div class="viewcode-block" id="first">
 <a class="viewcode-back" href="../../just.html#just.first.first">[docs]</a>
-<span class="k">def</span> <span class="nf">first</span><span class="p">(</span><span class="n">iterable</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">condition</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">_MISSING</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">first</span><span class="p">(</span><span class="n">iterable</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">condition</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">_MISSING</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the first item in ``iterable`` for which ``condition(item)`` is true.</span>
 <span class="sd">    If no condition is provided, ``bool()`` is used, it check the truth-value of ``item``.</span>
 <span class="sd">    If no item is found to satisfy the condition, raise ``ValueError``.</span>
@@ -162,10 +162,10 @@
 
 <span class="sd">    condition given::</span>
 
-<span class="sd">        &gt;&gt;&gt; print(first([1, 3, 8, 9], lambda x: x &gt; 10000, default=None))</span>
+<span class="sd">        &gt;&gt;&gt; print(first([1, 3, 8, 9], lambda x: x &gt; 10, default=None))</span>
 <span class="sd">        None</span>
 <span class="sd">        &gt;&gt;&gt; first([1, 2, 3, 8, 9], lambda x: int(x) % 3 == 2)</span>
-<span class="sd">        8</span>
+<span class="sd">        2</span>
 <span class="sd">        &gt;&gt;&gt; first([None, 0, 1, [], {}], lambda x: x is not None)</span>
 <span class="sd">        0</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -178,7 +178,7 @@
 
 <div class="viewcode-block" id="last">
 <a class="viewcode-back" href="../../just.html#just.first.last">[docs]</a>
-<span class="k">def</span> <span class="nf">last</span><span class="p">(</span><span class="n">iterable</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">condition</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">_MISSING</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">last</span><span class="p">(</span><span class="n">iterable</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">condition</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">_MISSING</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
     <span class="n">item</span> <span class="o">=</span> <span class="n">default</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">iterable</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">condition</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
@@ -191,7 +191,7 @@
 
 <div class="viewcode-block" id="only">
 <a class="viewcode-back" href="../../just.html#just.first.only">[docs]</a>
-<span class="k">def</span> <span class="nf">only</span><span class="p">(</span><span class="n">iterable</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">condition</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">_MISSING</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">only</span><span class="p">(</span><span class="n">iterable</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">condition</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">_MISSING</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
     <span class="c1"># A single iterator, so the second `next()` resumes where the first one stopped.</span>
     <span class="n">matches</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="n">condition</span><span class="p">,</span> <span class="n">iterable</span><span class="p">)</span>
     <span class="n">item</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">matches</span><span class="p">,</span> <span class="n">_MISSING</span><span class="p">)</span>

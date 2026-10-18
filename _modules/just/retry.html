@@ -162,7 +162,7 @@
 <span class="sd">        ... def test_func() -&gt; str:</span>
 <span class="sd">        ...     return flaky_func()</span>
 <span class="sd">        ...</span>
-<span class="sd">        &gt;&gt;&gt; print(test_func())</span>
+<span class="sd">        &gt;&gt;&gt; print(test_func())  # doctest: +SKIP</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">decorate</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">R</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">R</span><span class="p">]:</span>
@@ -219,7 +219,7 @@
 
 <span class="sd">    ex::</span>
 
-<span class="sd">        &gt;&gt;&gt; for attempt in RetryIterator(attempts=3):</span>
+<span class="sd">        &gt;&gt;&gt; for attempt in RetryIterator(attempts=3):  # doctest: +SKIP</span>
 <span class="sd">        ...     with attempt:  # RetryContext</span>
 <span class="sd">        ...         flaky_func()</span>
 <span class="sd">        ...</span>
