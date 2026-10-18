@@ -578,6 +578,9 @@ Now with type annotations.</p>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the smallest item.</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -589,6 +592,9 @@ Now with type annotations.</p>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the smallest item.</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -597,8 +603,11 @@ Now with type annotations.</p>
 <span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap.push"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap.push" title="Link to this definition">¶</a></dt>
 <dd><p>Add <code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code> to the heap.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>item</strong> (<span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span>) – the item to add.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -606,10 +615,14 @@ Now with type annotations.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="just.heap2.Heap.pushpop">
 <span class="sig-name descname"><span class="pre">pushpop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap.pushpop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap.pushpop" title="Link to this definition">¶</a></dt>
-<dd><p>Push <code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code>, then pop and return the smallest item.</p>
+<dd><p>Push <code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code>, then pop and return the smallest item.
+Quicker than <a class="reference internal" href="#just.heap2.Heap.push" title="just.heap2.Heap.push"><code class="xref py py-obj docutils literal notranslate"><span class="pre">push</span></code></a> followed by <a class="reference internal" href="#just.heap2.Heap.pop" title="just.heap2.Heap.pop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>item</strong> (<span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span>) – the item to add.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -617,10 +630,14 @@ Now with type annotations.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="just.heap2.Heap.replace">
 <span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap.replace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap.replace" title="Link to this definition">¶</a></dt>
-<dd><p>Pop and return the smallest item, then push <code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code>.</p>
+<dd><p>Pop and return the smallest item, then push <code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code>.
+Quicker than <a class="reference internal" href="#just.heap2.Heap.pop" title="just.heap2.Heap.pop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></a> followed by <a class="reference internal" href="#just.heap2.Heap.push" title="just.heap2.Heap.push"><code class="xref py py-obj docutils literal notranslate"><span class="pre">push</span></code></a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>item</strong> (<span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span>) – the item to add.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -645,6 +662,9 @@ keys must be unique). This matches the classic <code class="xref py py-obj docut
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the item with the smallest key.</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -656,6 +676,9 @@ keys must be unique). This matches the classic <code class="xref py py-obj docut
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the item with the smallest key.</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -664,8 +687,11 @@ keys must be unique). This matches the classic <code class="xref py py-obj docut
 <span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap.push"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap.push" title="Link to this definition">¶</a></dt>
 <dd><p>Add <code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code> to the heap.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>item</strong> (<span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span>) – the item to add.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -673,10 +699,14 @@ keys must be unique). This matches the classic <code class="xref py py-obj docut
 <dl class="py method">
 <dt class="sig sig-object py" id="just.heap2.KeyHeap.pushpop">
 <span class="sig-name descname"><span class="pre">pushpop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap.pushpop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap.pushpop" title="Link to this definition">¶</a></dt>
-<dd><p>Push <code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code>, then pop and return the item with the smallest key.</p>
+<dd><p>Push <code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code>, then pop and return the item with the smallest key.
+Quicker than <a class="reference internal" href="#just.heap2.KeyHeap.push" title="just.heap2.KeyHeap.push"><code class="xref py py-obj docutils literal notranslate"><span class="pre">push</span></code></a> followed by <a class="reference internal" href="#just.heap2.KeyHeap.pop" title="just.heap2.KeyHeap.pop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>item</strong> (<span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span>) – the item to add.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -684,10 +714,14 @@ keys must be unique). This matches the classic <code class="xref py py-obj docut
 <dl class="py method">
 <dt class="sig sig-object py" id="just.heap2.KeyHeap.replace">
 <span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap.replace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap.replace" title="Link to this definition">¶</a></dt>
-<dd><p>Pop and return the item with the smallest key, then push <code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code>.</p>
+<dd><p>Pop and return the item with the smallest key, then push <code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code>.
+Quicker than <a class="reference internal" href="#just.heap2.KeyHeap.pop" title="just.heap2.KeyHeap.pop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></a> followed by <a class="reference internal" href="#just.heap2.KeyHeap.push" title="just.heap2.KeyHeap.push"><code class="xref py py-obj docutils literal notranslate"><span class="pre">push</span></code></a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>item</strong> (<span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span>) – the item to add.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">T</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
