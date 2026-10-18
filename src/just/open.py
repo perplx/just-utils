@@ -14,6 +14,7 @@ def ezopen(file_path: Union[Path, str], mode: str = "r") -> IO[Any]:
     """Open a file whether it's compressed or not.
     Open archive files using the appropriate compression based on the file extension.
     Open file normally if no extension matches.
+    Supports .bz2 and .gz file-extensions.
 
     :param file_path: the path to the file being opened.
     :param mode: the mode-string for opening the file.
