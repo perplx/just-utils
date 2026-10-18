@@ -154,9 +154,11 @@
 
 <span class="sd">    ex::</span>
 
-<span class="sd">        arg_parser = argparse.ArgumentParser()</span>
-<span class="sd">        arg_parser.add_argument(&quot;--date-time&quot;, type=DateTimeArg(&quot;%Y-%m-%d %H:%M:%S.%f&quot;))</span>
-<span class="sd">        arg_parser.parse_args([&quot;--date-time&quot;, &quot;2020-02-29 12:34:56.789&quot;])</span>
+<span class="sd">        &gt;&gt;&gt; arg_parser = argparse.ArgumentParser()</span>
+<span class="sd">        &gt;&gt;&gt; arg_parser.add_argument(&quot;--date-time&quot;, type=DateTimeArg(&quot;%Y-%m-%d %H:%M:%S.%f&quot;))  # doctest:+ELLIPSIS</span>
+<span class="sd">        _StoreAction(...)</span>
+<span class="sd">        &gt;&gt;&gt; arg_parser.parse_args([&quot;--date-time&quot;, &quot;2020-02-29 12:34:56.789&quot;])</span>
+<span class="sd">        Namespace(date_time=datetime.datetime(2020, 2, 29, 12, 34, 56, 789000))</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">format_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -181,9 +183,11 @@
 
 <span class="sd">    ex::</span>
 
-<span class="sd">        arg_parser = argparse.ArgumentParser()</span>
-<span class="sd">        arg_parser.add_argument(&quot;--directory&quot;, type=DirectoryArg(&quot;rw&quot;))</span>
-<span class="sd">        arg_parser.parse_args([&quot;--directory&quot;, &quot;.&quot;])</span>
+<span class="sd">        &gt;&gt;&gt; arg_parser = argparse.ArgumentParser()</span>
+<span class="sd">        &gt;&gt;&gt; arg_parser.add_argument(&quot;--directory&quot;, type=DirectoryArg(&quot;rw&quot;))  # doctest:+ELLIPSIS</span>
+<span class="sd">        _StoreAction(...)</span>
+<span class="sd">        &gt;&gt;&gt; arg_parser.parse_args([&quot;--directory&quot;, &quot;.&quot;])</span>
+<span class="sd">        Namespace(directory=&#39;.&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -226,13 +230,16 @@
 
 <span class="sd">    ex::</span>
 
-<span class="sd">        class Enumerated(enum.Enun):</span>
-<span class="sd">            ONE = 1</span>
-<span class="sd">            TWO = 2</span>
+<span class="sd">        &gt;&gt;&gt; import argparse, enum</span>
+<span class="sd">        &gt;&gt;&gt; class Enumerated(enum.Enum):</span>
+<span class="sd">        ...     ONE = 1</span>
+<span class="sd">        ...     TWO = 2</span>
 
-<span class="sd">        arg_parser = argparse.ArgumentParser()</span>
-<span class="sd">        arg_parser.add_argument(&quot;--enumerated&quot;, type=EnumArg(Enumerated))</span>
-<span class="sd">        arg_parser.parse_args([&quot;--enumerated&quot;, &quot;ONE&quot;])</span>
+<span class="sd">        &gt;&gt;&gt; arg_parser = argparse.ArgumentParser()</span>
+<span class="sd">        &gt;&gt;&gt; arg_parser.add_argument(&quot;--enumerated&quot;, type=EnumArg(Enumerated))  # doctest:+ELLIPSIS</span>
+<span class="sd">        _StoreAction(...)</span>
+<span class="sd">        &gt;&gt;&gt; arg_parser.parse_args([&quot;--enumerated&quot;, &quot;ONE&quot;])</span>
+<span class="sd">        Namespace(enumerated=&lt;Enumerated.ONE: 1&gt;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enum_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">Enum</span><span class="p">]):</span>
@@ -261,9 +268,11 @@
 
 <span class="sd">    ex::</span>
 
-<span class="sd">        arg_parser = argparse.ArgumentParser()</span>
-<span class="sd">        arg_parser.add_argument(&quot;--log-level&quot;, type=LogLevelArg)</span>
-<span class="sd">        arg_parser.parse_args([&quot;--log-level&quot;, &quot;DEBUG&quot;])</span>
+<span class="sd">        &gt;&gt;&gt; arg_parser = argparse.ArgumentParser()</span>
+<span class="sd">        &gt;&gt;&gt; arg_parser.add_argument(&quot;--log-level&quot;, type=LogLevelArg)  # doctest:+ELLIPSIS</span>
+<span class="sd">        _StoreAction(...)</span>
+<span class="sd">        &gt;&gt;&gt; arg_parser.parse_args([&quot;--log-level&quot;, &quot;DEBUG&quot;])</span>
+<span class="sd">        Namespace(log_level=10)</span>
 
 <span class="sd">    :param level_name: any supported log-level name from the ``logging`` module.</span>
 <span class="sd">    :raise argparse.ArgumentTypeError: for an unsupported value to ``argparse``</span>
