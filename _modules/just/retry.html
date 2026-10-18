@@ -150,9 +150,9 @@
 <span class="k">def</span> <span class="nf">retry</span><span class="p">(</span><span class="n">error</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">],</span> <span class="n">tries</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Retry decorator.</span>
 <span class="sd">    Retries the function for `tries` when encountering `Exception` of type `error`.</span>
-<span class="sd">    Other exceptions fall through.</span>
+<span class="sd">    Other exceptions fall through. Wait for `delay` seconds between each try.</span>
 
-<span class="sd">    :param error: the `Type` of `Exception` that wil cause a retry.</span>
+<span class="sd">    :param error: the ``Type`` of ``Exception`` that wil cause a retry.</span>
 <span class="sd">    :param tries: the number of tries.</span>
 <span class="sd">    :param delay: the number of seconds to wait between tries (default `0.0`).</span>
 
