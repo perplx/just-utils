@@ -34,7 +34,7 @@ def retry(error: Type[Exception], tries: int, delay: float = 0.0):
         ... def test_func() -> str:
         ...     return flaky_func()
         ...
-        >>> print(test_func())
+        >>> print(test_func())  # doctest: +SKIP
     """
 
     def decorate(func: Callable[P, R]) -> Callable[P, R]:
@@ -85,7 +85,7 @@ class RetryIterator:
 
     ex::
 
-        >>> for attempt in RetryIterator(attempts=3):
+        >>> for attempt in RetryIterator(attempts=3):  # doctest: +SKIP
         ...     with attempt:  # RetryContext
         ...         flaky_func()
         ...
