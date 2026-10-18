@@ -35,6 +35,15 @@ class TestFirst(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.assertEqual(first([0, 0, 0]), None)
 
+    def test_first_is_last_reversed(self):
+        """test `first(l) == last(reversed(l))`. """
+
+        # FIXME add more test_cases?
+        for l in [
+            [0, 0, 1, 0, 2, 0],
+        ]:
+            self.assertEqual(first(l), last(reversed(l)))
+
 
 class TestLast(unittest.TestCase):
     """test for `just.first.last`"""
@@ -46,7 +55,7 @@ class TestLast(unittest.TestCase):
         self.assertEqual(last([0, 0, 0], default=None), None)
         self.assertEqual(last([0, 1, 0], default=None), 1)
         self.assertEqual(last([1, 2, 3]), 3)
-        self.assertEqual(last([0, 0, 0, 1, 0, 2]), 2)
+        self.assertEqual(last([0, 0, 1, 0, 2, 0]), 2)
 
     def test_last_condition(self):
         """test `just.first.last` with condition."""
@@ -70,6 +79,15 @@ class TestLast(unittest.TestCase):
 
         self.assertEqual(last(iter([1, 2, 3])), 3)
         self.assertEqual(last(i for i in range(10) if i % 3 == 2), 8)
+
+    def test_last_is_first_reversed_(self):
+        """test `last(l) == first(reversed(l))`. """
+
+        # FIXME add more test_cases?
+        for l in [
+            [0, 0, 1, 0, 2, 0],
+        ]:
+            self.assertEqual(last(l), first(reversed(l)))
 
 
 class TestOnly(unittest.TestCase):
