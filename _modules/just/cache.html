@@ -144,7 +144,19 @@
 <div class="viewcode-block" id="memoize">
 <a class="viewcode-back" href="../../just.html#just.cache.memoize">[docs]</a>
 <span class="k">def</span> <span class="nf">memoize</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">R</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">R</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Keep result of decorated function call in cache.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Keep result of decorated function call in cache.</span>
+<span class="sd">    :param func: the function to cache.</span>
+<span class="sd">    :return: the function `func` wrapped in a cache.</span>
+<span class="sd">    ex::</span>
+
+<span class="sd">        &gt;&gt;&gt; from functools import memoize</span>
+<span class="sd">        &gt;&gt;&gt; @memoize</span>
+<span class="sd">        ... def test_func():</span>
+<span class="sd">        ...     return &quot;1&quot;</span>
+<span class="sd">        ...</span>
+<span class="sd">        &gt;&gt;&gt; test_func()</span>
+<span class="sd">        &#39;1&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">R</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -165,10 +177,12 @@
 <a class="viewcode-back" href="../../just.html#just.cache.ttl_cache">[docs]</a>
 <span class="k">def</span> <span class="nf">ttl_cache</span><span class="p">(</span><span class="n">ttl</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Keep result of decorated function call in cache for the given number of seconds.</span>
+<span class="sd">    :param func: the function to cache.</span>
+<span class="sd">    :return: the function `func` wrapped in a cache.</span>
 
 <span class="sd">    ex::</span>
 
-<span class="sd">        &gt;&gt;&gt; from functools import cache</span>
+<span class="sd">        &gt;&gt;&gt; from functools import ttl_cache</span>
 <span class="sd">        &gt;&gt;&gt; @ttl_cache(3)</span>
 <span class="sd">        ... def test_func():</span>
 <span class="sd">        ...     return &quot;1&quot;</span>

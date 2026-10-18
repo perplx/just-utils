@@ -148,25 +148,23 @@
 <span class="n">LS_UNITS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;K&quot;</span><span class="p">,</span> <span class="s2">&quot;M&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="s2">&quot;Z&quot;</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="find_blocks">
-<a class="viewcode-back" href="../../just.html#just.human.find_blocks">[docs]</a>
-<span class="k">def</span> <span class="nf">find_blocks</span><span class="p">(</span><span class="n">num_bytes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">block_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">_find_blocks</span><span class="p">(</span><span class="n">num_bytes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">block_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
     <span class="k">if</span> <span class="n">num_bytes</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;num_bytes </span><span class="si">{num_bytes}</span><span class="s2"> should be positive&quot;</span><span class="p">)</span>
     <span class="n">num_blocks</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="n">num_bytes</span> <span class="o">&gt;=</span> <span class="n">block_size</span><span class="p">:</span>
         <span class="n">num_bytes</span> <span class="o">/=</span> <span class="n">block_size</span>
         <span class="n">num_blocks</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">num_bytes</span><span class="p">,</span> <span class="n">num_blocks</span></div>
-
+    <span class="k">return</span> <span class="n">num_bytes</span><span class="p">,</span> <span class="n">num_blocks</span>
 
 
 <div class="viewcode-block" id="format_bytes">
 <a class="viewcode-back" href="../../just.html#just.human.format_bytes">[docs]</a>
 <span class="k">def</span> <span class="nf">format_bytes</span><span class="p">(</span><span class="n">num_bytes</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Format a number of bytes `num_bytes` as a human-readable `str`.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">num_bytes</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;num_bytes </span><span class="si">{num_bytes}</span><span class="s2"> should be positive&quot;</span><span class="p">)</span>
-    <span class="n">num_bytes</span><span class="p">,</span> <span class="n">num_blocks</span> <span class="o">=</span> <span class="n">find_blocks</span><span class="p">(</span><span class="n">num_bytes</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
+    <span class="n">num_bytes</span><span class="p">,</span> <span class="n">num_blocks</span> <span class="o">=</span> <span class="n">_find_blocks</span><span class="p">(</span><span class="n">num_bytes</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">num_bytes</span> <span class="o">&lt;</span> <span class="mf">10.0</span><span class="p">:</span>
         <span class="n">bytes_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">num_bytes</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="k">else</span><span class="p">:</span>
@@ -178,6 +176,7 @@
 <div class="viewcode-block" id="parse_bytes">
 <a class="viewcode-back" href="../../just.html#just.human.parse_bytes">[docs]</a>
 <span class="k">def</span> <span class="nf">parse_bytes</span><span class="p">(</span><span class="n">num_bytes</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse a human-readable ``num_bytes` as a `int`.&quot;&quot;&quot;</span>
     <span class="n">value_str</span> <span class="o">=</span> <span class="n">num_bytes</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">unit_str</span> <span class="o">=</span> <span class="n">num_bytes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">unit_pos</span> <span class="o">=</span> <span class="n">LS_UNITS</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">unit_str</span><span class="p">)</span>
@@ -190,6 +189,8 @@
 <div class="viewcode-block" id="format_duration">
 <a class="viewcode-back" href="../../just.html#just.human.format_duration">[docs]</a>
 <span class="k">def</span> <span class="nf">format_duration</span><span class="p">(</span><span class="n">num_seconds</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Format a duraton `num_seconds` as a human-readable `str`.&quot;&quot;&quot;</span>
+
     <span class="n">minutes</span><span class="p">,</span> <span class="n">seconds</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">num_seconds</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
     <span class="n">hours</span><span class="p">,</span> <span class="n">minutes</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">minutes</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
     <span class="n">days</span><span class="p">,</span> <span class="n">hours</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">hours</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
@@ -213,6 +214,8 @@
 <div class="viewcode-block" id="parse_duration">
 <a class="viewcode-back" href="../../just.html#just.human.parse_duration">[docs]</a>
 <span class="k">def</span> <span class="nf">parse_duration</span><span class="p">(</span><span class="n">duration</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse a human-readable `duration` to a number of seconds.&quot;&quot;&quot;</span>
+
     <span class="n">parts</span> <span class="o">=</span> <span class="n">duration</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
 
     <span class="n">days</span> <span class="o">=</span> <span class="mi">0</span>

@@ -123,7 +123,6 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#module-just.human">just.human module</a><ul>
-<li><a class="reference internal" href="#just.human.find_blocks"><code class="docutils literal notranslate"><span class="pre">find_blocks()</span></code></a></li>
 <li><a class="reference internal" href="#just.human.format_bytes"><code class="docutils literal notranslate"><span class="pre">format_bytes()</span></code></a></li>
 <li><a class="reference internal" href="#just.human.format_duration"><code class="docutils literal notranslate"><span class="pre">format_duration()</span></code></a></li>
 <li><a class="reference internal" href="#just.human.parse_bytes"><code class="docutils literal notranslate"><span class="pre">parse_bytes()</span></code></a></li>
@@ -341,20 +340,37 @@ Will raise an <code class="docutils literal notranslate"><span class="pre">argpa
 <dl class="py function">
 <dt class="sig sig-object py" id="just.cache.memoize">
 <span class="sig-prename descclassname"><span class="pre">just.cache.</span></span><span class="sig-name descname"><span class="pre">memoize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/cache.html#memoize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.cache.memoize" title="Link to this definition">¶</a></dt>
-<dd><p>Keep result of decorated function call in cache.</p>
+<dd><p>Keep result of decorated function call in cache.
+:type func: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[<code class="docutils literal notranslate"><span class="pre">P</span></code>, <code class="docutils literal notranslate"><span class="pre">R</span></code>]</span>
+:param func: the function to cache.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[<code class="docutils literal notranslate"><span class="pre">P</span></code>, <code class="docutils literal notranslate"><span class="pre">R</span></code>]</span></p>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the function <code class="xref py py-obj docutils literal notranslate"><span class="pre">func</span></code> wrapped in a cache.</p>
+</dd>
 </dl>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">memoize</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@memoize</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">test_func</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="s2">&quot;1&quot;</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_func</span><span class="p">()</span>
+<span class="go">&#39;1&#39;</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="just.cache.ttl_cache">
 <span class="sig-prename descclassname"><span class="pre">just.cache.</span></span><span class="sig-name descname"><span class="pre">ttl_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ttl</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/cache.html#ttl_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.cache.ttl_cache" title="Link to this definition">¶</a></dt>
-<dd><p>Keep result of decorated function call in cache for the given number of seconds.</p>
+<dd><p>Keep result of decorated function call in cache for the given number of seconds.
+:param func: the function to cache.
+:return: the function <code class="xref py py-obj docutils literal notranslate"><span class="pre">func</span></code> wrapped in a cache.</p>
 <p>ex:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">cache</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">ttl_cache</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@ttl_cache</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">test_func</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="s2">&quot;1&quot;</span>
@@ -686,19 +702,10 @@ keys must be unique). This matches the classic <code class="xref py py-obj docut
 <span id="just-human-module"></span><h2>just.human module<a class="headerlink" href="#module-just.human" title="Link to this heading">¶</a></h2>
 <p>FIXME</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="just.human.find_blocks">
-<span class="sig-prename descclassname"><span class="pre">just.human.</span></span><span class="sig-name descname"><span class="pre">find_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/human.html#find_blocks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.human.find_blocks" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="just.human.format_bytes">
 <span class="sig-prename descclassname"><span class="pre">just.human.</span></span><span class="sig-name descname"><span class="pre">format_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_bytes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/human.html#format_bytes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.human.format_bytes" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Format a number of bytes <code class="xref py py-obj docutils literal notranslate"><span class="pre">num_bytes</span></code> as a human-readable <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
 </dd>
@@ -708,7 +715,8 @@ keys must be unique). This matches the classic <code class="xref py py-obj docut
 <dl class="py function">
 <dt class="sig sig-object py" id="just.human.format_duration">
 <span class="sig-prename descclassname"><span class="pre">just.human.</span></span><span class="sig-name descname"><span class="pre">format_duration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_seconds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/human.html#format_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.human.format_duration" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Format a duraton <code class="xref py py-obj docutils literal notranslate"><span class="pre">num_seconds</span></code> as a human-readable <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
 </dd>
@@ -718,7 +726,8 @@ keys must be unique). This matches the classic <code class="xref py py-obj docut
 <dl class="py function">
 <dt class="sig sig-object py" id="just.human.parse_bytes">
 <span class="sig-prename descclassname"><span class="pre">just.human.</span></span><span class="sig-name descname"><span class="pre">parse_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_bytes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/human.html#parse_bytes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.human.parse_bytes" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Parse a human-readable <a href="#id1"><span class="problematic" id="id2">``</span></a>num_bytes` as a <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
 </dd>
@@ -728,7 +737,8 @@ keys must be unique). This matches the classic <code class="xref py py-obj docut
 <dl class="py function">
 <dt class="sig sig-object py" id="just.human.parse_duration">
 <span class="sig-prename descclassname"><span class="pre">just.human.</span></span><span class="sig-name descname"><span class="pre">parse_duration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/human.html#parse_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.human.parse_duration" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Parse a human-readable <code class="xref py py-obj docutils literal notranslate"><span class="pre">duration</span></code> to a number of seconds.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
 </dd>
@@ -994,7 +1004,6 @@ Output to stdout and to a given logger.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-just.human">just.human module</a><ul>
-<li><a class="reference internal" href="#just.human.find_blocks"><code class="docutils literal notranslate"><span class="pre">find_blocks()</span></code></a></li>
 <li><a class="reference internal" href="#just.human.format_bytes"><code class="docutils literal notranslate"><span class="pre">format_bytes()</span></code></a></li>
 <li><a class="reference internal" href="#just.human.format_duration"><code class="docutils literal notranslate"><span class="pre">format_duration()</span></code></a></li>
 <li><a class="reference internal" href="#just.human.parse_bytes"><code class="docutils literal notranslate"><span class="pre">parse_bytes()</span></code></a></li>
