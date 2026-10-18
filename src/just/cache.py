@@ -16,7 +16,19 @@ R = TypeVar("R")
 
 
 def memoize(func: Callable[P, R]) -> Callable[P, R]:
-    """Keep result of decorated function call in cache."""
+    """Keep result of decorated function call in cache.
+    :param func: the function to cache.
+    :return: the function `func` wrapped in a cache.
+    ex::
+
+        >>> from functools import memoize
+        >>> @memoize
+        ... def test_func():
+        ...     return "1"
+        ...
+        >>> test_func()
+        '1'
+    """
 
     cache: Dict[Any, R] = {}
 
@@ -34,10 +46,12 @@ def memoize(func: Callable[P, R]) -> Callable[P, R]:
 
 def ttl_cache(ttl: float):
     """Keep result of decorated function call in cache for the given number of seconds.
+    :param func: the function to cache.
+    :return: the function `func` wrapped in a cache.
 
     ex::
 
-        >>> from functools import cache
+        >>> from functools import ttl_cache
         >>> @ttl_cache(3)
         ... def test_func():
         ...     return "1"

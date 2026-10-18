@@ -1,4 +1,4 @@
-"""FIXME"""
+"""Format and parse quantities in human-readable formats."""
 
 # standard imports
 import datetime
@@ -22,7 +22,7 @@ IEC_UNITS = [
 LS_UNITS = ["B", "K", "M", "G", "T", "P", "E", "Z", "Y"]
 
 
-def find_blocks(num_bytes: int, block_size: int) -> tuple[float, int]:
+def _find_blocks(num_bytes: int, block_size: int) -> tuple[float, int]:
     if num_bytes < 0:
         raise ValueError("num_bytes {num_bytes} should be positive")
     num_blocks = 0
@@ -33,9 +33,10 @@ def find_blocks(num_bytes: int, block_size: int) -> tuple[float, int]:
 
 
 def format_bytes(num_bytes: int) -> str:
+    """Format a number of bytes `num_bytes` as a human-readable `str`."""
     if num_bytes < 0:
         raise ValueError("num_bytes {num_bytes} should be positive")
-    num_bytes, num_blocks = find_blocks(num_bytes, 1024)
+    num_bytes, num_blocks = _find_blocks(num_bytes, 1024)
     if num_bytes < 10.0:
         bytes_str = f"{num_bytes:.1f}"
     else:
@@ -44,6 +45,7 @@ def format_bytes(num_bytes: int) -> str:
 
 
 def parse_bytes(num_bytes: str) -> int:
+    """Parse a human-readable `num_bytes` as a `int`."""
     value_str = num_bytes[:-1]
     unit_str = num_bytes[-1]
     unit_pos = LS_UNITS.index(unit_str)
@@ -53,6 +55,8 @@ def parse_bytes(num_bytes: str) -> int:
 
 
 def format_duration(num_seconds: float) -> str:
+    """Format a duraton `num_seconds` as a human-readable `str`."""
+
     minutes, seconds = divmod(num_seconds, 60)
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
@@ -73,6 +77,8 @@ def format_duration(num_seconds: float) -> str:
 
 
 def parse_duration(duration: str) -> int:
+    """Parse a human-readable `duration` to a number of seconds."""
+
     parts = duration.split()
 
     days = 0
