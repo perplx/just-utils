@@ -19,6 +19,7 @@ def first(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_
 
     :param iterable: an ``Iterable`` of items of type ``T``
     :param condition: returns whether the item is true.
+    :param default: when no item is found, don't raise exception, return this value.
     :return: the first item in ``iterable`` that is true.
     :raise ValueError: when no item is found to satisfy the condition
 
@@ -26,18 +27,18 @@ def first(iterable: Iterable[T], condition: Callable[[T], Any] = bool, default=_
 
         >>> print(first([0, 0, 0], default=None))
         None
-        >>> first([0, 0, 0, 1, 0, 2])
+        >>> first([0, 0, 1, 0, 2, 0])
         1
-        >>> first([None, 0, {}, [], 1])
+        >>> first([None, 0, 1, False, True, [], {}])
         1
 
     condition given::
 
         >>> print(first([1, 3, 8, 9], lambda x: x > 10000, default=None))
         None
-        >>> first([1, 3, 8, 9], lambda x: int(x) % 3 == 2)
+        >>> first([1, 2, 3, 8, 9], lambda x: int(x) % 3 == 2)
         8
-        >>> first([None, 0, {}, [], 1], lambda x: x is not None)
+        >>> first([None, 0, 1, [], {}], lambda x: x is not None)
         0
     """
     item = next((i for i in iterable if condition(i)), default)
