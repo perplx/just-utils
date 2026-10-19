@@ -879,7 +879,7 @@ The context can only be entered if the lock-file does not already exist.</p>
 <dd><p>Open a file whether it’s compressed or not.
 Open archive files using the appropriate compression based on the file extension.
 Open file normally if no extension matches.
-Supports .bz2 and .gz file-extensions.</p>
+Supports .bz2 .gz and .xz file-extensions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -894,6 +894,17 @@ Supports .bz2 and .gz file-extensions.</p>
 <dd class="field-odd"><p>the opened file-object.</p>
 </dd>
 </dl>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ezopen</span><span class="p">(</span><span class="s2">&quot;./tests/data/test_data.txt&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="go">&#39;test\n&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ezopen</span><span class="p">(</span><span class="s2">&quot;./tests/data/test_data.txt.gz&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="go">&#39;test\n&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ezopen</span><span class="p">(</span><span class="s2">&quot;./tests/data/test_data.txt.bz2&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="go">&#39;test\n&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ezopen</span><span class="p">(</span><span class="s2">&quot;./tests/data/test_data.txt.xz&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="go">&#39;test\n&#39;</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>

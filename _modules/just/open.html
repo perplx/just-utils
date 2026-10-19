@@ -143,11 +143,22 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Open a file whether it&#39;s compressed or not.</span>
 <span class="sd">    Open archive files using the appropriate compression based on the file extension.</span>
 <span class="sd">    Open file normally if no extension matches.</span>
-<span class="sd">    Supports .bz2 and .gz file-extensions.</span>
+<span class="sd">    Supports .bz2 .gz and .xz file-extensions.</span>
 
 <span class="sd">    :param file_path: the path to the file being opened.</span>
 <span class="sd">    :param mode: the mode-string for opening the file.</span>
 <span class="sd">    :return: the opened file-object.</span>
+
+<span class="sd">    ex::</span>
+
+<span class="sd">        &gt;&gt;&gt; ezopen(&quot;./tests/data/test_data.txt&quot;, mode=&quot;rt&quot;).read()</span>
+<span class="sd">        &#39;test\\n&#39;</span>
+<span class="sd">        &gt;&gt;&gt; ezopen(&quot;./tests/data/test_data.txt.gz&quot;, mode=&quot;rt&quot;).read()</span>
+<span class="sd">        &#39;test\\n&#39;</span>
+<span class="sd">        &gt;&gt;&gt; ezopen(&quot;./tests/data/test_data.txt.bz2&quot;, mode=&quot;rt&quot;).read()</span>
+<span class="sd">        &#39;test\\n&#39;</span>
+<span class="sd">        &gt;&gt;&gt; ezopen(&quot;./tests/data/test_data.txt.xz&quot;, mode=&quot;rt&quot;).read()</span>
+<span class="sd">        &#39;test\\n&#39;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># support Path objects</span>
