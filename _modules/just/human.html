@@ -276,14 +276,14 @@
         <span class="mi">1024</span><span class="p">,</span>
         <span class="mi">1024</span> <span class="o">*</span> <span class="mi">20</span><span class="p">,</span>
         <span class="mi">1024</span> <span class="o">*</span> <span class="mi">300</span><span class="p">,</span>
-        <span class="p">(</span><span class="mi">1024</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">100</span><span class="p">,</span>  <span class="c1"># FIXME returns &#39;1024K&#39;</span>
-        <span class="p">(</span><span class="mi">1024</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># FIXME returns &#39;1024K&#39;</span>
-        <span class="p">(</span><span class="mi">1024</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># FIXME returns &#39;1024K&#39;</span>
-        <span class="p">(</span><span class="mi">1024</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># FIXME returns &#39;1024K&#39;</span>
-        <span class="mi">1024</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="mi">1024</span> <span class="o">**</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="mi">1024</span> <span class="o">**</span> <span class="mi">4</span><span class="p">,</span>
-        <span class="mi">1024</span> <span class="o">**</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">1024</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">100</span><span class="p">,</span>  <span class="c1"># FIXME returns &#39;1024K&#39;</span>
+        <span class="p">(</span><span class="mi">1024</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># FIXME returns &#39;1024K&#39;</span>
+        <span class="p">(</span><span class="mi">1024</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># FIXME returns &#39;1024K&#39;</span>
+        <span class="p">(</span><span class="mi">1024</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># FIXME returns &#39;1024K&#39;</span>
+        <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>
+        <span class="mi">1024</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span>
+        <span class="mi">1024</span><span class="o">**</span><span class="mi">4</span><span class="p">,</span>
+        <span class="mi">1024</span><span class="o">**</span><span class="mi">5</span><span class="p">,</span>
     <span class="p">]</span>
     <span class="k">for</span> <span class="n">num_bytes</span> <span class="ow">in</span> <span class="n">TESTS</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">format_bytes</span><span class="p">(</span><span class="n">num_bytes</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;5</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">num_bytes</span><span class="si">:</span><span class="s2">&gt;16</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
