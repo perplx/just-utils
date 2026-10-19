@@ -20,7 +20,6 @@ def timed(do_print: bool = True, logger: Optional[logging.Logger] = None, level:
 
     ex::
 
-        >>> import time  # something to time
         >>> @timed(do_print=True)
         ... def timing_test_print(arg1, arg2):
         ...     time.sleep(0.001)
