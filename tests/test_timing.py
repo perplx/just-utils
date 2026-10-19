@@ -40,9 +40,11 @@ class TestTimed(unittest.TestCase):
 
         # capture the stdout of the decorated function
         capture = io.StringIO()
-        sys.stdout = capture
-        test()
-        sys.stdout = sys.__stdout__
+        try:
+            sys.stdout = capture
+            test()
+        finally:
+            sys.stdout = sys.__stdout__
 
         # check captured value matches expected pattern
         self.assertRegex(capture.getvalue(), self.OUTPUT_REGEX)
