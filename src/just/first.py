@@ -41,6 +41,7 @@ def first(iterable: Iterable[T], condition: Callable[[T], Any] = bool, *, defaul
         >>> first([None, 0, 1, [], {}], lambda x: x is not None)
         0
     """
+
     item = next((i for i in iterable if condition(i)), default)
     if item is _MISSING:
         raise ValueError(f"no item found to satisfy condition: {condition}")
@@ -48,6 +49,35 @@ def first(iterable: Iterable[T], condition: Callable[[T], Any] = bool, *, defaul
 
 
 def last(iterable: Iterable[T], condition: Callable[[T], Any] = bool, *, default=_MISSING) -> Optional[T]:
+    """Return the last item in ``iterable`` for which ``condition(item)`` is true.
+    If no condition is provided, ``bool()`` is used, it check the truth-value of ``item``.
+    If no item is found to satisfy the condition, raise ``ValueError``.
+
+    :param iterable: an ``Iterable`` of items of type ``T``
+    :param condition: returns whether the item is true.
+    :param default: when no item is found, don't raise exception, return this value.
+    :return: the last item in ``iterable`` that is true.
+    :raise ValueError: when no item is found to satisfy the condition
+
+    no condition given::
+
+        >>> print(last([0, 0, 0], default=None))
+        None
+        >>> last([0, 0, 1, 0, 2, 0])
+        2
+        >>> last([None, 0, 1, False, True, [], {}])
+        True
+
+    condition given::
+
+        >>> print(last([1, 3, 8, 9], lambda x: x > 10, default=None))
+        None
+        >>> last([1, 2, 3, 8, 9], lambda x: int(x) % 3 == 2)
+        8
+        >>> last([None, 0, 1, [], {}], lambda x: x is not None)
+        {}
+    """
+
     item = default
     for i in iterable:
         if condition(i):
