@@ -148,8 +148,8 @@ class KeyHeap(Generic[K, T]):
 
 def main() -> None:
     """Simple test."""
-    l = [1, 2, 6, 3, 4, 1, 7, 9]
-    heap = Heap(l)
+    data = [1, 2, 6, 3, 4, 1, 7, 9]
+    heap = Heap(data)
     print(f"heap: {heap}")
     while len(heap) > 0:
         top = heap.pop()

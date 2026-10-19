@@ -39,10 +39,10 @@ class TestFirst(unittest.TestCase):
         """test `first(l) == last(reversed(l))`."""
 
         # FIXME add more test_cases?
-        for l in [
+        for data in [
             [0, 0, 1, 0, 2, 0],
         ]:
-            self.assertEqual(first(l), last(reversed(l)))
+            self.assertEqual(first(data), last(reversed(data)))
 
 
 class TestLast(unittest.TestCase):
@@ -84,10 +84,10 @@ class TestLast(unittest.TestCase):
         """test `last(l) == first(reversed(l))`."""
 
         # FIXME add more test_cases?
-        for l in [
+        for data in [
             [0, 0, 1, 0, 2, 0],
         ]:
-            self.assertEqual(last(l), first(reversed(l)))
+            self.assertEqual(last(data), first(reversed(data)))
 
 
 class TestOnly(unittest.TestCase):

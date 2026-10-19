@@ -1,7 +1,6 @@
 """Format and parse quantities in human-readable formats."""
 
 # standard imports
-import datetime
 import logging
 
 logger = logging.getLogger(__name__)

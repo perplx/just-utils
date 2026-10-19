@@ -1,3 +1,3 @@
 #!/bin/sh
 
-flake8 setup.py src/ tests/ -v
+flake8 setup.py src/ tests/ setup.py -v
