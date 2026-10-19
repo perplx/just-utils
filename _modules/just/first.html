@@ -169,6 +169,7 @@
 <span class="sd">        &gt;&gt;&gt; first([None, 0, 1, [], {}], lambda x: x is not None)</span>
 <span class="sd">        0</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">item</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">iterable</span> <span class="k">if</span> <span class="n">condition</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span> <span class="n">default</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="n">_MISSING</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;no item found to satisfy condition: </span><span class="si">{</span><span class="n">condition</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -179,6 +180,35 @@
 <div class="viewcode-block" id="last">
 <a class="viewcode-back" href="../../just.html#just.first.last">[docs]</a>
 <span class="k">def</span> <span class="nf">last</span><span class="p">(</span><span class="n">iterable</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">condition</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">_MISSING</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the last item in ``iterable`` for which ``condition(item)`` is true.</span>
+<span class="sd">    If no condition is provided, ``bool()`` is used, it check the truth-value of ``item``.</span>
+<span class="sd">    If no item is found to satisfy the condition, raise ``ValueError``.</span>
+
+<span class="sd">    :param iterable: an ``Iterable`` of items of type ``T``</span>
+<span class="sd">    :param condition: returns whether the item is true.</span>
+<span class="sd">    :param default: when no item is found, don&#39;t raise exception, return this value.</span>
+<span class="sd">    :return: the last item in ``iterable`` that is true.</span>
+<span class="sd">    :raise ValueError: when no item is found to satisfy the condition</span>
+
+<span class="sd">    no condition given::</span>
+
+<span class="sd">        &gt;&gt;&gt; print(last([0, 0, 0], default=None))</span>
+<span class="sd">        None</span>
+<span class="sd">        &gt;&gt;&gt; last([0, 0, 1, 0, 2, 0])</span>
+<span class="sd">        2</span>
+<span class="sd">        &gt;&gt;&gt; last([None, 0, 1, False, True, [], {}])</span>
+<span class="sd">        True</span>
+
+<span class="sd">    condition given::</span>
+
+<span class="sd">        &gt;&gt;&gt; print(last([1, 3, 8, 9], lambda x: x &gt; 10, default=None))</span>
+<span class="sd">        None</span>
+<span class="sd">        &gt;&gt;&gt; last([1, 2, 3, 8, 9], lambda x: int(x) % 3 == 2)</span>
+<span class="sd">        8</span>
+<span class="sd">        &gt;&gt;&gt; last([None, 0, 1, [], {}], lambda x: x is not None)</span>
+<span class="sd">        {}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">item</span> <span class="o">=</span> <span class="n">default</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">iterable</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">condition</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
