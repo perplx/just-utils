@@ -25,16 +25,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # FIXME find image with 3.6
-        # FIXME support version 3.6
-        python-version: ["3.12", "3.14"]
+        # FIXME support python 3.6, windows, macos
+        python-version: ["3.11", "3.14"]
 
     steps:
       - name: Check out
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
@@ -58,10 +57,12 @@ jobs:
 
       - name: Lint with flake8
         run: |
-          # stop the build if there are Python syntax errors or undefined names
-          flake8 src/ tests/ setup.py --count --select=E9,F63,F7,F82 --show-source --statistics
-          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-          flake8 src/ tests/ setup.py --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+          # FIXME simplifying this
+          flake8 src/ tests/ setup.py
+          # # stop the build if there are Python syntax errors or undefined names
+          # flake8 src/ tests/ setup.py --count --select=E9,F63,F7,F82 --show-source --statistics
+          # # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          # flake8 src/ tests/ setup.py --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
       - name: Test with pytest
         run: |
