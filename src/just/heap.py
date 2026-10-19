@@ -106,7 +106,7 @@ def main() -> None:
         print("popped:", repr(top))
     print()
 
-    # test with key FIXME
+    # test with key
     heap = Heap([(3, "ccc"), (2, "bb"), (1, "a")], key=len)
     print(heap)
     heap.push("b")

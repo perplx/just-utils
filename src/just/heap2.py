@@ -21,13 +21,12 @@ K = TypeVar("K", bound=SupportsLessThan)
 
 
 # FIXME support maxheap? (version of python: 3.14...)
-# FIXME docstrings!!!
 # FIXME link to youtube video?
 class Heap(Generic[T]):
     """FIXME"""
 
     def __init__(self, data: Iterable[T]):
-        """FIXME"""
+        """Build a heap from `data`."""
         self._heap = list(data)
         heapq.heapify(self._heap)
 

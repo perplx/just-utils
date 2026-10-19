@@ -113,7 +113,7 @@ class EnumArg:
 
     def __call__(self, enum_str: str) -> Enum:  # FIXME define return-type as aelf._enum_type somehow
         try:
-            return getattr(self._enum_type, enum_str)  # FIXME use `upper()` to make case-insensitive?
+            return getattr(self._enum_type, enum_str)
         except AttributeError:
             raise argparse.ArgumentTypeError(f"parameter {enum_str} invalid value for enum type {self._enum_type}")
 
