@@ -36,7 +36,7 @@ class TestFirst(unittest.TestCase):
             self.assertEqual(first([0, 0, 0]), None)
 
     def test_first_is_last_reversed(self):
-        """test `first(l) == last(reversed(l))`. """
+        """test `first(l) == last(reversed(l))`."""
 
         # FIXME add more test_cases?
         for l in [
@@ -81,7 +81,7 @@ class TestLast(unittest.TestCase):
         self.assertEqual(last(i for i in range(10) if i % 3 == 2), 8)
 
     def test_last_is_first_reversed_(self):
-        """test `last(l) == first(reversed(l))`. """
+        """test `last(l) == first(reversed(l))`."""
 
         # FIXME add more test_cases?
         for l in [

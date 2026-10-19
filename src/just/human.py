@@ -138,14 +138,14 @@ def main() -> None:
         1024,
         1024 * 20,
         1024 * 300,
-        (1024 ** 2) - 100,  # FIXME returns '1024K'
-        (1024 ** 2) - 1,  # FIXME returns '1024K'
-        (1024 ** 2) + 1,  # FIXME returns '1024K'
-        (1024 ** 2) + 1,  # FIXME returns '1024K'
-        1024 ** 2,
-        1024 ** 3,
-        1024 ** 4,
-        1024 ** 5,
+        (1024**2) - 100,  # FIXME returns '1024K'
+        (1024**2) - 1,  # FIXME returns '1024K'
+        (1024**2) + 1,  # FIXME returns '1024K'
+        (1024**2) + 1,  # FIXME returns '1024K'
+        1024**2,
+        1024**3,
+        1024**4,
+        1024**5,
     ]
     for num_bytes in TESTS:
         print(f"{format_bytes(num_bytes):>5} {num_bytes:>16}")
