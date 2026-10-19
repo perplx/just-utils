@@ -73,7 +73,6 @@ def timing(message: str, do_print: bool = True, logger: Optional[logging.Logger]
 
     ex::
 
-        >>> import time  # something to time
         >>> with timing("timing context print", do_print=True):  # doctest: +ELLIPSIS
         ...     time.sleep(0.001)
         timing context print took ... seconds
