@@ -22,10 +22,18 @@ class TestByteSize(unittest.TestCase):
         self.assertEqual(just.human.format_bytes((1024 * 1024) - 1), "1024K")  # FIXME
         self.assertEqual(just.human.format_bytes(1024 * 1024), "1.0M")
 
+    def test_bormat_bytes_invalid_num_bytes(self):
+        with self.assertRaises(ValueError):
+            _ = just.human.format_bytes(-1)
+
     def test_parse_bytes(self):
         self.assertEqual(just.human.parse_bytes("1000B"), 1000)
         self.assertEqual(just.human.parse_bytes("1023B"), 1023)
         self.assertEqual(just.human.parse_bytes("1.0K"), 1024)
+
+    def test_parse_bytes_invalid_str(self):
+        with self.assertRaises(ValueError):
+            _ = just.human.parse_bytes("BOGUS")
 
 
 class TestDuration(unittest.TestCase):
