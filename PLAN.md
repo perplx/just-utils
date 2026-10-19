@@ -38,6 +38,9 @@ it is one of the lessons:
 - Module docstring is `"""FIXME"""`, and there is no `tests/test_atomic.py` — the only module
   in the package without a test file.
 
+It is also already wired into [docs/just.rst](docs/just.rst), so the published API docs
+advertise the broken module.
+
 `just.log`
 ----------
 
@@ -72,24 +75,55 @@ the module's own FIXMEs:
   and *why* it matters is the lesson worth writing down.
 - A `logger=` parameter, matching the rest of the package.
 - Accept a tuple of exception types: `Union[Type[Exception], Tuple[Type[Exception], ...]]`.
-- Decide whether [`RetryContext.__exit__`](src/just/retry.py#L56) should keep swallowing the
-  exception unconditionally, and document whichever way it goes.
+- Decide whether [`RetryContext.__exit__`](src/just/retry.py#L73) should keep swallowing the
+  exception unconditionally (the `return True` FIXME at [retry.py:78](src/just/retry.py#L78)),
+  and document whichever way it goes. The consequence of today's choice: when every attempt
+  fails, `RetryIterator` simply runs out, and the caller never sees the last exception.
 
 `just.human`
 ------------
 
-`format_bytes` / `parse_bytes` / `format_duration` / `parse_duration` all work and have tests.
-Remaining:
+`format_bytes` / `parse_bytes` / `format_duration` / `parse_duration` all work and have tests;
+the module has a real docstring, and `format_bytes` has an `ex::` block. Remaining:
 
-- The module docstring is still `"""FIXME"""`, and no function has an `ex::` block.
-- `main()` has a stray `raise SystemExit` at [human.py:113](src/just/human.py#L113) that makes
+- `parse_bytes`, `format_duration` and `parse_duration` have no `ex::` block.
+- `main()` has a stray `raise SystemExit` at [human.py:152](src/just/human.py#L152) that makes
   half the demo dead code.
 - `parse_bytes` is annotated `-> int` but returns a float.
+- The `ValueError` messages at [human.py:26](src/just/human.py#L26) and
+  [human.py:55](src/just/human.py#L55) are missing their `f` prefix, so they print a literal
+  `{num_bytes}`; and the check is duplicated, since `format_bytes` calls `_find_blocks`.
+- `format_bytes(1024**2 - 1)` returns `'1024K'` instead of rolling over to `1.0M`, and
+  [test_human.py:22](tests/test_human.py#L22) pins the bug with a FIXME rather than failing on it.
+- `format_duration` of a float yields `1.0m 3.5s`, which `parse_duration` (ints only) cannot
+  read back — the round-trip breaks for anything that is not a whole number of seconds.
 - Decide between ls-style units (`1.0K`, what is implemented) and IEC (`10.5 MiB`, what this
-  plan originally specified), and record the choice rather than leaving both names in the file.
+  plan originally specified), and record the choice rather than leaving both `IEC_UNITS` and
+  `LS_UNITS` in the file.
 - The round-trip property test (`parse(format(x)) == x`) this module was chosen to demonstrate.
+- `tests/test_human.py` still has a `"""FIXME"""` module docstring.
 - Wire it into its two consumers: `just.timing` should print `1m 03s` instead of
   `63.000 seconds`, and `just.args` gets `DurationArg` / `ByteSizeArg` for free.
+
+`just.cache`
+------------
+
+`memoize` and `ttl_cache` work, have tests, and are in the README. Remaining:
+
+- `ttl_cache` measures expiry with `time.time()`, which jumps when the wall clock is adjusted;
+  `time.monotonic()` is the right clock for intervals, and that distinction is the lesson.
+- Expired entries are only replaced, never evicted, so the cache grows without bound. Add a
+  `maxsize=` and a `cache_clear()`, as `functools.lru_cache` has.
+- `ttl_cache` has no return annotation, and neither function has `:param:` docs.
+- [test_cache.py](tests/test_cache.py) waits on a real `time.sleep(1)` loop; an injectable
+  clock would make it instant and deterministic.
+
+`just.first`
+------------
+
+- `only()` has no docstring or `ex::` block, unlike `first` and `last` beside it.
+- `default=` is untyped, and `-> Optional[T]` hides that the no-default form never returns
+  `None`. An `@overload` pair is the precise fix.
 
 Extensions to Existing Modules
 ==============================
@@ -97,23 +131,28 @@ Extensions to Existing Modules
 `just.timing`
 -------------
 
-Three things:
+Four things:
 
-1. Kill the `@timed` vs `@timed()` FIXME at [timing.py:16](src/just/timing.py#L16) using the
-   `callable(arg)` trick already written in [deprecate.py:86](src/just/deprecate.py#L86).
-   Same problem, same solution, two modules apart — worth unifying.
+1. Kill the `@timed` vs `@timed()` FIXME at [timing.py:15](src/just/timing.py#L15) (and its twin at
+   [test_timing.py:22](tests/test_timing.py#L22)) using the `callable(arg)` trick already written in
+   [deprecate.py:88](src/just/deprecate.py#L88). Same problem, same solution, two modules apart —
+   worth unifying.
 2. Replace both the decorator and the context-manager with one `Timer(contextlib.ContextDecorator)`
    class that works as `with Timer(...)` *and* `@Timer(...)`, and exposes `.elapsed` afterwards so
    callers can assert on the number instead of scraping stdout. `ContextDecorator` is an underused
    standard-library gem and this is the textbook case for it.
-3. The context-manager doesn't record the time if the body raises — the `yield` should be in a
-   `try/finally`, the way `lock_file` already does it.
+3. The context-manager doesn't record the time if the body raises — the `yield` at
+   [timing.py:93](src/just/timing.py#L93) should be in a `try/finally`, the way `lock_file` already
+   does it.
+4. Both functions validate `level` against the private `logging._levelToName`; same smell, and same
+   fix, as `LogLevelArg` below.
 
 `just.open`
 -----------
 
-- Add `.xz` / `.lzma` (standard library) and `.zip`.
+- Add `.lzma` (same `lzma.open` as `.xz`) and `.zip`.
 - Replace the `if`-chain with an extension-to-opener registry dict, so adding a format is one line.
+  With three branches now, the chain is already the thing that grows.
 - Add a `**kwargs` passthrough for `encoding` / `newline`.
 - Add a `sniff_open()` variant that dispatches on magic bytes rather than the filename,
   for when the extension lies.
@@ -140,20 +179,26 @@ The richest place to extend, since each parser is about ten lines:
 - `BoolArg`
 - `DurationArg` / `ByteSizeArg`, on top of `just.human`.
 
-`EnumArg` exists and is tested, but still needs its `"""FIXME"""` docstring at
-[args.py:93](src/just/args.py#L93) written with an `ex::` block like its neighbours, and a
-decision on the case-insensitivity FIXME at [args.py:100](src/just/args.py#L100).
+`EnumArg` still has two FIXMEs: a return type more precise than `Enum`
+([args.py:114](src/just/args.py#L114)), and a decision on case-insensitivity
+([args.py:116](src/just/args.py#L116)).
 
 Also: `logging.getLevelNamesMapping()` (3.11+) is the public answer to the `logging._nameToLevel`
-FIXME at [args.py:105](src/just/args.py#L105), used at
-[args.py:131](src/just/args.py#L131), with the private dict as a fallback.
+FIXME at [args.py:121](src/just/args.py#L121), used at
+[args.py:149-151](src/just/args.py#L149-L151), with the private dict as a fallback.
+
+[test_args.py](tests/test_args.py) carries four FIXMEs about `os.chmod` not removing access on
+Windows — concrete evidence for the Windows CI job below.
 
 `just.heap2`
 ------------
 
-The docstring at [heap2.py:68](src/just/heap2.py#L68) already names the flaw: on key ties, `heapq`
+The docstring at [heap2.py:90](src/just/heap2.py#L90) already names the flaw: on key ties, `heapq`
 falls through to comparing the items themselves. Fix it with the `itertools.count()` tie-breaker
 from the `heapq` docs, which also makes `KeyHeap` stable and drops the `SupportsLessThan` bound on `T`.
+
+The `Heap` class and its `__init__` still have `"""FIXME"""` docstrings
+([heap2.py:27](src/just/heap2.py#L27)).
 
 Then add:
 
@@ -177,7 +222,6 @@ module          | fills                                                         
 `just.table`    | align a list of dicts into a text table                             | width computation, `str.format` specs
 `just.progress` | dependency-free progress-bar that no-ops when not a tty             | `shutil.get_terminal_size`, `\r`, tty detection
 `just.hash`     | chunked file checksums (`hashlib.file_digest` is 3.11+)             | buffered reads, `memoryview`
-`just.cache`    | TTL cache decorator — `functools.lru_cache` has no expiry           | closures over mutable state, cache keys
 `just.version`  | compare `1.2.3` version strings without `packaging`                 | `NamedTuple` plus `@total_ordering`
 `just.subproc`  | run a command with timeout, capture, logging, rich error            | `subprocess` without `shell=True`
 
@@ -189,26 +233,38 @@ Defects
 
 These are bugs rather than nice-to-haves, and each is small.
 
-**The version floor is wrong by four minor versions, and the 3.7 CI job cannot be passing.**
-The declared floor is 3.6, but four separate features push the real one to **3.10**:
+**The declared version floor is 3.6, the real one is 3.10, and CI tests neither.**
+Five separate features push the real floor to **3.10**:
 
-    src/just/retry.py   3.10   typing.ParamSpec
-    src/just/atomic.py  3.10   PEP 604 unions in annotations (Path | str)
-    src/just/human.py   3.9    builtin generics (tuple[float, int])
-    src/just/heap2.py   3.9    builtin generics (list[tuple[K, T]])
-    src/just/heap2.py   3.8    typing.Protocol
-    src/just/args.py    3.13   re.PatternError — false positive, see below
+    src/just/retry.py      3.10   typing.ParamSpec
+    src/just/cache.py      3.10   typing.ParamSpec
+    src/just/deprecate.py  3.10   typing.ParamSpec, PEP 604 union in a signature (str | None)
+    src/just/atomic.py     3.10   PEP 604 unions in annotations (Path | str)
+    src/just/human.py      3.9    builtin generics (tuple[float, int])
+    src/just/heap2.py      3.9    builtin generics (list[tuple[K, T]])
+    src/just/heap2.py      3.8    typing.Protocol
+    src/just/args.py       3.13   re.PatternError — false positive, see below
 
 Every declaration of the floor disagrees with that: [setup.py:41](setup.py#L41) says
 `python_requires=">=3.6"`, the classifiers at [setup.py:26-33](setup.py#L26-L33) advertise 3.6
-through 3.13 (the first four of which are false), [pyproject.toml:4](pyproject.toml#L4) sets
-`target-version = ["py36"]`, and
-[tests.yml:28](.github/workflows/tests.yml#L28) still runs a `"3.7"` matrix entry that cannot
-import half the package. Fixing it means editing all four in one go.
+through 3.13 (the first four of which are false), and [pyproject.toml:4](pyproject.toml#L4) sets
+`target-version = ["py36"]`. Meanwhile the CI matrix at
+[tests.yml:29](.github/workflows/tests.yml#L29) is `["3.11", "3.14"]`, so the real floor is never
+tested either. Fixing it means editing all four in one go, with the matrix becoming `["3.10", "3.14"]`.
 
-Separately, the `re.PatternError` hit at [args.py:19](src/just/args.py#L19) is guarded by
+Separately, the `re.PatternError` hit at [args.py:17](src/just/args.py#L17) is guarded by
 `try` / `except AttributeError`; `vermin` cannot see the guard, so it needs a `# novermin` comment
 or the reported floor stays wrong at 3.13.
+
+**The pytest configuration depends on an unpinned pytest.** [pyproject.toml:6](pyproject.toml#L6)
+uses the native `[tool.pytest]` table, which only pytest 9+ reads, but the `test` extra is just
+`pytest-cov`. On an older pytest the table is silently ignored, `--doctest-modules` and `src/` drop
+out, and the doctests quietly stop running. Either pin `pytest>=9` or use `[tool.pytest.ini_options]`.
+
+**`download_url`** at [setup.py:19](setup.py#L19) points at `refs/heads/master`; the branch is `main`.
+
+**Short title underlines** in [docs/just.rst](docs/just.rst) for `just.atomic`, `just.cache` and
+`just.retry` are Sphinx warnings today, and will be errors once `-W` (below) is on.
 
 Tool Configuration
 ------------------
@@ -221,10 +277,11 @@ Tool Configuration
 - **No `[build-system]` table** in [pyproject.toml](pyproject.toml), so builds go through the legacy
   setuptools fallback path. Three lines fixes it, and it is the modern-packaging demonstration this
   repo ought to carry.
+- **`-ra` and `--strict-markers`** are not in the pytest `addopts` yet.
 
 Also worth adding to [setup.py](setup.py): `license="MIT"`, a `long_description` read from
 [README.md](README.md) with `long_description_content_type="text/markdown"` (it is a hardcoded
-one-liner today), and `project_urls`.
+one-liner today), `project_urls`, and a real `author_email` (currently `""`).
 
 Continuous Integration
 ----------------------
@@ -232,10 +289,6 @@ Continuous Integration
 - **`mypy` and `vermin` never run in CI**, though both are in `[dev]` and have scripts. Two steps
   closes the loop — and `vermin` in CI is what would have caught the 3.10 floor above,
   which drifted twice without anyone noticing.
-- **The flake8 step cannot fail.** [tests.yml:56-61](.github/workflows/tests.yml#L56-L61) is the
-  unmodified GitHub template: the second invocation passes `--exit-zero`, and its
-  `--max-line-length=127` contradicts the 120 in [setup.cfg:16](setup.cfg#L16). Replacing both lines
-  with a plain `flake8 src/ tests/ setup.py` picks up setup.cfg instead.
 - **`on: [push]` only** — no `pull_request` trigger.
 - **Add `windows-latest` and `macos-latest` to the matrix.** Justified here rather than
   cargo-culted: `just.lock` does exclusive file creation and unlinking, `just.open` handles paths,
@@ -243,16 +296,19 @@ Continuous Integration
   assumptions break on Windows — which is the development platform, and is *shipped but never
   tested on any OS by CI*. The planned `just.signals` (SIGTERM) will be the same story.
 - **The coverage-badge steps run once per matrix entry.** Guard them with
-  `if: matrix.python-version == '3.14' && matrix.os == 'ubuntu-latest'`.
-- **Drift between the two workflows**: tests.yml uses `checkout@v3` / `setup-python@v4`, docs.yml
-  uses v4 / v5. Also missing from tests.yml: `cache: pip` on setup-python, a `concurrency:` group to
-  cancel superseded runs, and a `permissions:` block (docs.yml has one).
+  `if: matrix.python-version == '3.14'` (adding `&& matrix.os == 'ubuntu-latest'` once the OS
+  matrix exists).
+- **Missing from tests.yml**: a `concurrency:` group to cancel superseded runs, and a
+  `permissions:` block (docs.yml has one).
+- **Leftover template scaffolding in tests.yml**: the "Install dependencies" step only upgrades pip
+  around commented-out lines, and five FIXME comments remain. Fold it into the `pip install -e .[dev]`
+  step and clear the FIXMEs as their items land.
 
 Repository Files
 ----------------
 
 - **`CHANGELOG.md`** — thematically required by
-  [`@deprecated(since=...)`](src/just/deprecate.py#L12): the `since` string has to point somewhere.
+  [`@deprecated(since=...)`](src/just/deprecate.py#L14): the `since` string has to point somewhere.
 - **`__version__` in [src/just/\_\_init\_\_.py](src/just/__init__.py)** (currently empty),
   single-sourced into setup.py. The version lives only in setup.py today, so it is unavailable at
   run-time.
@@ -262,8 +318,12 @@ Repository Files
   committed. Either gitignore them and run `sphinx-apidoc` in the workflow, or stop regenerating them
   locally. Also add `-W` to fail the docs build on warnings; it would surface the `_static` warning
   already noted in docs.yml.
+- **README drift**: the feature list omits `just.retry` and `just.atomic`, describes `just.first`
+  without `last` / `only`, the "Config Files" table says pyproject.toml configures only black (it
+  also configures pytest), and there are typos ("imprements", "redisign", "betwees", "interable").
 - `.venv/` is listed under the `# vscode` comment in [.gitignore](.gitignore).
-- `just-utils/` at the repo root is an empty leftover directory.
+- `just-utils/` at the repo root is an empty leftover directory — local only, since git does not
+  track empty directories.
 
 Scripts
 -------
@@ -275,23 +335,27 @@ Scripts
   script CI would most want to reuse.
 - **One entry point.** A `Makefile` (or `run_all.sh`) with `format lint types test docs coverage all`
   targets, which CI then calls, is the standard fix for scripts and CI drifting apart — exactly what
-  happened with the flake8 line-length above. `tox` or `nox` would do it properly across the version
+  happened with the flake8 line-length. `tox` or `nox` would do it properly across the version
   matrix, at the cost of a dev-only external dependency.
 - `run_black.sh` only has `--check`, so the most-used tool has no format-in-place script.
+- `run_doctest.sh` duplicates `--doctest-modules`, but through `python -m doctest`, so the two can
+  disagree; `run_flake8.sh` lists `setup.py` twice; `run_coverage.sh` sets `$verbose` and never
+  uses it.
 
 Suggested Order
 ===============
 
-0. The version floor: `python_requires`, classifiers, black `target-version`, CI matrix,
-   and `# novermin` on [args.py:19](src/just/args.py#L19).
+0. The version floor: `python_requires`, classifiers, black `target-version`, CI matrix to
+   `["3.10", "3.14"]`, and `# novermin` on [args.py:17](src/just/args.py#L17).
 1. `just.atomic` — the module is currently a non-working sketch, so it is the one place the repo
    ships something wrong. Plus `tests/test_atomic.py`.
-2. The `just.human` polish, then `just.timing` (the `@timed()` FIXME, `ContextDecorator`,
-   `try/finally`) as its first consumer.
+2. The `just.human` polish (including the f-string, `1024K` and float round-trip bugs), then
+   `just.timing` (the `@timed()` FIXME, `ContextDecorator`, `try/finally`) as its first consumer.
 3. `just.log`, then the remaining `just.args` parsers.
 4. `just.retry` finishing touches (backoff, jitter, `logger=`).
-5. `just.heap2` completion, then deprecate `just.heap`.
-6. Everything else, as needed.
+5. `just.cache` finishing touches (`monotonic`, eviction) — small and self-contained.
+6. `just.heap2` completion, then deprecate `just.heap`.
+7. Everything else, as needed.
 
 Structural work is independent of the module work and can interleave.
 
@@ -301,18 +365,23 @@ Already Done
 Removed from the plan as completed; kept here so the history stays legible.
 
 - `just.human`, `just.retry` (core), `just.first` (`last` / `only` on a `_MISSING` sentinel),
-  and `args.EnumArg` — see **Finishing Touches** above for what is still outstanding on the
-  first two, and `just.args` for `EnumArg`.
+  `just.cache` (`memoize` / `ttl_cache`, with tests and a README entry), and `args.EnumArg` with
+  its docstring and doctest — see **Finishing Touches** above for what is still outstanding.
+- `.xz` support in `just.open`, with test data and a doctest for every format.
 - `src/just/py.typed`, `python_requires=` (present, though the value is wrong — see **Defects**),
   and the `test` / `lint` / `types` / `docs` / `dev` extras split in
   [setup.py](setup.py), which now gives one extra per CI job.
-- `[tool.pytest.ini_options]` in [pyproject.toml](pyproject.toml): `testpaths`, `-ra`,
-  `--strict-markers`, `--doctest-modules`.
+- pytest configuration in [pyproject.toml](pyproject.toml): `testpaths` and `--doctest-modules`
+  (in a `[tool.pytest]` table — see **Defects** for the version caveat).
 - Doctests, via that `--doctest-modules`, with `src` in `testpaths` so the flag actually reaches
   the package. Two things worth remembering: the `unittest` `load_tests` protocol is **not
   supported by pytest**, so the hand-rolled doctest hooks it replaced had never run; and examples
   asserting on wall-clock timings need an inline `# doctest: +ELLIPSIS` directive rather than a
   transcribed number.
-- Still outstanding from that last one: the `ex::` blocks in `args.py`, `atomic.py` and `lock.py`
-  are plain indented code without `>>>` prompts, so nothing executes them. Converting the ones that
-  touch the filesystem would need `tmp_path`-style scaffolding.
+- Every `ex::` block in `args.py` is now a real `>>>` doctest, and `first` / `last` / `format_bytes`
+  gained them too. Still outstanding: the blocks in `atomic.py` and `lock.py` are plain indented
+  code, so nothing executes them (converting them would need `tmp_path`-style scaffolding), and
+  `retry.py`'s are marked `+SKIP`.
+- CI: the flake8 step was the unmodified GitHub template (`--exit-zero`, `--max-line-length=127`);
+  it is now a plain `flake8 src/ tests/ setup.py` that reads setup.cfg. Actions are on
+  `checkout@v4` / `setup-python@v5` with `cache: 'pip'`, matching docs.yml.
