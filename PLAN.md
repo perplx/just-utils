@@ -179,13 +179,9 @@ The richest place to extend, since each parser is about ten lines:
 - `BoolArg`
 - `DurationArg` / `ByteSizeArg`, on top of `just.human`.
 
-`EnumArg` still has two FIXMEs: a return type more precise than `Enum`
-([args.py:114](src/just/args.py#L114)), and a decision on case-insensitivity
-([args.py:116](src/just/args.py#L116)).
-
 Also: `logging.getLevelNamesMapping()` (3.11+) is the public answer to the `logging._nameToLevel`
-FIXME at [args.py:121](src/just/args.py#L121), used at
-[args.py:149-151](src/just/args.py#L149-L151), with the private dict as a fallback.
+FIXME at [args.py:124](src/just/args.py#L124), used at
+[args.py:152-154](src/just/args.py#L152-L154), with the private dict as a fallback.
 
 [test_args.py](tests/test_args.py) carries four FIXMEs about `os.chmod` not removing access on
 Windows — concrete evidence for the Windows CI job below.
@@ -254,7 +250,9 @@ tested either. Fixing it means editing all four in one go, with the matrix becom
 
 Separately, the `re.PatternError` hit at [args.py:17](src/just/args.py#L17) is guarded by
 `try` / `except AttributeError`; `vermin` cannot see the guard, so it needs a `# novermin` comment
-or the reported floor stays wrong at 3.13.
+or the reported floor stays wrong at 3.13. The same two lines are also the only mypy error in
+`args.py` ([args.py:19](src/just/args.py#L19): "Cannot assign multiple types to name
+`PatternError`"); annotating the first assignment as `PatternError: Type[Exception]` fixes it.
 
 **The pytest configuration depends on an unpinned pytest.** [pyproject.toml:6](pyproject.toml#L6)
 uses the native `[tool.pytest]` table, which only pytest 9+ reads, but the `test` extra is just
@@ -367,6 +365,17 @@ Removed from the plan as completed; kept here so the history stays legible.
 - `just.human`, `just.retry` (core), `just.first` (`last` / `only` on a `_MISSING` sentinel),
   `just.cache` (`memoize` / `ttl_cache`, with tests and a README entry), and `args.EnumArg` with
   its docstring and doctest — see **Finishing Touches** above for what is still outstanding.
+- `EnumArg` return type: it is now `Generic[E]` with `E = TypeVar("E", bound=Enum)`, takes
+  `Type[E]`, and looks members up with `enum_type[name]`, so mypy infers `EnumArg(Color)("RED")` as
+  `Color`. Two lessons from the fix: `getattr` returns `Any`, so it made the `-> E` annotation an
+  unchecked promise, and it also accepted any class attribute (`mro`, `__class__`) as a value.
+  `[]` only ever looks in the member map, so that bug is ruled out by construction rather than
+  guarded by a test.
+  `[]` raises `KeyError`, which argparse does not catch, so it has to become
+  `ArgumentTypeError`. The tests' `TestEnum` was a plain class rather than an `Enum`, which
+  `getattr` had hidden; it is a real `enum.Enum` now. Decided: names match case-sensitively,
+  exactly as declared — upper-casing the input would break enums whose member names are not
+  upper-case.
 - `.xz` support in `just.open`, with test data and a doctest for every format.
 - `src/just/py.typed`, `python_requires=` (present, though the value is wrong — see **Defects**),
   and the `test` / `lint` / `types` / `docs` / `dev` extras split in

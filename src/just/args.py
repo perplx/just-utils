@@ -9,7 +9,7 @@ import logging
 import os
 import re
 from enum import Enum
-from typing import Type
+from typing import Generic, Type, TypeVar
 
 # FIXME Python 3.12 changed the type of the excdption raised by strptime
 # FIXME this is impossible to get 100% coverage, as only one class will be assigned
@@ -91,7 +91,10 @@ class DirectoryArg:
         return dir_path
 
 
-class EnumArg:
+E = TypeVar("E", bound=Enum)
+
+
+class EnumArg(Generic[E]):
     """Type parser for ``Enum`` values for ``argparse.ArgumentParser``.
 
     ex::
@@ -108,13 +111,13 @@ class EnumArg:
         Namespace(enumerated=<Enumerated.ONE: 1>)
     """
 
-    def __init__(self, enum_type: Type[Enum]):
+    def __init__(self, enum_type: Type[E]):
         self._enum_type = enum_type
 
-    def __call__(self, enum_str: str) -> Enum:  # FIXME define return-type as aelf._enum_type somehow
+    def __call__(self, enum_str: str) -> E:
         try:
-            return getattr(self._enum_type, enum_str)
-        except AttributeError:
+            return self._enum_type[enum_str]
+        except KeyError:
             raise argparse.ArgumentTypeError(f"parameter {enum_str} invalid value for enum type {self._enum_type}")
 
 

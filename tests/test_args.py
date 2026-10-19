@@ -6,6 +6,7 @@
 import unittest
 import argparse
 import datetime
+import enum
 import logging
 import os
 import stat
@@ -169,7 +170,7 @@ class TestDirectoryArg(unittest.TestCase):
 class TestEnumArg(unittest.TestCase):
     """test for class just.args.EnumArg"""
 
-    class TestEnum:
+    class TestEnum(enum.Enum):
         """Test `Enum` to use in parsing."""
 
         ONE = 1
