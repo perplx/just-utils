@@ -70,7 +70,7 @@ def ttl_cache(ttl: float):
             # find the result in the cache and check the ttl
             if key in cache:
                 cached_result, cached_ttl = cache[key]
-                if time.time() < cached_ttl:
+                if time.monotonic() < cached_ttl:
                     logger.debug("using cached")
                     return cached_result
                 else:
