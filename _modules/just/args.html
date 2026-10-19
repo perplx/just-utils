@@ -135,7 +135,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Type</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">TypeVar</span>
 
 <span class="c1"># FIXME Python 3.12 changed the type of the excdption raised by strptime</span>
 <span class="c1"># FIXME this is impossible to get 100% coverage, as only one class will be assigned</span>
@@ -223,9 +223,12 @@
 
 
 
+<span class="n">E</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">Enum</span><span class="p">)</span>
+
+
 <div class="viewcode-block" id="EnumArg">
 <a class="viewcode-back" href="../../just.html#just.args.EnumArg">[docs]</a>
-<span class="k">class</span> <span class="nc">EnumArg</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">EnumArg</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">E</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Type parser for ``Enum`` values for ``argparse.ArgumentParser``.</span>
 
 <span class="sd">    ex::</span>
@@ -242,13 +245,13 @@
 <span class="sd">        Namespace(enumerated=&lt;Enumerated.ONE: 1&gt;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enum_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">Enum</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enum_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">E</span><span class="p">]):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_enum_type</span> <span class="o">=</span> <span class="n">enum_type</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enum_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Enum</span><span class="p">:</span>  <span class="c1"># FIXME define return-type as aelf._enum_type somehow</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enum_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">E</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_enum_type</span><span class="p">,</span> <span class="n">enum_str</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enum_type</span><span class="p">[</span><span class="n">enum_str</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;parameter </span><span class="si">{</span><span class="n">enum_str</span><span class="si">}</span><span class="s2"> invalid value for enum type </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_enum_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
