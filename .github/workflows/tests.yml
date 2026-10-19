@@ -63,7 +63,7 @@ jobs:
       - name: Test with pytest
         run: |
           # run pytest with coverage
-          pytest --cov-report term-missing --cov=src/just/ tests/
+          pytest tests/ --cov-report term-missing --cov=src/just/ --doctest-modules src/just/
 
       # FIXME shouldn't be run for each version?
       - name: Capture coverage
