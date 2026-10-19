@@ -34,6 +34,7 @@ class TestMemoize(unittest.TestCase):
             self.assertEqual(watcher.records[2].getMessage(), "test 2")
             self.assertEqual(watcher.records[3].getMessage(), "test 3")
 
+
 class TestTTLCache(unittest.TestCase):
     """test `just.cache.ttl_cachw`."""
 
