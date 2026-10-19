@@ -25,7 +25,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.7", "3.14"]  # FIXME find image with 3.6
+        # FIXME find image with 3.6
+        # FIXME support version 3.6
+        python-version: ["3.12", "3.14"]
 
     steps:
       - name: Check out
@@ -51,7 +53,7 @@ jobs:
 
       - name: Check format with black
         run: |
-          black --check src/just/ tests/
+          black --check src/ tests/
 
       - name: Lint with flake8
         run: |
