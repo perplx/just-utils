@@ -77,9 +77,10 @@ def ttl_cache(ttl: float):
                     logger.debug("cache expired")
 
             # call the function and store the result and ttl
+            # use `time.monotonic()` to ignore changes in wall-clock
             logger.debug("cache missing")
             called_result = func(*args, **kwargs)
-            called_ttl = time.time() + ttl
+            called_ttl = time.monotonic() + ttl
             cache[key] = (called_result, called_ttl)
             return called_result
 
