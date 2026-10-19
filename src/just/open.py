@@ -5,6 +5,7 @@
 # standard imports
 import bz2
 import gzip
+import lzma
 import os
 from pathlib import Path
 from typing import Any, IO, Union
@@ -29,6 +30,8 @@ def ezopen(file_path: Union[Path, str], mode: str = "r") -> IO[Any]:
         return bz2.open(file_path, mode=mode)
     if file_path.endswith(".gz"):
         return gzip.open(file_path, mode=mode)
+    if file_path.endswith(".xz"):
+        return lzma.open(file_path, mode=mode)
 
     # open file normally
     return open(file_path, mode=mode)
@@ -41,6 +44,7 @@ def main() -> None:
     text_file_path = Path("./tests/data/test_data.txt").absolute()
     bz2_file_path = Path("./tests/data/test_data.txt.bz2").absolute()
     gz_file_path = Path("./tests/data/test_data.txt.gz").absolute()
+    xz_file_path = Path("./tests/data/test_data.txt.xz").absolute()
 
     # test each case
     with ezopen(text_file_path, "rt") as text_file:
@@ -49,6 +53,8 @@ def main() -> None:
         print(bz2_file.read())
     with ezopen(gz_file_path, "rt") as gz_file:
         print(gz_file.read())
+    with ezopen(xz_file_path, "rt") as xz_file:
+        print(xz_file.read())
 
 
 if __name__ == "__main__":

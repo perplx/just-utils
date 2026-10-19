@@ -26,6 +26,11 @@ class TestOpen(unittest.TestCase):
         with just.open.ezopen(test_file_path, mode="rt") as test_file:
             self.assertEqual(test_file.read(), self.TEST_TEXT)
 
+    def test_open_lzma(self):
+        test_file_path = self.DATA_PATH / "test_data.txt.xz"
+        with just.open.ezopen(test_file_path, mode="rt") as test_file:
+            self.assertEqual(test_file.read(), self.TEST_TEXT)
+
     def test_open_text(self):
         test_file_path = self.DATA_PATH / "test_data.txt"
         with just.open.ezopen(test_file_path, mode="rt") as test_file:
