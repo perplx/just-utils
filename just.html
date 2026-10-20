@@ -110,6 +110,7 @@
 <li><a class="reference internal" href="#just.heap2.Heap.push"><code class="docutils literal notranslate"><span class="pre">Heap.push()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap.pushpop"><code class="docutils literal notranslate"><span class="pre">Heap.pushpop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap.replace"><code class="docutils literal notranslate"><span class="pre">Heap.replace()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.Heap.clear"><code class="docutils literal notranslate"><span class="pre">Heap.clear()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap.drain"><code class="docutils literal notranslate"><span class="pre">Heap.drain()</span></code></a></li>
 </ul>
 </li>
@@ -119,6 +120,7 @@
 <li><a class="reference internal" href="#just.heap2.KeyHeap.push"><code class="docutils literal notranslate"><span class="pre">KeyHeap.push()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap.pushpop"><code class="docutils literal notranslate"><span class="pre">KeyHeap.pushpop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap.replace"><code class="docutils literal notranslate"><span class="pre">KeyHeap.replace()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.KeyHeap.clear"><code class="docutils literal notranslate"><span class="pre">KeyHeap.clear()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap.drain"><code class="docutils literal notranslate"><span class="pre">KeyHeap.drain()</span></code></a></li>
 </ul>
 </li>
@@ -701,6 +703,17 @@ Quicker than <a class="reference internal" href="#just.heap2.Heap.pop" title="ju
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="just.heap2.Heap.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap.clear" title="Link to this definition">¶</a></dt>
+<dd><p>Remove all items from the <a class="reference internal" href="#just.heap2.Heap" title="just.heap2.Heap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Heap</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="just.heap2.Heap.drain">
 <span class="sig-name descname"><span class="pre">drain</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap.drain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap.drain" title="Link to this definition">¶</a></dt>
 <dd><p>Create an <code class="xref py py-obj docutils literal notranslate"><span class="pre">Iterator</span></code> to pop out each item in the <a class="reference internal" href="#just.heap2.Heap" title="just.heap2.Heap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Heap</span></code></a> in order.</p>
@@ -815,6 +828,17 @@ Quicker than <a class="reference internal" href="#just.heap2.KeyHeap.pop" title=
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>IndexError</strong> – when the <a class="reference internal" href="#just.heap2.KeyHeap" title="just.heap2.KeyHeap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KeyHeap</span></code></a> is empty.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap2.KeyHeap.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap.clear" title="Link to this definition">¶</a></dt>
+<dd><p>Remove all items from the <a class="reference internal" href="#just.heap2.KeyHeap" title="just.heap2.KeyHeap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KeyHeap</span></code></a>. Keep the <code class="xref py py-obj docutils literal notranslate"><span class="pre">key</span></code> function unchanged.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1162,6 +1186,7 @@ Output to stdout and to a given logger.</p>
 <li><a class="reference internal" href="#just.heap2.Heap.push"><code class="docutils literal notranslate"><span class="pre">Heap.push()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap.pushpop"><code class="docutils literal notranslate"><span class="pre">Heap.pushpop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap.replace"><code class="docutils literal notranslate"><span class="pre">Heap.replace()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.Heap.clear"><code class="docutils literal notranslate"><span class="pre">Heap.clear()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap.drain"><code class="docutils literal notranslate"><span class="pre">Heap.drain()</span></code></a></li>
 </ul>
 </li>
@@ -1171,6 +1196,7 @@ Output to stdout and to a given logger.</p>
 <li><a class="reference internal" href="#just.heap2.KeyHeap.push"><code class="docutils literal notranslate"><span class="pre">KeyHeap.push()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap.pushpop"><code class="docutils literal notranslate"><span class="pre">KeyHeap.pushpop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap.replace"><code class="docutils literal notranslate"><span class="pre">KeyHeap.replace()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.KeyHeap.clear"><code class="docutils literal notranslate"><span class="pre">KeyHeap.clear()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap.drain"><code class="docutils literal notranslate"><span class="pre">KeyHeap.drain()</span></code></a></li>
 </ul>
 </li>
