@@ -104,6 +104,20 @@ class TestHeap(unittest.TestCase):
         with self.assertRaises(IndexError):
             _ = self.heap_empty.replace("BOGUS")
 
+    def test_clear(self):
+        """Test `just.heap2.Heap.clear()`."""
+
+        # test clearing works
+        self.assertGreater(len(self.heap_test), 0)
+        self.heap_test.clear()
+        self.assertEqual(len(self.heap_test), 0)
+
+        # test item order still works
+        self.heap_test.push("b")
+        self.heap_test.push("aa")
+        self.assertEqual(self.heap_test.pop(), "aa")
+        self.assertEqual(self.heap_test.pop(), "b")
+
     def test_drain(self):
         """Test `just.heap2.Heap.drain()`."""
         heap_iter = self.heap_test.drain()
@@ -224,6 +238,20 @@ class TestKeyHeap(unittest.TestCase):
         """Test `just.heap2.KeyHeap.replace()` on an empty `KeyHeap`."""
         with self.assertRaises(IndexError):
             _ = self.heap_empty.replace("BOGUS")
+
+    def test_clear(self):
+        """Test `just.heap2.KeyHeap.clear()`."""
+
+        # test clearing works
+        self.assertGreater(len(self.heap_test), 0)
+        self.heap_test.clear()
+        self.assertEqual(len(self.heap_test), 0)
+
+        # test key order still works
+        self.heap_test.push("aa")
+        self.heap_test.push("b")
+        self.assertEqual(self.heap_test.pop(), "b")
+        self.assertEqual(self.heap_test.pop(), "aa")
 
     def test_drain(self):
         """Test `just.heap2.KeyHeap.drain()`."""

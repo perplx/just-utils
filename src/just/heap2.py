@@ -84,6 +84,10 @@ class Heap(Generic[T]):
 
     # high-level functions
 
+    def clear(self) -> None:
+        """Remove all items from the `Heap`."""
+        self._heap.clear()
+
     def drain(self) -> Iterator[T]:
         """Create an `Iterator` to pop out each item in the `Heap` in order.
 
@@ -173,6 +177,10 @@ class KeyHeap(Generic[K, T]):
         return heapq.heapreplace(self._heap, (self._key(item), item))[1]
 
     # high-level functions
+
+    def clear(self) -> None:
+        """Remove all items from the `KeyHeap`. Keep the `key` function unchanged."""
+        self._heap.clear()
 
     def drain(self) -> Iterator[T]:
         """Create an `Iterator` to pop out each item in the `KeyHeap` in order of key.

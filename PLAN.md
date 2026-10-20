@@ -189,7 +189,7 @@ Windows — concrete evidence for the Windows CI job below.
 `just.heap2`
 ------------
 
-The docstring at [heap2.py:105](src/just/heap2.py#L105) already names the flaw: on key ties, `heapq`
+The docstring at [heap2.py:112](src/just/heap2.py#L112) already names the flaw: on key ties, `heapq`
 falls through to comparing the items themselves. Fix it with the `itertools.count()` tie-breaker
 from the `heapq` docs, which also makes `KeyHeap` stable and drops the `SupportsLessThan` bound on `T`.
 
@@ -206,7 +206,6 @@ The `Heap` class still has a `"""FIXME"""` docstring ([heap2.py:26](src/just/hea
 Then add:
 
 - `nsmallest` / `nlargest`
-- `clear()`
 - `PriorityQueue` with `update` / `remove`, via the lazy-deletion recipe — this one is the
   actual missing piece in the standard library.
 
@@ -401,7 +400,9 @@ Removed from the plan as completed; kept here so the history stays legible.
   it is now a plain `flake8 src/ tests/ setup.py` that reads setup.cfg. Actions are on
   `checkout@v4` / `setup-python@v5` with `cache: 'pip'`, matching docs.yml.
 - `just.heap2`: `__repr__` on both classes (built from `type(self).__name__`, so subclasses print
-  their own name), and `drain()`, which pops every item in order. Two decisions worth keeping:
+  their own name), `drain()`, which pops every item in order, and `clear()`, which empties the
+  list in place (safe, since `__init__` copies its input) and keeps `KeyHeap`'s key function; its
+  tests push after clearing to prove the ordering still works. Two decisions worth keeping:
   - Draining is an explicit `drain()` method, not `__iter__`. Python iterates for far more than
     `for` loops: with a popping `__iter__` and no `__contains__`, `x in heap` popped items until it
     found `x`, and `list()`, `sorted()`, `print(*heap)` and debugger views all emptied the heap.
