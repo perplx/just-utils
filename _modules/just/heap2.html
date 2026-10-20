@@ -162,24 +162,14 @@
         <span class="n">heapq</span><span class="o">.</span><span class="n">heapify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of items in the `Heap`.</span>
-
-<span class="sd">        :return: number of items in the `Heap`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of items in the `Heap`.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Show the stored items.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Heap(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="si">!r}</span><span class="s2">)&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show the stored items.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pop out each item in the `Heap` in order.&quot;&quot;&quot;</span>
-        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">:</span>
-            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+    <span class="c1"># low-level functions derived from `heapq`</span>
 
 <div class="viewcode-block" id="Heap.peek">
 <a class="viewcode-back" href="../../just.html#just.heap2.Heap.peek">[docs]</a>
@@ -218,6 +208,7 @@
 <span class="sd">        Quicker than `push` followed by `pop`.</span>
 
 <span class="sd">        :param item: the item to add.</span>
+<span class="sd">        :return: the smallest of `item` and the items in the `Heap`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappushpop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span></div>
 
@@ -229,13 +220,32 @@
 <span class="sd">        Quicker than `pop` followed by `push`.</span>
 
 <span class="sd">        :param item: the item to add.</span>
+<span class="sd">        :return: the smallest item before `Heap.replace()` was called, possibly larger than `item`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heapreplace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span></div>
+
+
+    <span class="c1"># high-level functions</span>
+
+<div class="viewcode-block" id="Heap.drain">
+<a class="viewcode-back" href="../../just.html#just.heap2.Heap.drain">[docs]</a>
+    <span class="k">def</span> <span class="nf">drain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an `Iterator` to pop out each item in the `Heap` in order.</span>
+
+<span class="sd">        :return: an `Iterator` that will empty the heap as it iterates over items.</span>
+
+<span class="sd">        ex::</span>
+
+<span class="sd">            &gt;&gt;&gt; heap = Heap([&quot;c&quot;, &quot;bb&quot;, &quot;aaa&quot;])</span>
+<span class="sd">            &gt;&gt;&gt; list(heap.drain())</span>
+<span class="sd">            [&#39;aaa&#39;, &#39;bb&#39;, &#39;c&#39;]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></div>
 </div>
 
 
 
-<span class="c1"># FIXME __repr__ to show key?</span>
 <div class="viewcode-block" id="KeyHeap">
 <a class="viewcode-back" href="../../just.html#just.heap2.KeyHeap">[docs]</a>
 <span class="k">class</span> <span class="nc">KeyHeap</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">]):</span>
@@ -256,23 +266,18 @@
         <span class="n">heapq</span><span class="o">.</span><span class="n">heapify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of items in the `KeyHeap`.</span>
-<span class="sd">        :return: number of items in the `KeyHeap`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of items in the `KeyHeap`.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Show the stored items (not their keys).&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;KeyHeap(</span><span class="si">{</span><span class="p">[</span><span class="n">item</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="p">[</span><span class="n">item</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Show the stored keys and items.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;KeyHeap(</span><span class="si">{</span><span class="p">[(</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="n">item</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="si">!r}</span><span class="s2">, key=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="si">!r}</span><span class="s2">)&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pop out each item in the `KeyHeap` in order of key.&quot;&quot;&quot;</span>
-        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">:</span>
-            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+    <span class="c1"># low-level functions derived from `heapq`</span>
 
 <div class="viewcode-block" id="KeyHeap.peek">
 <a class="viewcode-back" href="../../just.html#just.heap2.KeyHeap.peek">[docs]</a>
@@ -297,7 +302,7 @@
 <div class="viewcode-block" id="KeyHeap.push">
 <a class="viewcode-back" href="../../just.html#just.heap2.KeyHeap.push">[docs]</a>
     <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add `item` to the heap.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add `item` to the heap, using the `key` function to compute its key.</span>
 
 <span class="sd">        :param item: the item to add.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -311,6 +316,7 @@
 <span class="sd">        Quicker than `push` followed by `pop`.</span>
 
 <span class="sd">        :param item: the item to add.</span>
+<span class="sd">        :return: the item with the smallest key between `item` and the items in the `KeyHeap`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappushpop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">(</span><span class="n">item</span><span class="p">),</span> <span class="n">item</span><span class="p">))[</span><span class="mi">1</span><span class="p">]</span></div>
 
@@ -322,8 +328,28 @@
 <span class="sd">        Quicker than `pop` followed by `push`.</span>
 
 <span class="sd">        :param item: the item to add.</span>
+<span class="sd">        :return: the item with the smallest key before `KeyHeap.replace()` was called, possibly larger than `item`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heapreplace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">(</span><span class="n">item</span><span class="p">),</span> <span class="n">item</span><span class="p">))[</span><span class="mi">1</span><span class="p">]</span></div>
+
+
+    <span class="c1"># high-level functions</span>
+
+<div class="viewcode-block" id="KeyHeap.drain">
+<a class="viewcode-back" href="../../just.html#just.heap2.KeyHeap.drain">[docs]</a>
+    <span class="k">def</span> <span class="nf">drain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an `Iterator` to pop out each item in the `KeyHeap` in order of key.</span>
+
+<span class="sd">        :return: an `Iterator` that will empty the heap as it iterates over items in order of key.</span>
+
+<span class="sd">        ex::</span>
+
+<span class="sd">            &gt;&gt;&gt; heap = KeyHeap([&quot;aaa&quot;, &quot;bb&quot;, &quot;c&quot;], key=len)</span>
+<span class="sd">            &gt;&gt;&gt; list(heap.drain())</span>
+<span class="sd">            [&#39;c&#39;, &#39;bb&#39;, &#39;aaa&#39;]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></div>
 </div>
 
 
