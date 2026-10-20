@@ -29,6 +29,8 @@ def timed(do_print: bool = True, logger: Optional[logging.Logger] = None, level:
     :param do_print: whether to output to stdout
     :param logger: the ``Logger`` where messages will be sent
     :param level: the log-level at which messages will be logged.
+    :raise TypeError: when `logger` is given but not a `Logger`.
+    :raise TypeError: when `level` is given but not an `int`.
     """
 
     # validate parameters
@@ -96,7 +98,7 @@ def timing(message: str, do_print: bool = True, logger: Optional[logging.Logger]
 
     # output result
     if do_print:
-        print("%s took %.3f seconds" % (message, time_taken))
+        print(f"{message} took {time_taken:.3f} seconds")
     if logger is not None:
         logger.log(level, "%s took %.3f seconds", message, time_taken)
 
