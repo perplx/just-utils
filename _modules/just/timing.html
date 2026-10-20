@@ -157,6 +157,8 @@
 <span class="sd">    :param do_print: whether to output to stdout</span>
 <span class="sd">    :param logger: the ``Logger`` where messages will be sent</span>
 <span class="sd">    :param level: the log-level at which messages will be logged.</span>
+<span class="sd">    :raise TypeError: when `logger` is given but not a `Logger`.</span>
+<span class="sd">    :raise TypeError: when `level` is given but not an `int`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># validate parameters</span>
@@ -227,7 +229,7 @@
 
     <span class="c1"># output result</span>
     <span class="k">if</span> <span class="n">do_print</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> took </span><span class="si">%.3f</span><span class="s2"> seconds&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">time_taken</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2"> took </span><span class="si">{</span><span class="n">time_taken</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">logger</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> took </span><span class="si">%.3f</span><span class="s2"> seconds&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">time_taken</span><span class="p">)</span></div>
 
