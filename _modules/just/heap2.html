@@ -177,6 +177,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the smallest item without removing it.</span>
 
 <span class="sd">        :return: the smallest item.</span>
+<span class="sd">        :raise IndexError: when the `Heap` is empty.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 
@@ -187,6 +188,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove and return the smallest item.</span>
 
 <span class="sd">        :return: the smallest item.</span>
+<span class="sd">        :raise IndexError: when the `Heap` is empty.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">)</span></div>
 
@@ -221,6 +223,7 @@
 
 <span class="sd">        :param item: the item to add.</span>
 <span class="sd">        :return: the smallest item before `Heap.replace()` was called, possibly larger than `item`.</span>
+<span class="sd">        :raise IndexError: when the `Heap` is empty.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heapreplace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span></div>
 
@@ -285,6 +288,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the item with the smallest key without removing it.</span>
 
 <span class="sd">        :return: the item with the smallest key.</span>
+<span class="sd">        :raise IndexError: when the `KeyHeap` is empty.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span></div>
 
@@ -295,6 +299,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove and return the item with the smallest key.</span>
 
 <span class="sd">        :return: the item with the smallest key.</span>
+<span class="sd">        :raise IndexError: when the `KeyHeap` is empty.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span></div>
 
@@ -329,6 +334,7 @@
 
 <span class="sd">        :param item: the item to add.</span>
 <span class="sd">        :return: the item with the smallest key before `KeyHeap.replace()` was called, possibly larger than `item`.</span>
+<span class="sd">        :raise IndexError: when the `KeyHeap` is empty.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heapreplace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">(</span><span class="n">item</span><span class="p">),</span> <span class="n">item</span><span class="p">))[</span><span class="mi">1</span><span class="p">]</span></div>
 
