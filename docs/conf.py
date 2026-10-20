@@ -33,3 +33,8 @@ default_role = "py:obj"  # link `backquotes` to python objects
 
 html_theme = "python_docs_theme"
 html_static_path = ["_static"]
+
+# -- Options for autodoc extension
+
+# https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_member_order
+autodoc_member_order = 'bysource'  # keep members in the same order they appear in the source file
