@@ -94,8 +94,8 @@
 <li><a class="reference internal" href="#module-just.heap">just.heap module</a><ul>
 <li><a class="reference internal" href="#just.heap.Heap"><code class="docutils literal notranslate"><span class="pre">Heap</span></code></a><ul>
 <li><a class="reference internal" href="#just.heap.Heap.peek"><code class="docutils literal notranslate"><span class="pre">Heap.peek()</span></code></a></li>
-<li><a class="reference internal" href="#just.heap.Heap.pop"><code class="docutils literal notranslate"><span class="pre">Heap.pop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap.Heap.push"><code class="docutils literal notranslate"><span class="pre">Heap.push()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap.Heap.pop"><code class="docutils literal notranslate"><span class="pre">Heap.pop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap.Heap.pushpop"><code class="docutils literal notranslate"><span class="pre">Heap.pushpop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap.Heap.replace"><code class="docutils literal notranslate"><span class="pre">Heap.replace()</span></code></a></li>
 </ul>
@@ -103,31 +103,31 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#module-just.heap2">just.heap2 module</a><ul>
+<li><a class="reference internal" href="#just.heap2.SupportsLessThan"><code class="docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap"><code class="docutils literal notranslate"><span class="pre">Heap</span></code></a><ul>
-<li><a class="reference internal" href="#just.heap2.Heap.drain"><code class="docutils literal notranslate"><span class="pre">Heap.drain()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap.peek"><code class="docutils literal notranslate"><span class="pre">Heap.peek()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap.pop"><code class="docutils literal notranslate"><span class="pre">Heap.pop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap.push"><code class="docutils literal notranslate"><span class="pre">Heap.push()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap.pushpop"><code class="docutils literal notranslate"><span class="pre">Heap.pushpop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap.replace"><code class="docutils literal notranslate"><span class="pre">Heap.replace()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.Heap.drain"><code class="docutils literal notranslate"><span class="pre">Heap.drain()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap"><code class="docutils literal notranslate"><span class="pre">KeyHeap</span></code></a><ul>
-<li><a class="reference internal" href="#just.heap2.KeyHeap.drain"><code class="docutils literal notranslate"><span class="pre">KeyHeap.drain()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap.peek"><code class="docutils literal notranslate"><span class="pre">KeyHeap.peek()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap.pop"><code class="docutils literal notranslate"><span class="pre">KeyHeap.pop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap.push"><code class="docutils literal notranslate"><span class="pre">KeyHeap.push()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap.pushpop"><code class="docutils literal notranslate"><span class="pre">KeyHeap.pushpop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap.replace"><code class="docutils literal notranslate"><span class="pre">KeyHeap.replace()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.KeyHeap.drain"><code class="docutils literal notranslate"><span class="pre">KeyHeap.drain()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#just.heap2.SupportsLessThan"><code class="docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-just.human">just.human module</a><ul>
 <li><a class="reference internal" href="#just.human.format_bytes"><code class="docutils literal notranslate"><span class="pre">format_bytes()</span></code></a></li>
-<li><a class="reference internal" href="#just.human.format_duration"><code class="docutils literal notranslate"><span class="pre">format_duration()</span></code></a></li>
 <li><a class="reference internal" href="#just.human.parse_bytes"><code class="docutils literal notranslate"><span class="pre">parse_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#just.human.format_duration"><code class="docutils literal notranslate"><span class="pre">format_duration()</span></code></a></li>
 <li><a class="reference internal" href="#just.human.parse_duration"><code class="docutils literal notranslate"><span class="pre">parse_duration()</span></code></a></li>
 </ul>
 </li>
@@ -141,12 +141,12 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#just-retry-module">just.retry module</a><ul>
+<li><a class="reference internal" href="#just.retry.retry"><code class="docutils literal notranslate"><span class="pre">retry()</span></code></a></li>
 <li><a class="reference internal" href="#just.retry.RetryContext"><code class="docutils literal notranslate"><span class="pre">RetryContext</span></code></a></li>
 <li><a class="reference internal" href="#just.retry.RetryIterator"><code class="docutils literal notranslate"><span class="pre">RetryIterator</span></code></a><ul>
 <li><a class="reference internal" href="#just.retry.RetryIterator.succeed"><code class="docutils literal notranslate"><span class="pre">RetryIterator.succeed()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#just.retry.retry"><code class="docutils literal notranslate"><span class="pre">retry()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-just.timing">just.timing module</a><ul>
@@ -557,15 +557,15 @@ If no item is found to satisfy the condition, raise <code class="docutils litera
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="just.heap.Heap.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap.html#Heap.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap.Heap.pop" title="Link to this definition">¶</a></dt>
-<dd><p>Remove from <code class="docutils literal notranslate"><span class="pre">Heap</span></code> item with highest priority.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="just.heap.Heap.push">
 <span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap.html#Heap.push"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap.Heap.push" title="Link to this definition">¶</a></dt>
 <dd><p>Add item into the <code class="docutils literal notranslate"><span class="pre">Heap</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap.Heap.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap.html#Heap.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap.Heap.pop" title="Link to this definition">¶</a></dt>
+<dd><p>Remove from <code class="docutils literal notranslate"><span class="pre">Heap</span></code> item with highest priority.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -602,30 +602,17 @@ Now with type annotations.</p>
 <li><p>see: <a class="reference external" href="https://youtu.be/o9pEzgHorH0?t=851">https://youtu.be/o9pEzgHorH0?t=851</a></p></li>
 </ul>
 <dl class="py class">
+<dt class="sig sig-object py" id="just.heap2.SupportsLessThan">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.heap2.</span></span><span class="sig-name descname"><span class="pre">SupportsLessThan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#SupportsLessThan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.SupportsLessThan" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></p>
+<p>A type that can be ordered with <code class="xref py py-obj docutils literal notranslate"><span class="pre">&lt;</span></code>, as required by <code class="xref py py-obj docutils literal notranslate"><span class="pre">heapq</span></code>.</p>
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="just.heap2.Heap">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.heap2.</span></span><span class="sig-name descname"><span class="pre">Heap</span></span><span class="sig-paren">[</span><em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#just.heap2.SupportsLessThan" title="just.heap2.SupportsLessThan"><span class="pre">SupportsLessThan</span></a></span></em><span class="sig-paren">]</span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="docutils literal notranslate"><span class="pre">T</span></code>]</p>
 <p>FIXME</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="just.heap2.Heap.drain">
-<span class="sig-name descname"><span class="pre">drain</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap.drain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap.drain" title="Link to this definition">¶</a></dt>
-<dd><p>Create an <code class="xref py py-obj docutils literal notranslate"><span class="pre">Iterator</span></code> to pop out each item in the <a class="reference internal" href="#just.heap2.Heap" title="just.heap2.Heap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Heap</span></code></a> in order.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code>[<code class="docutils literal notranslate"><span class="pre">T</span></code>]</span></p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>an <code class="xref py py-obj docutils literal notranslate"><span class="pre">Iterator</span></code> that will empty the heap as it iterates over items.</p>
-</dd>
-</dl>
-<p>ex:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">heap</span> <span class="o">=</span> <span class="n">Heap</span><span class="p">([</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;bb&quot;</span><span class="p">,</span> <span class="s2">&quot;aaa&quot;</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">heap</span><span class="o">.</span><span class="n">drain</span><span class="p">())</span>
-<span class="go">[&#39;aaa&#39;, &#39;bb&#39;, &#39;c&#39;]</span>
-</pre></div>
-</div>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="just.heap2.Heap.peek">
 <span class="sig-name descname"><span class="pre">peek</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap.peek"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap.peek" title="Link to this definition">¶</a></dt>
@@ -704,6 +691,26 @@ Quicker than <a class="reference internal" href="#just.heap2.Heap.pop" title="ju
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap2.Heap.drain">
+<span class="sig-name descname"><span class="pre">drain</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#Heap.drain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.Heap.drain" title="Link to this definition">¶</a></dt>
+<dd><p>Create an <code class="xref py py-obj docutils literal notranslate"><span class="pre">Iterator</span></code> to pop out each item in the <a class="reference internal" href="#just.heap2.Heap" title="just.heap2.Heap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Heap</span></code></a> in order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code>[<code class="docutils literal notranslate"><span class="pre">T</span></code>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>an <code class="xref py py-obj docutils literal notranslate"><span class="pre">Iterator</span></code> that will empty the heap as it iterates over items.</p>
+</dd>
+</dl>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">heap</span> <span class="o">=</span> <span class="n">Heap</span><span class="p">([</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;bb&quot;</span><span class="p">,</span> <span class="s2">&quot;aaa&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">heap</span><span class="o">.</span><span class="n">drain</span><span class="p">())</span>
+<span class="go">[&#39;aaa&#39;, &#39;bb&#39;, &#39;c&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -716,26 +723,6 @@ while the public API accepts and returns the original items of type <code class=
 <p>Note: if two items produce keys that compare equal, <code class="xref py py-obj docutils literal notranslate"><span class="pre">heapq</span></code> falls back to
 comparing the items themselves, so <code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code> must be orderable in that case (or
 keys must be unique). This matches the classic <code class="xref py py-obj docutils literal notranslate"><span class="pre">(priority,</span> <span class="pre">item)</span></code> idiom.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="just.heap2.KeyHeap.drain">
-<span class="sig-name descname"><span class="pre">drain</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap.drain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap.drain" title="Link to this definition">¶</a></dt>
-<dd><p>Create an <code class="xref py py-obj docutils literal notranslate"><span class="pre">Iterator</span></code> to pop out each item in the <a class="reference internal" href="#just.heap2.KeyHeap" title="just.heap2.KeyHeap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KeyHeap</span></code></a> in order of key.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code>[<code class="docutils literal notranslate"><span class="pre">T</span></code>]</span></p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>an <code class="xref py py-obj docutils literal notranslate"><span class="pre">Iterator</span></code> that will empty the heap as it iterates over items in order of key.</p>
-</dd>
-</dl>
-<p>ex:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">heap</span> <span class="o">=</span> <span class="n">KeyHeap</span><span class="p">([</span><span class="s2">&quot;aaa&quot;</span><span class="p">,</span> <span class="s2">&quot;bb&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">heap</span><span class="o">.</span><span class="n">drain</span><span class="p">())</span>
-<span class="go">[&#39;c&#39;, &#39;bb&#39;, &#39;aaa&#39;]</span>
-</pre></div>
-</div>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="just.heap2.KeyHeap.peek">
 <span class="sig-name descname"><span class="pre">peek</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap.peek"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap.peek" title="Link to this definition">¶</a></dt>
@@ -814,13 +801,26 @@ Quicker than <a class="reference internal" href="#just.heap2.KeyHeap.pop" title=
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="just.heap2.KeyHeap.drain">
+<span class="sig-name descname"><span class="pre">drain</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#KeyHeap.drain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.KeyHeap.drain" title="Link to this definition">¶</a></dt>
+<dd><p>Create an <code class="xref py py-obj docutils literal notranslate"><span class="pre">Iterator</span></code> to pop out each item in the <a class="reference internal" href="#just.heap2.KeyHeap" title="just.heap2.KeyHeap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KeyHeap</span></code></a> in order of key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code>[<code class="docutils literal notranslate"><span class="pre">T</span></code>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>an <code class="xref py py-obj docutils literal notranslate"><span class="pre">Iterator</span></code> that will empty the heap as it iterates over items in order of key.</p>
+</dd>
+</dl>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">heap</span> <span class="o">=</span> <span class="n">KeyHeap</span><span class="p">([</span><span class="s2">&quot;aaa&quot;</span><span class="p">,</span> <span class="s2">&quot;bb&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">heap</span><span class="o">.</span><span class="n">drain</span><span class="p">())</span>
+<span class="go">[&#39;c&#39;, &#39;bb&#39;, &#39;aaa&#39;]</span>
+</pre></div>
+</div>
 </dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="just.heap2.SupportsLessThan">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.heap2.</span></span><span class="sig-name descname"><span class="pre">SupportsLessThan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/heap2.html#SupportsLessThan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.heap2.SupportsLessThan" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></p>
-<p>A type that can be ordered with <code class="xref py py-obj docutils literal notranslate"><span class="pre">&lt;</span></code>, as required by <code class="xref py py-obj docutils literal notranslate"><span class="pre">heapq</span></code>.</p>
 </dd></dl>
 
 </section>
@@ -856,23 +856,23 @@ Quicker than <a class="reference internal" href="#just.heap2.KeyHeap.pop" title=
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="just.human.format_duration">
-<span class="sig-prename descclassname"><span class="pre">just.human.</span></span><span class="sig-name descname"><span class="pre">format_duration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_seconds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/human.html#format_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.human.format_duration" title="Link to this definition">¶</a></dt>
-<dd><p>Format a duraton <code class="xref py py-obj docutils literal notranslate"><span class="pre">num_seconds</span></code> as a human-readable <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="just.human.parse_bytes">
 <span class="sig-prename descclassname"><span class="pre">just.human.</span></span><span class="sig-name descname"><span class="pre">parse_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_bytes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/human.html#parse_bytes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.human.parse_bytes" title="Link to this definition">¶</a></dt>
 <dd><p>Parse a human-readable <code class="xref py py-obj docutils literal notranslate"><span class="pre">num_bytes</span></code> as a <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="just.human.format_duration">
+<span class="sig-prename descclassname"><span class="pre">just.human.</span></span><span class="sig-name descname"><span class="pre">format_duration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_seconds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/human.html#format_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.human.format_duration" title="Link to this definition">¶</a></dt>
+<dd><p>Format a duraton <code class="xref py py-obj docutils literal notranslate"><span class="pre">num_seconds</span></code> as a human-readable <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -969,6 +969,31 @@ Supports .bz2 .gz and .xz file-extensions.</p>
 <li><p>see: <a class="reference external" href="https://www.bitecode.dev/p/python-cocktail-mix-a-context-manager">https://www.bitecode.dev/p/python-cocktail-mix-a-context-manager</a></p></li>
 <li><p>see: <a class="reference external" href="https://lobste.rs/s/xhe7sr/python_cocktail_mix_context_manager">https://lobste.rs/s/xhe7sr/python_cocktail_mix_context_manager</a>’</p></li>
 </ul>
+<dl class="py function">
+<dt class="sig sig-object py" id="just.retry.retry">
+<span class="sig-prename descclassname"><span class="pre">just.retry.</span></span><span class="sig-name descname"><span class="pre">retry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/retry.html#retry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.retry.retry" title="Link to this definition">¶</a></dt>
+<dd><p>Retry decorator.
+Retries the function for <code class="xref py py-obj docutils literal notranslate"><span class="pre">tries</span></code> when encountering <code class="xref py py-obj docutils literal notranslate"><span class="pre">Exception</span></code> of type <code class="xref py py-obj docutils literal notranslate"><span class="pre">error</span></code>.
+Other exceptions fall through. Wait for <code class="xref py py-obj docutils literal notranslate"><span class="pre">delay</span></code> seconds between each try.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>error</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>]</span>) – the <code class="docutils literal notranslate"><span class="pre">Type</span></code> of <code class="docutils literal notranslate"><span class="pre">Exception</span></code> that wil cause a retry.</p></li>
+<li><p><strong>tries</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the number of tries.</p></li>
+<li><p><strong>delay</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – the number of seconds to wait between tries (default <code class="xref py py-obj docutils literal notranslate"><span class="pre">0.0</span></code>).</p></li>
+</ul>
+</dd>
+</dl>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@retry</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">,</span> <span class="n">tries</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">test_func</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">flaky_func</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">test_func</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="just.retry.RetryContext">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">just.retry.</span></span><span class="sig-name descname"><span class="pre">RetryContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attempt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/retry.html#RetryContext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.retry.RetryContext" title="Link to this definition">¶</a></dt>
@@ -1003,31 +1028,6 @@ Each try will be a <a class="reference internal" href="#just.retry.RetryContext"
 <dd><p>Called by the generated <a class="reference internal" href="#just.retry.RetryContext" title="just.retry.RetryContext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RetryContext</span></code></a> when a try is successful, ending iteration.</p>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="just.retry.retry">
-<span class="sig-prename descclassname"><span class="pre">just.retry.</span></span><span class="sig-name descname"><span class="pre">retry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/retry.html#retry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.retry.retry" title="Link to this definition">¶</a></dt>
-<dd><p>Retry decorator.
-Retries the function for <code class="xref py py-obj docutils literal notranslate"><span class="pre">tries</span></code> when encountering <code class="xref py py-obj docutils literal notranslate"><span class="pre">Exception</span></code> of type <code class="xref py py-obj docutils literal notranslate"><span class="pre">error</span></code>.
-Other exceptions fall through. Wait for <code class="xref py py-obj docutils literal notranslate"><span class="pre">delay</span></code> seconds between each try.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>error</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>]</span>) – the <code class="docutils literal notranslate"><span class="pre">Type</span></code> of <code class="docutils literal notranslate"><span class="pre">Exception</span></code> that wil cause a retry.</p></li>
-<li><p><strong>tries</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the number of tries.</p></li>
-<li><p><strong>delay</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – the number of seconds to wait between tries (default <code class="xref py py-obj docutils literal notranslate"><span class="pre">0.0</span></code>).</p></li>
-</ul>
-</dd>
-</dl>
-<p>ex:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@retry</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">,</span> <span class="n">tries</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="gp">... </span><span class="k">def</span> <span class="nf">test_func</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="n">flaky_func</span><span class="p">()</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">test_func</span><span class="p">())</span>
-</pre></div>
-</div>
 </dd></dl>
 
 </section>
@@ -1128,8 +1128,8 @@ Output to stdout and to a given logger.</p>
 <li><a class="reference internal" href="#module-just.heap">just.heap module</a><ul>
 <li><a class="reference internal" href="#just.heap.Heap"><code class="docutils literal notranslate"><span class="pre">Heap</span></code></a><ul>
 <li><a class="reference internal" href="#just.heap.Heap.peek"><code class="docutils literal notranslate"><span class="pre">Heap.peek()</span></code></a></li>
-<li><a class="reference internal" href="#just.heap.Heap.pop"><code class="docutils literal notranslate"><span class="pre">Heap.pop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap.Heap.push"><code class="docutils literal notranslate"><span class="pre">Heap.push()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap.Heap.pop"><code class="docutils literal notranslate"><span class="pre">Heap.pop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap.Heap.pushpop"><code class="docutils literal notranslate"><span class="pre">Heap.pushpop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap.Heap.replace"><code class="docutils literal notranslate"><span class="pre">Heap.replace()</span></code></a></li>
 </ul>
@@ -1137,31 +1137,31 @@ Output to stdout and to a given logger.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-just.heap2">just.heap2 module</a><ul>
+<li><a class="reference internal" href="#just.heap2.SupportsLessThan"><code class="docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap"><code class="docutils literal notranslate"><span class="pre">Heap</span></code></a><ul>
-<li><a class="reference internal" href="#just.heap2.Heap.drain"><code class="docutils literal notranslate"><span class="pre">Heap.drain()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap.peek"><code class="docutils literal notranslate"><span class="pre">Heap.peek()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap.pop"><code class="docutils literal notranslate"><span class="pre">Heap.pop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap.push"><code class="docutils literal notranslate"><span class="pre">Heap.push()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap.pushpop"><code class="docutils literal notranslate"><span class="pre">Heap.pushpop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.Heap.replace"><code class="docutils literal notranslate"><span class="pre">Heap.replace()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.Heap.drain"><code class="docutils literal notranslate"><span class="pre">Heap.drain()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap"><code class="docutils literal notranslate"><span class="pre">KeyHeap</span></code></a><ul>
-<li><a class="reference internal" href="#just.heap2.KeyHeap.drain"><code class="docutils literal notranslate"><span class="pre">KeyHeap.drain()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap.peek"><code class="docutils literal notranslate"><span class="pre">KeyHeap.peek()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap.pop"><code class="docutils literal notranslate"><span class="pre">KeyHeap.pop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap.push"><code class="docutils literal notranslate"><span class="pre">KeyHeap.push()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap.pushpop"><code class="docutils literal notranslate"><span class="pre">KeyHeap.pushpop()</span></code></a></li>
 <li><a class="reference internal" href="#just.heap2.KeyHeap.replace"><code class="docutils literal notranslate"><span class="pre">KeyHeap.replace()</span></code></a></li>
+<li><a class="reference internal" href="#just.heap2.KeyHeap.drain"><code class="docutils literal notranslate"><span class="pre">KeyHeap.drain()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#just.heap2.SupportsLessThan"><code class="docutils literal notranslate"><span class="pre">SupportsLessThan</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-just.human">just.human module</a><ul>
 <li><a class="reference internal" href="#just.human.format_bytes"><code class="docutils literal notranslate"><span class="pre">format_bytes()</span></code></a></li>
-<li><a class="reference internal" href="#just.human.format_duration"><code class="docutils literal notranslate"><span class="pre">format_duration()</span></code></a></li>
 <li><a class="reference internal" href="#just.human.parse_bytes"><code class="docutils literal notranslate"><span class="pre">parse_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#just.human.format_duration"><code class="docutils literal notranslate"><span class="pre">format_duration()</span></code></a></li>
 <li><a class="reference internal" href="#just.human.parse_duration"><code class="docutils literal notranslate"><span class="pre">parse_duration()</span></code></a></li>
 </ul>
 </li>
@@ -1175,12 +1175,12 @@ Output to stdout and to a given logger.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#just-retry-module">just.retry module</a><ul>
+<li><a class="reference internal" href="#just.retry.retry"><code class="docutils literal notranslate"><span class="pre">retry()</span></code></a></li>
 <li><a class="reference internal" href="#just.retry.RetryContext"><code class="docutils literal notranslate"><span class="pre">RetryContext</span></code></a></li>
 <li><a class="reference internal" href="#just.retry.RetryIterator"><code class="docutils literal notranslate"><span class="pre">RetryIterator</span></code></a><ul>
 <li><a class="reference internal" href="#just.retry.RetryIterator.succeed"><code class="docutils literal notranslate"><span class="pre">RetryIterator.succeed()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#just.retry.retry"><code class="docutils literal notranslate"><span class="pre">retry()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-just.timing">just.timing module</a><ul>
