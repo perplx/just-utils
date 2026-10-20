@@ -189,16 +189,22 @@ Windows — concrete evidence for the Windows CI job below.
 `just.heap2`
 ------------
 
-The docstring at [heap2.py:90](src/just/heap2.py#L90) already names the flaw: on key ties, `heapq`
+The docstring at [heap2.py:105](src/just/heap2.py#L105) already names the flaw: on key ties, `heapq`
 falls through to comparing the items themselves. Fix it with the `itertools.count()` tie-breaker
 from the `heapq` docs, which also makes `KeyHeap` stable and drops the `SupportsLessThan` bound on `T`.
 
-The `Heap` class and its `__init__` still have `"""FIXME"""` docstrings
-([heap2.py:27](src/just/heap2.py#L27)).
+That changes the stored tuples to `(key, count, item)`, so rework `KeyHeap.__repr__` in the same
+change: today it prints the internal tuples and the raw key function
+(`KeyHeap([(1, 'c'), ...], key=<built-in function len>)`), which reads like a constructor call but
+is not one, and a lambda key puts a memory address in it. Either make it a valid call
+(`KeyHeap(['c', 'bb', 'aaa'], key=len)`, using the key's `__qualname__`) or use the
+`<KeyHeap ...>` form that signals it cannot be evaluated; `test_repr` pins the current output.
+
+The `Heap` class still has a `"""FIXME"""` docstring ([heap2.py:26](src/just/heap2.py#L26)).
+`main()` could demo `drain()` instead of its `while len(heap) > 0` loop.
 
 Then add:
 
-- `__bool__`, `__repr__`, `__iter__` (drain)
 - `nsmallest` / `nlargest`
 - `clear()`
 - `PriorityQueue` with `update` / `remove`, via the lazy-deletion recipe — this one is the
@@ -394,3 +400,16 @@ Removed from the plan as completed; kept here so the history stays legible.
 - CI: the flake8 step was the unmodified GitHub template (`--exit-zero`, `--max-line-length=127`);
   it is now a plain `flake8 src/ tests/ setup.py` that reads setup.cfg. Actions are on
   `checkout@v4` / `setup-python@v5` with `cache: 'pip'`, matching docs.yml.
+- `just.heap2`: `__repr__` on both classes (built from `type(self).__name__`, so subclasses print
+  their own name), and `drain()`, which pops every item in order. Two decisions worth keeping:
+  - Draining is an explicit `drain()` method, not `__iter__`. Python iterates for far more than
+    `for` loops: with a popping `__iter__` and no `__contains__`, `x in heap` popped items until it
+    found `x`, and `list()`, `sorted()`, `print(*heap)` and debugger views all emptied the heap.
+    The standard library's draining containers (`queue.Queue`, `asyncio.Queue`) define no
+    `__iter__` for the same reason. Without one, `x in heap` now raises `TypeError` — a loud
+    failure instead of silent data loss. A non-destructive `__iter__` (over `sorted(self._heap)`)
+    plus a `__contains__` can be added later if wanted.
+  - No `__bool__`: when a class defines none, `bool()` calls `__len__` and treats `0` as false.
+    That is the data model's documented truth protocol, not a side effect, and it is what `list`
+    and `deque` rely on; a separate `__bool__` would only be one more thing to keep in sync.
+    `test_bool` still pins the behaviour.

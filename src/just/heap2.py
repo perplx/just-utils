@@ -6,7 +6,7 @@ Now with type annotations.
 """
 
 import heapq
-from typing import Any, Callable, Generic, Iterable, Protocol, TypeVar
+from typing import Any, Callable, Generic, Iterable, Iterator, Protocol, TypeVar
 
 
 class SupportsLessThan(Protocol):
@@ -31,15 +31,14 @@ class Heap(Generic[T]):
         heapq.heapify(self._heap)
 
     def __len__(self) -> int:
-        """Number of items in the `Heap`.
-
-        :return: number of items in the `Heap`.
-        """
+        """Number of items in the `Heap`."""
         return len(self._heap)
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         """Show the stored items."""
-        return f"Heap({self._heap})"
+        return f"{type(self).__name__}({self._heap!r})"
+
+    # low-level functions derived from `heapq`
 
     def peek(self) -> T:
         """Return the smallest item without removing it.
@@ -67,6 +66,7 @@ class Heap(Generic[T]):
         Quicker than `push` followed by `pop`.
 
         :param item: the item to add.
+        :return: the smallest of `item` and the items in the `Heap`.
         """
         return heapq.heappushpop(self._heap, item)
 
@@ -75,11 +75,27 @@ class Heap(Generic[T]):
         Quicker than `pop` followed by `push`.
 
         :param item: the item to add.
+        :return: the smallest item before `Heap.replace()` was called, possibly larger than `item`.
         """
         return heapq.heapreplace(self._heap, item)
 
+    # high-level functions
 
-# FIXME __repr__ to show key?
+    def drain(self) -> Iterator[T]:
+        """Create an `Iterator` to pop out each item in the `Heap` in order.
+
+        :return: an `Iterator` that will empty the heap as it iterates over items.
+
+        ex::
+
+            >>> heap = Heap(["c", "bb", "aaa"])
+            >>> list(heap.drain())
+            ['aaa', 'bb', 'c']
+        """
+        while self._heap:
+            yield self.pop()
+
+
 class KeyHeap(Generic[K, T]):
     """A min-heap ordered by a key-function, the way `key=` orders `sorted()`.
 
@@ -98,14 +114,18 @@ class KeyHeap(Generic[K, T]):
         heapq.heapify(self._heap)
 
     def __len__(self) -> int:
-        """Number of items in the `KeyHeap`.
-        :return: number of items in the `KeyHeap`.
-        """
+        """Number of items in the `KeyHeap`."""
         return len(self._heap)
 
     def __str__(self) -> str:
         """Show the stored items (not their keys)."""
-        return f"KeyHeap({[item for _, item in self._heap]})"
+        return f"{type(self).__name__}({[item for _, item in self._heap]})"
+
+    def __repr__(self) -> str:
+        """Show the stored keys and items."""
+        return f"{type(self).__name__}({self._heap!r}, key={self._key!r})"
+
+    # low-level functions derived from `heapq`
 
     def peek(self) -> T:
         """Return the item with the smallest key without removing it.
@@ -122,7 +142,7 @@ class KeyHeap(Generic[K, T]):
         return heapq.heappop(self._heap)[1]
 
     def push(self, item: T) -> None:
-        """Add `item` to the heap.
+        """Add `item` to the heap, using the `key` function to compute its key.
 
         :param item: the item to add.
         """
@@ -133,6 +153,7 @@ class KeyHeap(Generic[K, T]):
         Quicker than `push` followed by `pop`.
 
         :param item: the item to add.
+        :return: the item with the smallest key between `item` and the items in the `KeyHeap`.
         """
         return heapq.heappushpop(self._heap, (self._key(item), item))[1]
 
@@ -141,8 +162,25 @@ class KeyHeap(Generic[K, T]):
         Quicker than `pop` followed by `push`.
 
         :param item: the item to add.
+        :return: the item with the smallest key before `KeyHeap.replace()` was called, possibly larger than `item`.
         """
         return heapq.heapreplace(self._heap, (self._key(item), item))[1]
+
+    # high-level functions
+
+    def drain(self) -> Iterator[T]:
+        """Create an `Iterator` to pop out each item in the `KeyHeap` in order of key.
+
+        :return: an `Iterator` that will empty the heap as it iterates over items in order of key.
+
+        ex::
+
+            >>> heap = KeyHeap(["aaa", "bb", "c"], key=len)
+            >>> list(heap.drain())
+            ['c', 'bb', 'aaa']
+        """
+        while self._heap:
+            yield self.pop()
 
 
 def main() -> None:
