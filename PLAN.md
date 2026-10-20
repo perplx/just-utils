@@ -131,7 +131,7 @@ Extensions to Existing Modules
 `just.timing`
 -------------
 
-Four things:
+Three things:
 
 1. Kill the `@timed` vs `@timed()` FIXME at [timing.py:15](src/just/timing.py#L15) (and its twin at
    [test_timing.py:22](tests/test_timing.py#L22)) using the `callable(arg)` trick already written in
@@ -144,8 +144,6 @@ Four things:
 3. The context-manager doesn't record the time if the body raises — the `yield` at
    [timing.py:93](src/just/timing.py#L93) should be in a `try/finally`, the way `lock_file` already
    does it.
-4. Both functions validate `level` against the private `logging._levelToName`; same smell, and same
-   fix, as `LogLevelArg` below.
 
 `just.open`
 -----------

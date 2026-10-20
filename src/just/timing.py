@@ -34,8 +34,8 @@ def timed(do_print: bool = True, logger: Optional[logging.Logger] = None, level:
     # validate parameters
     if logger is not None and not isinstance(logger, logging.Logger):
         raise TypeError(f"logger is {type(logger)}, should be {logging.Logger}")
-    if level not in logging._levelToName:
-        raise ValueError(f"logging level {repr(level)} not recognized, see {logging._levelToName}")
+    if not isinstance(level, int):
+        raise TypeError(f"level is {type(level)}, should be {int}")
 
     def decorate(func: Callable):
         # preserves metadata (name, stack, etc.) of func when decorated
@@ -85,8 +85,8 @@ def timing(message: str, do_print: bool = True, logger: Optional[logging.Logger]
     # validate parameters
     if logger is not None and not isinstance(logger, logging.Logger):
         raise TypeError(f"logger is {type(logger)}, should be {logging.Logger}")
-    if level not in logging._levelToName:
-        raise ValueError(f"logging level {repr(level)} not recognized, see {logging._levelToName}")
+    if not isinstance(level, int):
+        raise TypeError(f"level is {type(level)}, should be {int}")
 
     # time the execution of the context
     time_begin = time.perf_counter()
