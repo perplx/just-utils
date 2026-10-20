@@ -44,6 +44,7 @@ class Heap(Generic[T]):
         """Return the smallest item without removing it.
 
         :return: the smallest item.
+        :raise IndexError: when the `Heap` is empty.
         """
         return self._heap[0]
 
@@ -51,6 +52,7 @@ class Heap(Generic[T]):
         """Remove and return the smallest item.
 
         :return: the smallest item.
+        :raise IndexError: when the `Heap` is empty.
         """
         return heapq.heappop(self._heap)
 
@@ -76,6 +78,7 @@ class Heap(Generic[T]):
 
         :param item: the item to add.
         :return: the smallest item before `Heap.replace()` was called, possibly larger than `item`.
+        :raise IndexError: when the `Heap` is empty.
         """
         return heapq.heapreplace(self._heap, item)
 
@@ -131,6 +134,7 @@ class KeyHeap(Generic[K, T]):
         """Return the item with the smallest key without removing it.
 
         :return: the item with the smallest key.
+        :raise IndexError: when the `KeyHeap` is empty.
         """
         return self._heap[0][1]
 
@@ -138,6 +142,7 @@ class KeyHeap(Generic[K, T]):
         """Remove and return the item with the smallest key.
 
         :return: the item with the smallest key.
+        :raise IndexError: when the `KeyHeap` is empty.
         """
         return heapq.heappop(self._heap)[1]
 
@@ -163,6 +168,7 @@ class KeyHeap(Generic[K, T]):
 
         :param item: the item to add.
         :return: the item with the smallest key before `KeyHeap.replace()` was called, possibly larger than `item`.
+        :raise IndexError: when the `KeyHeap` is empty.
         """
         return heapq.heapreplace(self._heap, (self._key(item), item))[1]
 

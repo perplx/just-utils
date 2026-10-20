@@ -33,6 +33,11 @@ class TestHeap(unittest.TestCase):
         """Test `just.heap2.Heap.peek()`."""
         self.assertEqual(self.heap_test.peek(), "aaa")
 
+    def test_peek_empty(self):
+        """Test `just.heap2.Heap.peek()` on an empty `Heap`."""
+        with self.assertRaises(IndexError):
+            _ = self.heap_empty.peek()
+
     def test_pop(self):
         """Test `just.heap2.Heap.pop()`."""
         self.assertEqual(self.heap_test.pop(), "aaa")
@@ -41,6 +46,11 @@ class TestHeap(unittest.TestCase):
         self.assertEqual(len(self.heap_test), 0)
         with self.assertRaises(IndexError):
             _ = self.heap_test.pop()
+
+    def test_pop_empty(self):
+        """Test `just.heap2.Heap.pop()` on an empty `Heap`."""
+        with self.assertRaises(IndexError):
+            _ = self.heap_empty.pop()
 
     def test_push(self):
         """Test `just.heap2.Heap.push()`."""
@@ -88,6 +98,11 @@ class TestHeap(unittest.TestCase):
         self.assertEqual(self.heap_test.pop(), "c")
         with self.assertRaises(IndexError):
             _ = self.heap_test.pop()
+
+    def test_replace_empty(self):
+        """Test `just.heap2.Heap.replace()` on an empty `Heap`."""
+        with self.assertRaises(IndexError):
+            _ = self.heap_empty.replace("BOGUS")
 
     def test_drain(self):
         """Test `just.heap2.Heap.drain()`."""
@@ -137,6 +152,11 @@ class TestKeyHeap(unittest.TestCase):
         """Test `just.heap2.KeyHeap.peek()`."""
         self.assertEqual(self.heap_test.peek(), "c")
 
+    def test_peek_empty(self):
+        """Test `just.heap2.KeyHeap.peek()` on an empty `KeyHeap`."""
+        with self.assertRaises(IndexError):
+            _ = self.heap_empty.peek()
+
     def test_pop(self):
         """Test `just.heap2.KeyHeap.pop()`."""
         self.assertEqual(self.heap_test.pop(), "c")
@@ -144,6 +164,11 @@ class TestKeyHeap(unittest.TestCase):
         self.assertEqual(self.heap_test.pop(), "aaa")
         with self.assertRaises(IndexError):
             _ = self.heap_test.pop()
+
+    def test_pop_empty(self):
+        """Test `just.heap2.KeyHeap.pop()` on an empty `KeyHeap`."""
+        with self.assertRaises(IndexError):
+            _ = self.heap_empty.pop()
 
     def test_push(self):
         """Test `just.heap2.KeyHeap.push()`."""
@@ -194,6 +219,11 @@ class TestKeyHeap(unittest.TestCase):
         self.assertEqual(self.heap_test.pop(), "aaa")
         with self.assertRaises(IndexError):
             _ = self.heap_test.pop()
+
+    def test_replace_empty(self):
+        """Test `just.heap2.KeyHeap.replace()` on an empty `KeyHeap`."""
+        with self.assertRaises(IndexError):
+            _ = self.heap_empty.replace("BOGUS")
 
     def test_drain(self):
         """Test `just.heap2.KeyHeap.drain()`."""
