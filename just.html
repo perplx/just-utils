@@ -343,7 +343,12 @@ Will raise an <code class="docutils literal notranslate"><span class="pre">argpa
 <dl class="py function">
 <dt class="sig sig-object py" id="just.atomic.atomic_open">
 <span class="sig-prename descclassname"><span class="pre">just.atomic.</span></span><span class="sig-name descname"><span class="pre">atomic_open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/atomic.html#atomic_open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.atomic.atomic_open" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">IO</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span>, <span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span>]</span></p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="just-cache-module">
@@ -959,8 +964,11 @@ The context can only be entered if the lock-file does not already exist.</p>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#just.lock.LockFileExistsError" title="just.lock.LockFileExistsError"><strong>LockFileExistsError</strong></a> – when the lock-file already exists</p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>a <code class="docutils literal notranslate"><span class="pre">ContextManager</span></code></p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span>, <span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span>, <span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a <code class="docutils literal notranslate"><span class="pre">ContextManager</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1068,6 +1076,11 @@ Each try will be a <a class="reference internal" href="#just.retry.RetryContext"
 <dt class="sig sig-object py" id="just.retry.RetryIterator.succeed">
 <span class="sig-name descname"><span class="pre">succeed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/retry.html#RetryIterator.succeed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.retry.RetryIterator.succeed" title="Link to this definition">¶</a></dt>
 <dd><p>Called by the generated <a class="reference internal" href="#just.retry.RetryContext" title="just.retry.RetryContext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RetryContext</span></code></a> when a try is successful, ending iteration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -1125,6 +1138,9 @@ Output to stdout and to a given logger.</p>
 <li><p><strong>logger</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>]</span>) – the <code class="docutils literal notranslate"><span class="pre">Logger</span></code> where messages will be sent</p></li>
 <li><p><strong>level</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the log-level at which messages will be logged.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span>, <span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span>, <span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span>]</span></p>
 </dd>
 </dl>
 </dd></dl>
