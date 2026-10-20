@@ -7,7 +7,7 @@ import contextlib
 import functools
 import logging
 import time
-from typing import Callable, Optional
+from typing import Callable, Generator, Optional
 
 
 # use a decorator factory
@@ -68,7 +68,12 @@ def timed(do_print: bool = True, logger: Optional[logging.Logger] = None, level:
 
 
 @contextlib.contextmanager
-def timing(message: str, do_print: bool = True, logger: Optional[logging.Logger] = None, level: int = logging.INFO):
+def timing(
+    message: str,
+    do_print: bool = True,
+    logger: Optional[logging.Logger] = None,
+    level: int = logging.INFO,
+) -> Generator[None, None, None]:
     """Perform timing of the execution of the given context
     Output to stdout and to a given logger.
 

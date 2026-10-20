@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any, IO, Union
 
 
+# FIXME add @overload for type annotations binary or text
 def ezopen(file_path: Union[Path, str], mode: str = "r") -> IO[Any]:
     """Open a file whether it's compressed or not.
     Open archive files using the appropriate compression based on the file extension.

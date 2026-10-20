@@ -6,6 +6,7 @@
 import contextlib
 import logging
 import os
+from typing import Generator
 
 # global logger
 logger = logging.getLogger(__name__)
@@ -16,7 +17,7 @@ class LockFileExistsError(FileExistsError):
 
 
 @contextlib.contextmanager
-def lock_file(file_path: str):  # FIXME return type annotation?
+def lock_file(file_path: str) -> Generator[None, None, None]:
     """Lock-file context-manager. Defines a scope of code protected by a lock-file.
     The lock-file at the given path is created when entering the context, and deleted when exiting the context.
     The context can only be entered if the lock-file does not already exist.
