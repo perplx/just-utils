@@ -19,7 +19,7 @@ def atomic_open(file_path: Union[Path, str], mode: str) -> Generator[IO[Any], No
 
         >>> import os
         >>> import tempfile
-        >>> with tempfile.TemporaryDirectory() as tmp:  # doctest: +ELLIPSIS
+        >>> with tempfile.TemporaryDirectory() as tmp:
         ...     path = Path(tmp) / "config.txt"
         ...     with atomic_open(path, "w") as f:
         ...         _ = f.write("version 1\\n")
@@ -34,7 +34,7 @@ def atomic_open(file_path: Union[Path, str], mode: str) -> Generator[IO[Any], No
         ...     print(os.listdir(tmp))            # and no temp-file left behind
         False
         version 1
-        [...]
+        ['config.txt']
 
     :param file_path: the path of the file to open
     :param mode: FIXME describe this!
@@ -43,10 +43,18 @@ def atomic_open(file_path: Union[Path, str], mode: str) -> Generator[IO[Any], No
     if isinstance(file_path, str):
         file_path = Path(file_path)
 
+    # create temp file in the same directory as the file path
     temp_dir_path = file_path.parent
     with NamedTemporaryFile(dir=temp_dir_path, mode=mode, delete=False) as temp_file:
-        yield temp_file
+        try:
+            yield temp_file
+        except BaseException:
+            # ensure file is deleted on an exception
+            temp_file.close()
+            os.unlink(temp_file.name)
+            raise
 
+    # move the temp-file to the file path
     os.replace(temp_file.name, file_path)
 
 
