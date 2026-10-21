@@ -124,39 +124,96 @@
           <div class="body" role="main">
             
   <h1>Source code for just.atomic</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;FIXME&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Write a file atomically.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">TemporaryFile</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">IO</span>
+<span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">NamedTemporaryFile</span><span class="p">,</span> <span class="n">TemporaryDirectory</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">IO</span><span class="p">,</span> <span class="n">Union</span>
 
 
 <span class="c1"># FIXME add @overload for type annotations binary or text</span>
+<span class="c1"># FIXME add parametrized `open`-like function?</span>
+<span class="c1"># FIXME POSIX 0o600 permissions.</span>
+<span class="c1"># FIXME A failed unlink hides the real error (use contextlib.suppress(OSError)).</span>
+<span class="c1"># FIXME No encoding or newline passthrough.</span>
+<span class="c1"># FIXME No temp file prefix/suffix.</span>
+<span class="c1"># FIXME The module docstring is still &quot;&quot;&quot;FIXME&quot;&quot;&quot;.</span>
+<span class="c1"># FIXME The test docstrings end in # FIXME.</span>
+<span class="c1"># FIXME No tests for overwriting an existing file, binary writes, or a str path.</span>
 <div class="viewcode-block" id="atomic_open">
 <a class="viewcode-back" href="../../just.html#just.atomic.atomic_open">[docs]</a>
 <span class="nd">@contextmanager</span>
-<span class="k">def</span> <span class="nf">atomic_open</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">IO</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">atomic_open</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">IO</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Open the file atomically, so that the file only appears once it&#39;s closed.</span>
+<span class="sd">    Open a temporary-file in the same directory as the `file_path`, and once that file is closed,</span>
+<span class="sd">    move the temp-file to `file_path`. The mode must include &quot;w&quot;, otherwise a `ValueError` is raised.</span>
+<span class="sd">    Calls `os.fsync` on the file to ensure it is written to disk.</span>
+
+<span class="sd">    ex::</span>
+
+<span class="sd">        &gt;&gt;&gt; import tempfile</span>
+<span class="sd">        &gt;&gt;&gt; with tempfile.TemporaryDirectory() as tmp:</span>
+<span class="sd">        ...     path = Path(tmp) / &quot;config.txt&quot;</span>
+<span class="sd">        ...     with atomic_open(path, &quot;w&quot;) as f:</span>
+<span class="sd">        ...         _ = f.write(&quot;version 1\\n&quot;)</span>
+<span class="sd">        ...         print(path.exists())          # not visible until closed</span>
+<span class="sd">        ...     try:</span>
+<span class="sd">        ...         with atomic_open(path, &quot;w&quot;) as f:</span>
+<span class="sd">        ...             _ = f.write(&quot;version 2, half-wri&quot;)</span>
+<span class="sd">        ...             raise RuntimeError(&quot;crash mid-write&quot;)</span>
+<span class="sd">        ...     except RuntimeError:</span>
+<span class="sd">        ...         pass</span>
+<span class="sd">        ...     print(path.read_text(), end=&quot;&quot;)   # the failed write left it intact</span>
+<span class="sd">        ...     print(os.listdir(tmp))            # and no temp-file left behind</span>
+<span class="sd">        False</span>
+<span class="sd">        version 1</span>
+<span class="sd">        [&#39;config.txt&#39;]</span>
+
+<span class="sd">    :param file_path: the path of the file to open.</span>
+<span class="sd">    :param mode: file modes, must include &quot;w&quot;.</span>
+<span class="sd">    :return: the open file-like object, pointing to the temporary file.</span>
+<span class="sd">    :raise ValueError: when given a mode that doesn&#39;t contain &quot;w&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
 
+    <span class="c1"># ensure mode has &quot;w&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;w&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mode</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mode </span><span class="si">{</span><span class="n">mode</span><span class="si">!r}</span><span class="s2"> not supported, must include &#39;w&#39;&quot;</span><span class="p">)</span>
+
+    <span class="c1"># create temp file in the same directory as the file path</span>
     <span class="n">temp_dir_path</span> <span class="o">=</span> <span class="n">file_path</span><span class="o">.</span><span class="n">parent</span>
-    <span class="k">with</span> <span class="n">TemporaryFile</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">temp_dir_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">temp_file</span><span class="p">:</span>
-        <span class="k">yield from</span> <span class="n">temp_file</span>
+    <span class="k">with</span> <span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">temp_dir_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">temp_file</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">temp_file</span>
+            <span class="c1"># ensure file is written to disk, unless file was closed by caller</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">temp_file</span><span class="o">.</span><span class="n">closed</span><span class="p">:</span>
+                <span class="n">temp_file</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">fsync</span><span class="p">(</span><span class="n">temp_file</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">BaseException</span><span class="p">:</span>
+            <span class="c1"># ensure file is deleted on an exception</span>
+            <span class="n">temp_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">temp_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">raise</span>
 
-    <span class="n">os</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">temp_file</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">file_path</span><span class="p">)</span></div>
+    <span class="c1"># move the temp-file to the file path, clean up temp file when move fails</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">temp_file</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">file_path</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">BaseException</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">temp_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">raise</span></div>
 
 
 
-<span class="c1"># FIXME broken!</span>
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Simple test&quot;&quot;&quot;</span>
 
-    <span class="c1"># FIXME use tempfile</span>
-    <span class="n">test_file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span> <span class="o">/</span> <span class="s2">&quot;test_file.txt&quot;</span>
-    <span class="k">with</span> <span class="n">atomic_open</span><span class="p">(</span><span class="n">test_file_path</span><span class="p">,</span> <span class="s2">&quot;wt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output_file</span><span class="p">:</span>
-        <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;test!&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">temp_dir</span><span class="p">:</span>
+        <span class="n">test_file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;test_file.txt&quot;</span>
+        <span class="k">with</span> <span class="n">atomic_open</span><span class="p">(</span><span class="n">test_file_path</span><span class="p">,</span> <span class="s2">&quot;wt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output_file</span><span class="p">:</span>
+            <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;test!&quot;</span><span class="p">)</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>

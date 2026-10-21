@@ -339,13 +339,49 @@ Will raise an <code class="docutils literal notranslate"><span class="pre">argpa
 </section>
 <section id="just-atomic-module">
 <h2>just.atomic module<a class="headerlink" href="#just-atomic-module" title="Link to this heading">¶</a></h2>
-<p id="module-just.atomic">FIXME</p>
+<p id="module-just.atomic">Write a file atomically.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="just.atomic.atomic_open">
 <span class="sig-prename descclassname"><span class="pre">just.atomic.</span></span><span class="sig-name descname"><span class="pre">atomic_open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/atomic.html#atomic_open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.atomic.atomic_open" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">IO</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span>, <span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span>]</span></p>
+<dd><p>Open the file atomically, so that the file only appears once it’s closed.
+Open a temporary-file in the same directory as the <code class="xref py py-obj docutils literal notranslate"><span class="pre">file_path</span></code>, and once that file is closed,
+move the temp-file to <code class="xref py py-obj docutils literal notranslate"><span class="pre">file_path</span></code>. The mode must include “w”, otherwise a <code class="xref py py-obj docutils literal notranslate"><span class="pre">ValueError</span></code> is raised.
+Calls <code class="xref py py-obj docutils literal notranslate"><span class="pre">os.fsync</span></code> on the file to ensure it is written to disk.</p>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;config.txt&quot;</span>
+<span class="gp">... </span>    <span class="k">with</span> <span class="n">atomic_open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">_</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;version 1</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">())</span>          <span class="c1"># not visible until closed</span>
+<span class="gp">... </span>    <span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">with</span> <span class="n">atomic_open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">_</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;version 2, half-wri&quot;</span><span class="p">)</span>
+<span class="gp">... </span>            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;crash mid-write&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">pass</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">read_text</span><span class="p">(),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>   <span class="c1"># the failed write left it intact</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span>            <span class="c1"># and no temp-file left behind</span>
+<span class="go">False</span>
+<span class="go">version 1</span>
+<span class="go">[&#39;config.txt&#39;]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – the path of the file to open.</p></li>
+<li><p><strong>mode</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – file modes, must include “w”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">IO</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span>, <span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the open file-like object, pointing to the temporary file.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – when given a mode that doesn’t contain “w”.</p>
 </dd>
 </dl>
 </dd></dl>
