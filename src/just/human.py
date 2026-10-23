@@ -23,7 +23,9 @@ LS_UNITS = ["B", "K", "M", "G", "T", "P", "E", "Z", "Y"]
 
 def _find_blocks(num_bytes: int, block_size: int) -> tuple[float, int]:
     if num_bytes < 0:
-        raise ValueError("num_bytes {num_bytes} should be positive")
+        raise ValueError(f"num_bytes {num_bytes} should be non-negatove")
+    if block_size < 2:
+        raise ValueError(f"block_size {block_size} should be greater than 1")
     num_blocks = 0
     while num_bytes >= block_size:
         num_bytes /= block_size
@@ -33,6 +35,9 @@ def _find_blocks(num_bytes: int, block_size: int) -> tuple[float, int]:
 
 def format_bytes(num_bytes: int) -> str:
     """Format a number of bytes `num_bytes` as a human-readable `str`.
+
+    :param num_bytes: a number of bytes.
+    :return: a human-readable `str`.
 
     ex::
 
@@ -52,7 +57,7 @@ def format_bytes(num_bytes: int) -> str:
         '1.0M'
     """
     if num_bytes < 0:
-        raise ValueError("num_bytes {num_bytes} should be positive")
+        raise ValueError(f"num_bytes {num_bytes} should be non-negative")
     num_bytes, num_blocks = _find_blocks(num_bytes, 1024)
     if num_bytes < 100.0 and num_blocks > 0:
         bytes_str = f"{num_bytes:.1f}"
@@ -62,17 +67,46 @@ def format_bytes(num_bytes: int) -> str:
 
 
 def parse_bytes(num_bytes: str) -> int:
-    """Parse a human-readable `num_bytes` as a `int`."""
+    """Parse a human-readable `num_bytes` as a `int`.
+
+    :param num_bytes: a human-readable `str`.
+    :return: a number of bytes.
+
+    ex::
+
+        >>> parse_bytes("1B")
+        1
+        >>> parse_bytes("1.0K")
+        1024
+        >>> parse_bytes("1.0M")
+        1048576
+        >>> parse_bytes("3.2G")
+        3435973836
+    """
+
     value_str = num_bytes[:-1]
     unit_str = num_bytes[-1]
     unit_pos = LS_UNITS.index(unit_str)
-    unit_mul = 1024**unit_pos
+    unit_mul = int(1024**unit_pos)  # FIXME returns Any?
     value_num = float(value_str)
-    return value_num * unit_mul
+    return int(value_num * unit_mul)  # FIXME floor? ceiling?
 
 
 def format_duration(num_seconds: float) -> str:
-    """Format a duraton `num_seconds` as a human-readable `str`."""
+    """Format a duration `num_seconds` as a human-readable `str`.
+
+    :param num_seconds: a number of seconds.
+    :return: a human-readable `str`.
+
+    ex::
+
+        >>> format_duration(1)
+        '1s'
+        >>> format_duration(1000)
+        '16m 40s'
+        >>> format_duration(1_000_000)
+        '11d 13h 46m 40s'
+    """
 
     minutes, seconds = divmod(num_seconds, 60)
     hours, minutes = divmod(minutes, 60)
@@ -94,7 +128,22 @@ def format_duration(num_seconds: float) -> str:
 
 
 def parse_duration(duration: str) -> int:
-    """Parse a human-readable `duration` to a number of seconds."""
+    """Parse a human-readable `duration` to a number of seconds.
+
+    :param duration: a human-readable `str`.
+    :return: a number of seconds.
+
+    ex::
+
+        >>> parse_duration("1m")
+        60
+        >>> parse_duration("1h")
+        3600
+        >>> parse_duration("1d")
+        86400
+        >>> parse_duration("1d 12h 5m 5s")
+        129905
+    """
 
     parts = duration.split()
 
@@ -103,6 +152,7 @@ def parse_duration(duration: str) -> int:
     minutes = 0
     seconds = 0
 
+    # FIXME handle malformed parts
     for part in parts:
         if part.endswith("d"):
             days = int(part[:-1])

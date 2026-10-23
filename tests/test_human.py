@@ -4,10 +4,37 @@
 import unittest
 
 # tested imports
-from just.human import format_bytes, format_duration, parse_bytes, parse_duration
+from just.human import _find_blocks, format_bytes, format_duration, parse_bytes, parse_duration
 
 
 class TestByteSize(unittest.TestCase):
+
+    def test_find_blocks(self):
+        self.assertEqual(_find_blocks(0, 1024), (0, 0))
+        self.assertEqual(_find_blocks(1, 1024), (1, 0))
+        self.assertEqual(_find_blocks(10, 1024), (10, 0))
+        self.assertEqual(_find_blocks(100, 1024), (100, 0))
+        self.assertEqual(_find_blocks(1000, 1024), (1000, 0))
+        self.assertEqual(_find_blocks(1023, 1024), (1023, 0))
+        self.assertEqual(_find_blocks(1024, 1024), (1, 1))
+        self.assertEqual(_find_blocks(1024 * 10, 1024), (10, 1))
+        self.assertEqual(_find_blocks(1024 * 100, 1024), (100, 1))
+        self.assertEqual(_find_blocks(1024 * 1000, 1024), (1000, 1))
+        self.assertEqual(_find_blocks((1024 * 1024) - 1, 1024), (1023.9990234375, 1))
+        self.assertEqual(_find_blocks(1024 * 1024, 1024), (1, 2))
+
+    def test_find_blocks_invalid_num_bytes(self):
+        with self.assertRaises(ValueError):
+            _ = _find_blocks(-1, 1024)
+
+    def test_find_blocks_invalid_block_size(self):
+        with self.assertRaises(ValueError):
+            _ = _find_blocks(1, -1)
+        with self.assertRaises(ValueError):
+            _ = _find_blocks(1, 0)
+        with self.assertRaises(ValueError):
+            _ = _find_blocks(1, 1)
+
     def test_format_bytes(self):
         self.assertEqual(format_bytes(0), "0B")
         self.assertEqual(format_bytes(1), "1B")
@@ -22,7 +49,7 @@ class TestByteSize(unittest.TestCase):
         self.assertEqual(format_bytes((1024 * 1024) - 1), "1024K")  # FIXME
         self.assertEqual(format_bytes(1024 * 1024), "1.0M")
 
-    def test_bormat_bytes_invalid_num_bytes(self):
+    def test_format_bytes_invalid_num_bytes(self):
         with self.assertRaises(ValueError):
             _ = format_bytes(-1)
 
