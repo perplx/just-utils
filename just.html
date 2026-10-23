@@ -914,6 +914,17 @@ Quicker than <a class="reference internal" href="#just.heap2.KeyHeap.pop" title=
 <dt class="sig sig-object py" id="just.human.format_bytes">
 <span class="sig-prename descclassname"><span class="pre">just.human.</span></span><span class="sig-name descname"><span class="pre">format_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_bytes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/human.html#format_bytes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.human.format_bytes" title="Link to this definition">¶</a></dt>
 <dd><p>Format a number of bytes <code class="xref py py-obj docutils literal notranslate"><span class="pre">num_bytes</span></code> as a human-readable <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>num_bytes</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – a number of bytes.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a human-readable <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>.</p>
+</dd>
+</dl>
 <p>ex:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_bytes</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="go">&#39;0B&#39;</span>
@@ -931,11 +942,6 @@ Quicker than <a class="reference internal" href="#just.heap2.KeyHeap.pop" title=
 <span class="go">&#39;1.0M&#39;</span>
 </pre></div>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -943,21 +949,53 @@ Quicker than <a class="reference internal" href="#just.heap2.KeyHeap.pop" title=
 <span class="sig-prename descclassname"><span class="pre">just.human.</span></span><span class="sig-name descname"><span class="pre">parse_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_bytes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/human.html#parse_bytes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.human.parse_bytes" title="Link to this definition">¶</a></dt>
 <dd><p>Parse a human-readable <code class="xref py py-obj docutils literal notranslate"><span class="pre">num_bytes</span></code> as a <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>num_bytes</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – a human-readable <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a number of bytes.</p>
 </dd>
 </dl>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parse_bytes</span><span class="p">(</span><span class="s2">&quot;1B&quot;</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parse_bytes</span><span class="p">(</span><span class="s2">&quot;1.0K&quot;</span><span class="p">)</span>
+<span class="go">1024</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parse_bytes</span><span class="p">(</span><span class="s2">&quot;1.0M&quot;</span><span class="p">)</span>
+<span class="go">1048576</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parse_bytes</span><span class="p">(</span><span class="s2">&quot;3.2G&quot;</span><span class="p">)</span>
+<span class="go">3435973836</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="just.human.format_duration">
 <span class="sig-prename descclassname"><span class="pre">just.human.</span></span><span class="sig-name descname"><span class="pre">format_duration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_seconds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/human.html#format_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.human.format_duration" title="Link to this definition">¶</a></dt>
-<dd><p>Format a duraton <code class="xref py py-obj docutils literal notranslate"><span class="pre">num_seconds</span></code> as a human-readable <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>.</p>
+<dd><p>Format a duration <code class="xref py py-obj docutils literal notranslate"><span class="pre">num_seconds</span></code> as a human-readable <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>num_seconds</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – a number of seconds.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a human-readable <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>.</p>
 </dd>
 </dl>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_duration</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">&#39;1s&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_duration</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="go">&#39;16m 40s&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_duration</span><span class="p">(</span><span class="mi">1_000_000</span><span class="p">)</span>
+<span class="go">&#39;11d 13h 46m 40s&#39;</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -965,10 +1003,27 @@ Quicker than <a class="reference internal" href="#just.heap2.KeyHeap.pop" title=
 <span class="sig-prename descclassname"><span class="pre">just.human.</span></span><span class="sig-name descname"><span class="pre">parse_duration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/just/human.html#parse_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#just.human.parse_duration" title="Link to this definition">¶</a></dt>
 <dd><p>Parse a human-readable <code class="xref py py-obj docutils literal notranslate"><span class="pre">duration</span></code> to a number of seconds.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>duration</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – a human-readable <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a number of seconds.</p>
 </dd>
 </dl>
+<p>ex:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parse_duration</span><span class="p">(</span><span class="s2">&quot;1m&quot;</span><span class="p">)</span>
+<span class="go">60</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parse_duration</span><span class="p">(</span><span class="s2">&quot;1h&quot;</span><span class="p">)</span>
+<span class="go">3600</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parse_duration</span><span class="p">(</span><span class="s2">&quot;1d&quot;</span><span class="p">)</span>
+<span class="go">86400</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parse_duration</span><span class="p">(</span><span class="s2">&quot;1d 12h 5m 5s&quot;</span><span class="p">)</span>
+<span class="go">129905</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>
