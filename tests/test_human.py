@@ -57,10 +57,30 @@ class TestByteSize(unittest.TestCase):
         self.assertEqual(parse_bytes("1000B"), 1000)
         self.assertEqual(parse_bytes("1023B"), 1023)
         self.assertEqual(parse_bytes("1.0K"), 1024)
+        self.assertEqual(parse_bytes("3.2G"), 3435973836)
+
+    def test_parse_bytes_units(self):
+        self.assertEqual(parse_bytes("1B"), 1)
+        self.assertEqual(parse_bytes("1K"), 1024)
+        self.assertEqual(parse_bytes("1M"), 1024**2)
+        self.assertEqual(parse_bytes("1G"), 1024**3)
+        self.assertEqual(parse_bytes("1T"), 1024**4)
+        self.assertEqual(parse_bytes("1P"), 1024**5)
+        self.assertEqual(parse_bytes("1E"), 1024**6)
+        self.assertEqual(parse_bytes("1Z"), 1024**7)
+        self.assertEqual(parse_bytes("1Y"), 1024**8)
+
+    def test_parse_bytes_returns_int(self):
+        self.assertIsInstance(parse_bytes("1B"), int)
+        self.assertIsInstance(parse_bytes("3.2G"), int)
 
     def test_parse_bytes_invalid_str(self):
         with self.assertRaises(ValueError):
             _ = parse_bytes("BOGUS")
+
+    def test_parse_bytes_empty_str(self):
+        with self.assertRaises(IndexError):  # FIXME should be ValueError
+            _ = parse_bytes("")
 
 
 class TestDuration(unittest.TestCase):
@@ -71,9 +91,25 @@ class TestDuration(unittest.TestCase):
         self.assertEqual(format_duration(60 * 60), "1h")
         self.assertEqual(format_duration(60 * 60 * 24), "1d")
 
+    def test_format_duration_combined(self):
+        self.assertEqual(format_duration(1000), "16m 40s")
+        self.assertEqual(format_duration(3661), "1h 1m 1s")
+        self.assertEqual(format_duration(90061), "1d 1h 1m 1s")
+        self.assertEqual(format_duration(1_000_000), "11d 13h 46m 40s")
+
     def test_parse_duration(self):
         self.assertEqual(parse_duration(""), 0)
         self.assertEqual(parse_duration("1s"), 1)
         self.assertEqual(parse_duration("1m"), 60)
         self.assertEqual(parse_duration("1h"), 60 * 60)
         self.assertEqual(parse_duration("1d"), 60 * 60 * 24)
+
+    def test_parse_duration_combined(self):
+        self.assertEqual(parse_duration("16m 40s"), 1000)
+        self.assertEqual(parse_duration("1h 1m 1s"), 3661)
+        self.assertEqual(parse_duration("1d 12h 5m 5s"), 129905)
+        self.assertEqual(parse_duration("5s 1m"), 65)
+
+    def test_duration_round_trip(self):
+        for num_seconds in (1, 60, 1000, 3661, 90061, 1_000_000):
+            self.assertEqual(parse_duration(format_duration(num_seconds)), num_seconds)
